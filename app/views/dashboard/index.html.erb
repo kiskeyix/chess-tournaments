@@ -1,0 +1,6 @@
+<h1>Hello World</h1>
+<ul>
+  <% @teams.each do |t| %>
+    <li><%= link_to t.name, 'http://nytimes.com', class: 'btn btn-default' %></li>
+  <% end %>
+</ul>
