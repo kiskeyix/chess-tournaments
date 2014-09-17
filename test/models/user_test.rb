@@ -1,7 +1,10 @@
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe User do
+  before do
+    sign_in @user
+  end
+  it 'tests the truth' do
+    assert true
+  end
 end

@@ -94,6 +94,9 @@ GEM
     mime-types (2.3)
     mini_portile (0.6.0)
     minitest (5.4.1)
+    minitest-spec-rails (5.1.0)
+      minitest (~> 5.0)
+      rails (~> 4.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -212,6 +215,7 @@ DEPENDENCIES
   devise-encryptable
   jbuilder (~> 2.0)
   jquery-rails
+  minitest-spec-rails
   omniauth-facebook
   omniauth-github
   omniauth-gplus
