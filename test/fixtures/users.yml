@@ -5,9 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 user_one:
+  username: 'test'
   email: 'test@example.com'
   #password: 'this_is_a_test'
 
 user_two:
+  username: 'test2'
   email: 'test2@example.com'
   #password: 'this_is_a_test2'
