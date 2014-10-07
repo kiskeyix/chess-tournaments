@@ -49,7 +49,7 @@ group :development, :test do
 end
 
 gem 'bootstrap-sass', '~> 3.2.0'
-gem 'devise', github: 'plataformatec/devise', branch: 'lm-rails-4-2'
+gem 'devise', '~> 3.4' #github: 'plataformatec/devise', branch: 'lm-rails-4-2'
 gem 'devise-encryptable'
 gem 'omniauth-github'
 gem 'omniauth-facebook'

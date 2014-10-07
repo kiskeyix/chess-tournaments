@@ -1,16 +1,3 @@
-GIT
-  remote: git://github.com/plataformatec/devise.git
-  revision: ce6e369ba85d3759474e468dd0b28735e7450a3d
-  branch: lm-rails-4-2
-  specs:
-    devise (3.3.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      responders
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -54,7 +41,7 @@ GEM
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
-    byebug (3.4.0)
+    byebug (3.5.1)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
@@ -68,6 +55,13 @@ GEM
     columnize (0.8.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
+    devise (3.4.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     devise-encryptable (0.2.0)
       devise (>= 2.1.0)
     erubis (2.7.0)
@@ -79,7 +73,7 @@ GEM
     hashie (3.3.1)
     hike (1.2.3)
     i18n (0.7.0.beta1)
-    jbuilder (2.1.3)
+    jbuilder (2.2.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -93,7 +87,7 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.3)
     mini_portile (0.6.0)
-    minitest (5.4.1)
+    minitest (5.4.2)
     minitest-spec-rails (5.1.0)
       minitest (~> 5.0)
       rails (~> 4.1)
@@ -147,13 +141,13 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.0.beta1)
       sprockets-rails (~> 3.0.0.beta1)
-    rails-deprecated_sanitizer (1.0.2)
+    rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.2)
+    rails-dom-testing (1.0.3)
       activesupport
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.0)
+    rails-html-sanitizer (1.0.1)
       loofah (~> 2.0)
     railties (4.2.0.beta1)
       actionpack (= 4.2.0.beta1)
@@ -165,7 +159,7 @@ GEM
       json (~> 1.4)
     responders (2.0.0)
       railties (>= 4.2.0.alpha, < 5)
-    sass (3.4.4)
+    sass (3.4.5)
     sass-rails (5.0.0.beta1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2)
@@ -189,7 +183,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    turbolinks (2.3.0)
+    turbolinks (2.4.0)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -198,7 +192,7 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
-    web-console (2.0.0.beta3)
+    web-console (2.0.0.beta4)
       activemodel (~> 4.0)
       binding_of_caller (= 0.7.3.pre1)
       railties (~> 4.0)
@@ -211,7 +205,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails (~> 4.0.0)
-  devise!
+  devise (~> 3.4)
   devise-encryptable
   jbuilder (~> 2.0)
   jquery-rails
