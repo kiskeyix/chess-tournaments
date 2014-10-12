@@ -17,6 +17,7 @@ Setup
     FACEBOOK_APP_SECRET
     SECRET_KEY_BASE
 ```
+3. edit the mailer domain in config/environments/production.rb
 
 Contributing
 ============
