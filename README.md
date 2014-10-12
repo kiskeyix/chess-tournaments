@@ -15,6 +15,10 @@ Setup
     TWITTER_APP_SECRET
     FACEBOOK_APP_ID
     FACEBOOK_APP_SECRET
+    GPLUS_APP_ID
+    GPLUS_APP_SECRET
+    TWITCH_APP_ID
+    TWITCH_APP_SECRET
     SECRET_KEY_BASE
 ```
 3. edit the mailer domain in config/environments/production.rb
