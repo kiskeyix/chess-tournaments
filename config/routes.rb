@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, path_names: { sign_in: 'login',
-                                                 sign_out: 'logout',
-                                               }
+  devise_for :users, path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+  }
 
   get 'dashboard' => 'dashboard#index'
 
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'dashboard#index'
+
+  match '/users/:id/finish_signup' => 'users#finish_signup',
+    via: [:get, :patch], :as => :finish_signup
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
