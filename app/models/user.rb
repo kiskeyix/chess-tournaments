@@ -33,11 +33,24 @@ class User < ActiveRecord::Base
 
       # Create the user if it's a new registration
       if user.nil?
+        full_name = auth.extra.raw_info.name.split(/\s+/)
+        # we support 3 types of names:
+        # 1. Foo Bar
+        # 2. Foo Bar Baz
+        # 3. Foo Bar Bas Baz
+        fn = full_name.shift # everybody has a first name
+        mn = full_name.shift if full_name.size >= 2 # some have a middle name
+        ln = full_name.shift # most have last name
+        sn = full_name.shift # some have surname
+
         user = User.new(
-        name: auth.extra.raw_info.name,
-        #username: auth.info.nickname || auth.uid,
-        email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-        password: Devise.friendly_token[0,20]
+          firstname: fn,
+          middlename: mn,
+          lastname: ln,
+          surename: sn,
+          username: auth.info.nickname || auth.uid,
+          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          password: Devise.friendly_token[0,20]
         )
         user.skip_confirmation!
         user.save!
