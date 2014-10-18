@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0.beta1'
+gem 'rails', '4.2.0.beta2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -40,7 +40,7 @@ group :development, :test do
   gem 'byebug'
 
   # Access an IRB console on exceptions page and /console in development
-  gem 'web-console', '~> 2.0.0.beta2'
+  gem 'web-console', '~> 2.0.0.beta3'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
