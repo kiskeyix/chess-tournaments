@@ -82,6 +82,6 @@
     <div class='col-sm-8'><%= yield %></div>
   </div>
 </div>
-<%= console %>
+<%= console if Rails.env.development? %>
 </body>
 </html>
