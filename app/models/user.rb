@@ -46,10 +46,10 @@ class User < ActiveRecord::Base
         sn = full_name.shift # some have surname
 
         user = User.new(
-          firstname: fn,
-          middlename: mn,
-          lastname: ln,
-          surename: sn,
+          firstname: fn || "",
+          middlename: mn || "",
+          lastname: ln || "",
+          surename: sn || "",
           username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
