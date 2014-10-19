@@ -21,8 +21,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def after_sign_in_path_for(resource)
     if resource.email_verified?
+      logger.info "Sending user #{current_user} to #{resource} in super class"
       super resource
     else
+      logger.info "User #{current_user} needs email (#{current_user.email})? #{resource}"
       finish_signup_path(resource)
     end
   end

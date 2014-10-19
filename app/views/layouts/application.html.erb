@@ -31,22 +31,30 @@
           </li>
           <% if user_signed_in? %>
             <li class="dropdown">
-            <a href="#">
-              <div class="glyphicon glyphicon-log-out"></div>
-            </a>
+                <%= link_to '',
+                    destroy_user_session_path,
+                    method: :delete,
+                    class: "glyphicon glyphicon-log-out",
+                    title: "Sign out"
+                 %>
             </li>
           <% else %>
             <ul>
               <li class="dropdown">
-              <a href="#">
-                <div class="glyphicon glyphicon-log-in"></div>
-              </a>
-              <a href="<%= user_omniauth_authorize_path(:github) %>" title="Sign-in with Github">
-                <div class="glyphicon glyphicon-log-in"></div> Github
-              </a>
-              <a href="<%= user_omniauth_authorize_path(:twitch) %>" title="Sign-in with Twitch">
-                <div class="glyphicon glyphicon-log-in"></div> Twitch
-              </a>
+              <%- if true %>
+                <%- Devise.omniauth_providers.each do |provider| %>
+                  <%= link_to image_tag("#{provider.to_s}_64.png", size: "64x64", alt: "#{provider.to_s.titleize}"),
+                    omniauth_authorize_path(User, provider),
+                    method: "post",
+                    title: "Sign-in with #{provider.to_s.titleize}"
+                    %> •
+                <% end -%>
+              <% end -%>
+              <%#= link_to "Github",
+                user_omniauth_authorize_path(:github),
+                method: "post",
+                title: "Sign-in with Github",
+                class: "glyphicon glyphicon-log-in" %>
               </li>
             </ul>
           <% end %>
