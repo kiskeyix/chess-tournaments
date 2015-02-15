@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
           firstname: fn || "",
           middlename: mn || "",
           lastname: ln || "",
-          surename: sn || "",
+          surname: sn || "",
           username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]

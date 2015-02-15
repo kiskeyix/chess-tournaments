@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140922041623) do
 
-  create_table "identities", force: true do |t|
+  create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140922041623) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
-  create_table "teams", force: true do |t|
+  create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.string   "avatar"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20140922041623) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username",               default: "",   null: false
     t.boolean  "active",                 default: true
     t.string   "firstname",              default: "",   null: false
     t.string   "middlename",             default: "",   null: false
     t.string   "lastname",               default: "",   null: false
-    t.string   "surename",               default: "",   null: false
+    t.string   "surname",                default: "",   null: false
     t.string   "nickname",               default: "",   null: false
     t.string   "email",                  default: "",   null: false
     t.string   "encrypted_password",     default: "",   null: false
