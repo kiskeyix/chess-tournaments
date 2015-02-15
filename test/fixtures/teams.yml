@@ -2,12 +2,12 @@
 
 one:
   id: 1
-  name: MyString
-  description: MyText
-  avatar: MyString
+  name: team one
+  description: first team
+  avatar: image1
 
 two:
   id: 2
-  name: MyString
-  description: MyText
-  avatar: MyString
+  name: team two
+  description: second team
+  avatar: image2
