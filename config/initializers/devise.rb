@@ -237,7 +237,7 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email'
   config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: 'user'
   config.omniauth :gplus, ENV['GPLUS_APP_ID'], ENV['GPLUS_APP_SECRET'], scope: 'user'
-  config.omniauth :twitch, ENV['TWITCH_APP_ID'], ENV['TWITCH_APP_SECRET'], scope: 'user'
+  config.omniauth :twitch, ENV['TWITCH_APP_ID'], ENV['TWITCH_APP_SECRET'], scope: 'user_read'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
