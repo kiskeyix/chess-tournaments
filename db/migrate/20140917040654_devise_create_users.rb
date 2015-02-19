@@ -8,6 +8,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :lastname,           null: false, default: ""
       t.string :surname,            null: false, default: ""
       t.string :nickname,           null: false, default: ""
+      t.string :birthday,           null: false, default: ""
+      t.string :gender,             null: false, default: ""
+      t.string :image,              null: false, default: ""
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -37,7 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :unlock_token # Only if unlock strategy is :email or :both
       t.datetime :locked_at
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, :username,             unique: true

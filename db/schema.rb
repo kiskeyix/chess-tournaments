@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20140922041623) do
     t.string   "lastname",               default: "",   null: false
     t.string   "surname",                default: "",   null: false
     t.string   "nickname",               default: "",   null: false
+    t.string   "birthday",               default: "",   null: false
+    t.string   "gender",                 default: "",   null: false
+    t.string   "image",                  default: "",   null: false
     t.string   "email",                  default: "",   null: false
     t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 20140922041623) do
     t.integer  "failed_attempts",        default: 0,    null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "users", ["active"], name: "index_users_on_active"

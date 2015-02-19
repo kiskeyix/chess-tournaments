@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
-
+    logger.debug "DEBUG: auth obj #{auth.inspect}"
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
 
@@ -53,6 +53,9 @@ class User < ActiveRecord::Base
           lastname: ln || "",
           surname: sn || "",
           username: auth.info.nickname || auth.uid,
+          image: auth.info.image || auth.info.picture || "",
+          gender: auth.extra.gender || "",
+          birthday: auth.extra.birthday || "",
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )

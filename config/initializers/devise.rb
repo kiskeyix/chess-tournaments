@@ -236,7 +236,7 @@ Devise.setup do |config|
   config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET'], scope: 'user'
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email'
   config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: 'user'
-  config.omniauth :gplus, ENV['GPLUS_APP_ID'], ENV['GPLUS_APP_SECRET'], scope: 'user'
+  config.omniauth :gplus, ENV['GPLUS_APP_ID'], ENV['GPLUS_APP_SECRET'], scope: 'plus.login'
   config.omniauth :twitch, ENV['TWITCH_APP_ID'], ENV['TWITCH_APP_SECRET'], scope: 'user_read'
 
   # ==> Warden configuration
