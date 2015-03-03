@@ -34,12 +34,13 @@ ActiveRecord::Schema.define(version: 20150303060400) do
   create_table "messages_users", force: :cascade do |t|
     t.integer  "message_id"
     t.integer  "user_id"
-    t.boolean  "read"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "messages_users", ["message_id"], name: "index_messages_users_on_message_id"
+  add_index "messages_users", ["read"], name: "index_messages_users_on_read"
   add_index "messages_users", ["user_id"], name: "index_messages_users_on_user_id"
 
   create_table "teams", force: :cascade do |t|

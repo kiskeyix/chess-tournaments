@@ -31,7 +31,7 @@
           <% if user_signed_in? %>
             <li><%= link_to '#',
               class: 'navbar-left', role: "button" do %>
-              Messages <span class="badge"><%= current_user.messages.count %></span>
+              Messages <span class="badge"><%= current_user.unread_messages.size %></span>
             <% end %></li>
             <li class="dropdown">
               <%# style: 'color:white;font-weight: bold' %>

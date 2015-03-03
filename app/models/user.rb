@@ -79,4 +79,7 @@ class User < ActiveRecord::Base
   def full_name
     "#{firstname.humanize} #{lastname.humanize}"
   end
+  def unread_messages
+    MessagesUsers.where(read: false, user_id: id)
+  end
 end
