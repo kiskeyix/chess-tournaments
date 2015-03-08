@@ -2,10 +2,10 @@
 
 one:
   sent: 2015-03-03
-  title: MyString
+  subject: MyString
   body: MyText
 
 two:
   sent: 2015-03-04
-  title: MyString2
+  subject: MyString2
   body: MyText2

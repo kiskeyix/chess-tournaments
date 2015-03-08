@@ -3,7 +3,11 @@ class User < ActiveRecord::Base
   TEMP_EMAIL_REGEX = /\Achange@me/
 
   has_many :identities, dependent: :destroy
-  has_and_belongs_to_many :messages
+  # it turns out that if you actually want attributes in the
+  # model that links two models, you must use hm:t associations
+  #has_and_belongs_to_many :messages
+  has_many :messages_users
+  has_many :messages, through: :messages_users
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -80,6 +84,10 @@ class User < ActiveRecord::Base
     "#{firstname.humanize} #{lastname.humanize}"
   end
   def unread_messages
-    MessagesUsers.where(read: false, user_id: id)
+    #MessagesUser.where(read: false, user_id: id)
+    messages.where(' messages_users.read=?', false)
+  end
+  def read_messages
+    messages.where(' messages_users.read=?', true)
   end
 end

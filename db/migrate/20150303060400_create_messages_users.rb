@@ -5,7 +5,7 @@ class CreateMessagesUsers < ActiveRecord::Migration
       t.references :user, index: true
       t.boolean :read, default: false, index: true
 
-      t.timestamps # null: false
+      t.timestamps null: false
     end
     add_foreign_key :messages_users, :messages
     add_foreign_key :messages_users, :users

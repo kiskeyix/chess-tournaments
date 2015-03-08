@@ -5,19 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 user_one:
-  id: 1
   username: 'test'
   email: 'test@example.com'
   active: true
   surname: "sur-name1"
   #password: 'this_is_a_test'
-  messages: one
 
 user_two:
-  id: 2
   username: 'test2'
   email: 'test2@example.com'
   active: false
   surname: "sur-name2"
-  messages: one, two
-  #password: 'this_is_a_test2'

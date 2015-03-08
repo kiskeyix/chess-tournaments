@@ -1,0 +1,14 @@
+one:
+  user: user_one
+  message: one
+  read: false
+
+two:
+  user: user_two
+  message: two
+  read: false
+
+three:
+  user: user_one
+  message: two
+  read: true
