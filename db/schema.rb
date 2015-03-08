@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20150303060400) do
     t.integer  "message_id"
     t.integer  "user_id"
     t.boolean  "read",       default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "messages_users", ["message_id"], name: "index_messages_users_on_message_id"
