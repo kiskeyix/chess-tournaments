@@ -6,6 +6,6 @@ one:
   body: MyText
 
 two:
-  sent: 2015-03-03
-  title: MyString
-  body: MyText
+  sent: 2015-03-04
+  title: MyString2
+  body: MyText2
