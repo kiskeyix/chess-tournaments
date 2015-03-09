@@ -29,7 +29,7 @@
             <button type="submit" class="btn btn-default form-control">Submit</button>
           </form>
           <% if user_signed_in? %>
-            <li><%= link_to '#',
+            <li><%= link_to messages_path,
               class: 'navbar-left', role: "button" do %>
               Messages <span class="badge"><%= current_user.unread_messages.size %></span>
             <% end %></li>

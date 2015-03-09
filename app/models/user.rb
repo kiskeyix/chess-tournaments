@@ -84,7 +84,6 @@ class User < ActiveRecord::Base
     "#{firstname.humanize} #{lastname.humanize}"
   end
   def unread_messages
-    #MessagesUser.where(read: false, user_id: id)
     messages.where(' messages_users.read=?', false)
   end
   def read_messages

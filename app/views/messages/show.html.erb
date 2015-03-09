@@ -1,0 +1,32 @@
+<div id='message'>
+<p><strong>Subject: </strong><%= @message.subject -%></p>
+<p><strong>Recipients: </strong>
+<% users = @message.users.uniq.sort %>
+<% users.each_with_index do |user,index| -%>
+  <%= user.full_name %> &lt;<%= user.email -%>&gt;
+<%= "," unless index == users.size - 1 %>
+<% end -%>
+</p>
+<p><%= @message.body %>
+</p>
+<div id='message_reply'>
+  <%= form_for(Message.new) do |f| -%>
+    <div class="field">
+      <% re_subject = @message.subject !~ /^re:\s/i ? "Re: " + @message.subject : @message.subject %>
+      <%= f.label :subject %>: <%= text_field_tag :subject, re_subject, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label 'recipients' %>:
+      <%#= hidden_field_tag 'user[user_id]', ...id %>
+      <%= select "user","user_id",User.all.collect {|p| [ p.full_name, p.id ] }, {include_blank: false} %>
+      <%#= f.text_field :recipients %>
+    </div>
+    <div class="field">
+      <%= f.text_area :body, :size => "30x10", :class => "form-control" %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+</div>
