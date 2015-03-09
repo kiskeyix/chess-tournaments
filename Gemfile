@@ -45,6 +45,7 @@ group :development, :test do
   gem 'spring'
 
   gem 'minitest-spec-rails'
+  gem 'pry'
 end
 
 gem 'bootstrap-sass', '~> 3.2.0'
