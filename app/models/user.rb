@@ -89,4 +89,7 @@ class User < ActiveRecord::Base
   def read_messages
     messages.where(' messages_users.read=?', true)
   end
+  def sent_messages
+    Message.where(user_id: id)
+  end
 end

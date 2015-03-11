@@ -1,7 +1,11 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @messages = current_user.messages.uniq
+    if params[:show] == "sent"
+      @messages = current_user.sent_messages
+    else
+      @messages = current_user.messages.uniq
+    end
   end
   def show
     @message = Message.find params[:id]
