@@ -1,4 +1,4 @@
-#error_explanation {
+/*#error_explanation {
   color: #f00;
   ul {
     list-style: none;
@@ -7,4 +7,37 @@
 }
 
 .field_with_errors {
+}*/
+
+#errorExplanation,
+#alert,
+#notice {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  margin-top: 4em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
+
+#errorExplanation p,
+#errorExplanation li,
+#errorExplanation h3 {
+  color: #D12F19;
+}
+
+#errorExplanation h3 { margin: 5px 0 0 0; }
+
+#errorExplanation ul { margin: 10px 0 0 20px!important; }
+
+#errorExplanation,
+#alert { background: #FBE3E4; border-color: #FBC2C4; color: #D12F19; }
+#alert a { color: #D12F19; text-decoration: underline; }
+
+#notice { background: #FFF6BF; border-color: #FFD324; color: #817134; }
+#notice a { color: #817134; text-decoration: underline; }
+
+.fieldWithErrors label { color: #CD0A0A;}
+.fieldWithErrors input { background: #FEF8F6; }
+
+#errorExplanation ul { margin: 1em 1.5em; }
+#errorExplanation ul li { list-style: square!important; margin: 0!important; }

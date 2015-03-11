@@ -75,6 +75,12 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+    <% if alert %>
+      <div id="alert"><%= alert %></div>
+    <% end %>
+    <% if notice %>
+      <div id="notice"><%= notice %></div>
+    <% end %>
     <br />
     <br />
     <br />
