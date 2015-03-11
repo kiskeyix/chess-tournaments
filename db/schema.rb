@@ -24,12 +24,15 @@ ActiveRecord::Schema.define(version: 20150303060400) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "messages", force: :cascade do |t|
-    t.date     "sent"
+    t.integer  "user_id"
+    t.datetime "sent"
     t.string   "subject"
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "messages_users", force: :cascade do |t|
     t.integer  "message_id"

@@ -1,5 +1,12 @@
-<ul>
+<table class='table table-hover'>
+<tr>
+  <th>From</th>
+  <th>Subject</th>
+</tr>
 <% @messages.each do |message| -%>
-  <li><%= link_to message.subject, message -%></li>
+  <tr>
+    <td><%= link_to message.user.full_name, message -%></td>
+    <td><%= link_to message.subject, message -%></td>
+  </tr>
 <%- end %>
-</ul>
+</table>

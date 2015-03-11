@@ -4,4 +4,5 @@ class Message < ActiveRecord::Base
   #has_and_belongs_to_many :users
   has_many :messages_users
   has_many :users, through: :messages_users
+  belongs_to :user
 end
