@@ -2,8 +2,10 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   def index
     if params[:show] == "sent"
+      @folder = "sent"
       @messages = current_user.sent_messages
     else
+      @folder = "inbox"
       @messages = current_user.messages.uniq
     end
   end
