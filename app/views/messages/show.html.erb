@@ -18,8 +18,8 @@
     <div class="field">
       <%= f.label 'recipients' %>:
       <%#= hidden_field_tag 'user[user_id]', ...id %>
-      <%= select "user","user_id",User.all.collect {|p| [ p.full_name, p.id ] }, {include_blank: false} %>
-      <%#= f.text_field :recipients %>
+      <%#= select "user","user_id",User.all.collect {|p| [ p.full_name, p.id ] }, {include_blank: false} %>
+      <%= text_field_tag :recipients,@message.users.map {|u| u.full_name}.join("; "), class: "form-control" %>
     </div>
     <div class="field">
       <%= f.text_area :body, :size => "30x10", :class => "form-control" %>
