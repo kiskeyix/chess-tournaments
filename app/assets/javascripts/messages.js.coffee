@@ -24,7 +24,7 @@ $ ->
     return
   ).autocomplete
     source: (request, response) ->
-      $.getJSON 'messages', { term: extractLast(request.term) }, response
+      $.getJSON '/search.json', { recipients: extractLast(request.term) }, response
       return
     search: ->
       # custom minLength
