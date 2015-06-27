@@ -92,4 +92,11 @@ class User < ActiveRecord::Base
   def sent_messages
     Message.where(user_id: id)
   end
+  # recipients are possible users for emails from user. Typically,
+  # users should be sending messages to people in their teams/league
+  # only. For now, we search all users
+  def self.find_recipients(term)
+    where('firstname LIKE ? or lastname LIKE ? or middlename LIKE ? or surname LIKE ?',
+          "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%")
+  end
 end
