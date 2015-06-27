@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search' => 'search#index'
   devise_for :users, skip: :registrations,
     controllers: {
       omniauth_callbacks: 'omniauth_callbacks'
