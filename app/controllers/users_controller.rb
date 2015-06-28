@@ -36,7 +36,13 @@ class UsersController < ApplicationController
         sign_in(@user, :bypass => true)
         redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
       else
-        current_user.errors[:base] << "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address."
+        begin
+          providers = User.find_by_email(params[:user][:email]).identities.collect(&:provider).join(', ').titleize
+        rescue => e
+          logger.debug "#{__method__}: caught error #{e.class} when searching #{params}. #{e.message}"
+          providers = []
+        end
+        current_user.errors[:base] << "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address (#{providers} maybe?)."
         @show_errors = true
       end
     end
