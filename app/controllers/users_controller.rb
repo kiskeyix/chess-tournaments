@@ -43,7 +43,7 @@ class UsersController < ApplicationController
           logger.debug "#{__method__}: caught error #{e.class} when searching #{params}. #{e.message}"
           providers = []
         end
-        current_user.errors[:base] << "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address (#{providers} maybe?)."
+        current_user.errors[:base] << "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address (#{providers} maybe?).\n\nSend email to #{CHESS_ADMIN_EMAIL} to have us associate this email with the provider you chose. Be sure to include: Your name, your email address, providers."
         @show_errors = true
       end
     end
