@@ -9,6 +9,8 @@ Setup
 1. edit config/initializers/devise.rb
 2. setup your apache configuration with ENV variables for:
 ```
+    CHESS_ADMIN_EMAIL
+
     GITHUB_APP_ID
     GITHUB_APP_SECRET
     TWITTER_APP_ID
@@ -19,6 +21,7 @@ Setup
     GPLUS_APP_SECRET
     TWITCH_APP_ID
     TWITCH_APP_SECRET
+
     SECRET_KEY_BASE
 ```
 3. edit the mailer domain in config/environments/production.rb
