@@ -36,6 +36,7 @@ class UsersController < ApplicationController
         sign_in(@user, :bypass => true)
         redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
       else
+        # TODO ideally, we should allow the end-user to associate their user with a new identity by sending an email with a one-time token/password or similar
         begin
           providers = User.find_by_email(params[:user][:email]).identities.collect(&:provider).join(', ').titleize
         rescue => e
