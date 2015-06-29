@@ -1,32 +1,88 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username %></div>
+  <div class='form-group'>
+    <%= f.label :first_name, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :firstname, class: 'form-control' %>
+    </div>
+  </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+  <div class='form-group'>
+    <%= f.label :middle_name, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :middlename, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :last_name, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :lastname, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :surname, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :surname, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :username, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :username, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :email, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :image, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :image, title: "URL to image", class: 'form-control' %>
+    </div>
+  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div class='form-group'>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+  <div class='form-group'>
+    <%= f.label :password, class: 'col-sm-2 control-label' %> <i>(leave blank if you don't want to change it)</i>
+    <div class='col-sm-10'>
+      <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+    </div>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+  <div class='form-group'>
+    <%= f.label :password_confirmation, class: 'col-sm-2 control-label' %>
+    <div class='col-sm-10'>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+    </div>
+  </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %></div>
+  <div class='form-group'>
+    <%= f.label :current_password, class: 'col-sm-2 control-label' %> <i>(we need your current password to confirm your changes)</i>
+    <div class='col-sm-10'>
+      <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+    </div>
+  </div>
 
-  <div><%= f.submit "Update" %></div>
+  <div class='form-group text-center'><%= f.submit "Update", class: 'btn btn-default' %>  <%= link_to "Back", :back, class: 'btn btn-default' %></div>
 <% end %>
 
+<%# TODO disable accounts instead:
 <h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <p>Unhappy?  button_to "Cancel my account",
+  registration_path(resource_name),
+  data: { confirm: "Are you sure?" }, method: :delete </p>
+%>

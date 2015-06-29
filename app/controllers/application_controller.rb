@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     end
   end
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :email
+    extra_params = [ :email,
+                     :image, :firstname, :lastname,
+                     :middlename, :surname, :gender, :birthday ]
+    devise_parameter_sanitizer.for(:sign_up) << extra_params
+    devise_parameter_sanitizer.for(:account_update) << extra_params
   end
 end
