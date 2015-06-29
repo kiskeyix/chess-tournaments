@@ -44,7 +44,7 @@
               %> 
             <ul class="dropdown-menu" role="menu">
                 <% if current_user.identities.size < 1 %>
-                  <# only local users are allowed to have a password that they know %>
+                  <%# only local users are allowed to have a password that they know %>
                   <li> <%= link_to ' Preferences', edit_user_registration_path %></li>
                 <% end %>
                 <li>
