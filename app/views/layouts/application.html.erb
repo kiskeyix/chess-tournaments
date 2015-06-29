@@ -43,11 +43,12 @@
                 role: "button"
               %> 
               <ul class="dropdown-menu" role="menu">
-<%# class: "glyphicon glyphicon-log-out", #title: "Sign out" %>
                 <li>
-                <%= link_to 'Sign Out',
+                <%= link_to ' Sign Out',
                   destroy_user_session_path,
-                  method: :delete
+                  method: :delete,
+                  class: "glyphicon glyphicon-log-out",
+                  title: "Terminate session"
                 %> 
                 </li>
               </ul>
