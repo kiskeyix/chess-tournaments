@@ -9,7 +9,7 @@
 .field_with_errors {
 }*/
 
-#errorExplanation,
+#error_explanation,
 #alert,
 #notice {
   padding: 0.8em;
@@ -19,17 +19,17 @@
   border-radius: 8px;
 }
 
-#errorExplanation p,
-#errorExplanation li,
-#errorExplanation h3 {
+#error_explanation p,
+#error_explanation li,
+#error_explanation h3 {
   color: #D12F19;
 }
 
-#errorExplanation h3 { margin: 5px 0 0 0; }
+#error_explanation h3 { margin: 5px 0 0 0; }
 
-#errorExplanation ul { margin: 10px 0 0 20px!important; }
+#error_explanation ul { margin: 10px 0 0 20px!important; }
 
-#errorExplanation,
+#error_explanation,
 #alert { background: #FBE3E4; border-color: #FBC2C4; color: #D12F19; }
 #alert a { color: #D12F19; text-decoration: underline; }
 
@@ -39,5 +39,5 @@
 .fieldWithErrors label { color: #CD0A0A;}
 .fieldWithErrors input { background: #FEF8F6; }
 
-#errorExplanation ul { margin: 1em 1.5em; }
-#errorExplanation ul li { list-style: square!important; margin: 0!important; }
+#error_explanation ul { margin: 1em 1.5em; }
+#error_explanation ul li { list-style: square!important; margin: 0!important; }

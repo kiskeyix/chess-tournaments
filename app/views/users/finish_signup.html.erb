@@ -5,7 +5,7 @@
                  :url => finish_signup_path(current_user),
                  :html => { role: 'form'}) do |f| %>
       <% if @show_errors && current_user.errors.any? %>
-        <div id="errorExplanation">
+        <div id="error_explanation">
           <% current_user.errors.full_messages.each do |msg| %>
             <%= msg %><br>
           <% end %>
