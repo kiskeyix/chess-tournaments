@@ -1,28 +1,31 @@
-== README
+= Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+== Ruby version
+2.2 and up
 
-Things you may want to cover:
+== Database creation
+<tt>rake db:migrate</tt>
 
-* Ruby version
+== How to run the test suite
+<tt>rake test</tt>
 
-* System dependencies
+== Services (job queues, cache servers, search engines, etc.)
 
-* Configuration
+== Deployment instructions
+cap prodution deploy
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
+== Help instructions
 <tt>rake doc:app</tt>.
+
+== TODO
+<tt>rake notes:todo</tt>.
+
+= Application
+
+== Users
+
+Users can be either local or remote, authentication done via Oauth.
+
+Local users have local preferences for themselves, and if they create a *player*, they
+are then able to edit the preferences for this.
+Remote users do not have local preferences and they must create a player if they want to set things up.
