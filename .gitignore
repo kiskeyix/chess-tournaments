@@ -6,6 +6,7 @@ capybara-*.html
 /tmp
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/doc
 /public/system
 /coverage/
 /spec/tmp
