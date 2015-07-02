@@ -12,7 +12,10 @@
 == Services (job queues, cache servers, search engines, etc.)
 
 == Deployment instructions
-cap prodution deploy
+
+By default it deploys to /srv/web/apps/chess-tournaments/current when you run:
+
+<tt>bundle exec cap prodution deploy</tt>
 
 == Help instructions
 <tt>rake doc:app</tt>.
