@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :players
+
   get 'search' => 'search#index'
   devise_for :users, skip: :registrations,
     controllers: {

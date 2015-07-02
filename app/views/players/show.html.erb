@@ -1,0 +1,26 @@
+<p>
+  <strong>User:</strong>
+  <%= @player.user.username %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @player.name %>
+</p>
+
+<p>
+  <strong>Nationality:</strong>
+  <%= @player.nationality %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @player.gender %>
+</p>
+
+<p>
+  <%= image_tag @player.image %>
+</p>
+
+<%= link_to 'Edit', edit_player_path(@player) %> |
+<%= link_to 'Back', players_path %>

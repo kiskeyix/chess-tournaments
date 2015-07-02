@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   # DELETE /users/:id.:format
   def destroy
     # authorize! :delete, @user
-    @user.destroy
+    #@user.destroy
     respond_to do |format|
       format.html { redirect_to root_url }
       format.json { head :no_content }
