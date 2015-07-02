@@ -29,5 +29,8 @@ module ChessTournaments
     console do
       config.console = Pry
     end
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance| 
+      "<div class=\"control-group has-error\">#{html_tag}</div>".html_safe
+    end
   end
 end
