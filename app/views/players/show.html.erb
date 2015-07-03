@@ -1,26 +1,46 @@
-<p>
-  <strong>User:</strong>
-  <%= @player.user.username %>
-</p>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>User:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @player.user.username %>
+  </p>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @player.name %>
-</p>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Name:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @player.name %>
+  </p>
+</div>
 
-<p>
-  <strong>Nationality:</strong>
-  <%= @player.nationality %>
-</p>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Nationality:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @player.nationality %>
+  </p>
+</div>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @player.gender %>
-</p>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Gender:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @player.gender %>
+  </p>
+</div>
 
-<p>
-  <%= image_tag @player.image %>
-</p>
+<div class='row'>
+  <p class='col-sm-2'>&nbsp;</p>
+  <p class='col-sm-10'>
+    <%= image_tag @player.image unless @player.image.blank? %>
+  </p>
+</div>
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'Back', players_path %>
+<div>
+  <%= button_to 'Edit', edit_player_path(@player), class: "btn btn-primary", method: :get %>
+</div>
