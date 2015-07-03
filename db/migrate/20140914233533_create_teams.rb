@@ -3,7 +3,7 @@ class CreateTeams < ActiveRecord::Migration
     create_table :teams do |t|
       t.string :name
       t.text :description
-      t.string :avatar
+      t.string :image
 
       t.timestamps null: false
     end
