@@ -4,10 +4,10 @@ one:
   id: 1
   name: team one
   description: first team
-  avatar: image1
+  image: image1
 
 two:
   id: 2
   name: team two
   description: second team
-  avatar: image2
+  image: image2
