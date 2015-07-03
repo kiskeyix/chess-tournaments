@@ -51,7 +51,7 @@
               <% uimg = image_tag(current_user.image, size: "32x32") %>
             <%- end %>
             <%= link_to uimg + " " + current_user.full_name + " > ",'#',
-              class: "dropdown-toggle" + ( uimg > '' ? '' : "glyphicon glyphicon-user" ),
+              class: "dropdown-toggle " + ( uimg < '' ? '' : "glyphicon glyphicon-user" ),
               data: { toggle: "dropdown" },
               role: "button"
             %> 
@@ -59,7 +59,7 @@
               <% if current_user.identities.size < 1 %>
                 <%# only local users are allowed to have a password that they know %>
                 <li> <%= link_to ' Preferences', edit_user_registration_path %></li>
-                <li> <%= link_to ' Edit Player', edit_player_path(current_user.player) %></li>
+                <li> <%= link_to ' Edit Player', edit_player_path(current_user.player) if current_user.player%></li>
               <% else %>
                 <li> <%= link_to ' Preferences', edit_player_path(current_user.player) %></li>
               <% end %>
