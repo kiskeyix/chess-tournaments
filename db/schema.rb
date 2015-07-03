@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701133657) do
+ActiveRecord::Schema.define(version: 20150703055528) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -56,10 +56,18 @@ ActiveRecord::Schema.define(version: 20150701133657) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "players_teams", id: false, force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "team_id",   null: false
+  end
+
+  add_index "players_teams", ["player_id", "team_id"], name: "index_players_teams_on_player_id_and_team_id"
+  add_index "players_teams", ["team_id", "player_id"], name: "index_players_teams_on_team_id_and_player_id"
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "avatar"
+    t.string   "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
