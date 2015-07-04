@@ -3,7 +3,7 @@
     <h1>Add Email</h1>
     <%= form_for(current_user, :as => 'user',
                  :url => finish_signup_path(current_user),
-                 :html => { role: 'form'}) do |f| %>
+                 :html => { class: 'form-horizontal', role: 'form'}) do |f| %>
       <% if @show_errors && current_user.errors.any? %>
         <div id="error_explanation">
           <% current_user.errors.full_messages.each do |msg| %>
@@ -11,9 +11,17 @@
           <% end %>
         </div>
       <% end %>
+      
       <div class="form-group">
-        <%= f.label :email %>
-        <div class="controls">
+        <%= f.label :username, class: 'control-label col-sm-4' %>
+        <div class="col-sm-8">
+          <%= f.text_field :username, class: 'form-control input-lg', placeholder: 'username', disabled: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: 'control-label col-sm-4' %>
+        <div class="col-sm-8">
           <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'Example: email@me.com' %>
           <p class="help-block">Please confirm your email address. No spam.</p>
         </div>
