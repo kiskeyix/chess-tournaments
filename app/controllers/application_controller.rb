@@ -2,9 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  # TODO ensure user has validated email before proceeding? add :show below
-  before_filter :ensure_signup_complete,
-    only: [:new, :create, :update, :destroy]
+  before_filter :ensure_signup_complete
+    
   before_action :configure_permitted_parameters, if: :devise_controller?
   protected
   def ensure_signup_complete
