@@ -19,7 +19,7 @@
 <% end -%>
 
 <%- if devise_mapping.omniauthable? %>
-  <h3>... Or Sign In using your account from: </h3>
+  <h3>... Or Sign In using a third party account from: </h3>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= link_to image_tag("#{provider.to_s}_64.png", alt: "#{provider.to_s.titleize}"),
       omniauth_authorize_path(resource_name, provider), title: "#{provider.to_s.titleize}" %>
