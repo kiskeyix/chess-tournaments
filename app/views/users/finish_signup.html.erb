@@ -22,8 +22,18 @@
       <div class="form-group">
         <%= f.label :email, class: 'control-label col-sm-4' %>
         <div class="col-sm-8">
-          <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'Example: email@me.com' %>
-          <p class="help-block">Please confirm your email address. No spam.</p>
+          <%
+              if current_user.email =~ User::TEMP_EMAIL_REGEX
+                value = ''
+                disabled = false
+              else
+                value = current_user.email
+                disabled = true
+              end
+          %>
+
+          <%= f.text_field :email, :autofocus => true, :value => value, class: 'form-control input-lg', placeholder: 'Example: email@me.com', disabled: disabled %>
+          <p class="help-block">Please confirm your email address.</p>
         </div>
       </div>
       <div class="actions">
