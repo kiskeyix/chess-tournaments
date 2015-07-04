@@ -36,7 +36,6 @@ class UsersController < ApplicationController
         sign_in(@user, :bypass => true)
         redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
       else
-        # TODO ideally, we should allow the end-user to associate their user with a new identity by sending an email with a one-time token/password or similar
         begin
           providers = User.find_by_email(params[:user][:email]).identities.collect(&:provider).join(', ').titleize
         rescue => e
@@ -56,6 +55,21 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_url }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /users/delete_identity
+  def delete_identity
+    # authorize! :delete, @user
+    user_identity = current_user.identities.find params[:id]
+    respond_to do |format|
+      if user_identity and user_identity.destroy
+        format.html { redirect_to :back }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', alert: 'Could not disconnect provider' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

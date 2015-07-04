@@ -29,6 +29,9 @@ Rails.application.routes.draw do
 #     omniauth_callbacks: 'omniauth_callbacks'
 #     }
 
+  #post '/users/delete_identity/:id' => 'users#delete_identity'
+  post '/users/delete_identity' => 'users#delete_identity'
+
   get 'dashboard' => 'dashboard#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

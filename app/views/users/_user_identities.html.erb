@@ -1,0 +1,31 @@
+<% if current_user.identities.size > 0 %>
+  <h2>Associated third party accounts</h2>
+  <% current_user.identities.each do |identity| %>
+    <div class='row'>
+      <div class='col-sm-2'>
+        <%= image_tag("#{identity.provider.to_s}_64.png",
+                      alt: "#{identity.provider.to_s.titleize}") %>
+      </div>
+      <div class='col-sm-2'>
+        <%
+            if current_user.identities.size == 1
+              disabled = true
+              title = 'Cannot disconnet from last provider'
+            else
+              disabled = false
+              title = ''
+            end
+        %>
+        <%= button_to 'Disconnect', users_delete_identity_path, params: { id: identity.id },
+          class: 'btn btn-default', disabled: disabled, title: title %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<h2>Associate third party account</h2>
+  <% myproviders = current_user.identities.collect(&:provider) %>
+<%- User.omniauth_providers.each do |provider| %>
+  <% next if myproviders.include? provider.to_s  %>
+  <%= link_to image_tag("#{provider.to_s}_64.png", alt: "#{provider.to_s.titleize}"),
+    omniauth_authorize_path('user', provider), title: "#{provider.to_s.titleize}" %>
+<% end -%>
