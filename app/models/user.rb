@@ -80,7 +80,9 @@ class User < ActiveRecord::Base
   end
 
   def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+    self.email && \
+      self.email !~ TEMP_EMAIL_REGEX && \
+      self.confirmation_token.blank?
   end
   def full_name
     "#{firstname.humanize} #{lastname.humanize}"
