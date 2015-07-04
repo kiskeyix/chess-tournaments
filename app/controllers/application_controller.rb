@@ -7,16 +7,20 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   protected
   def ensure_signup_complete
-    logger.debug "#{__method__}: #{controller_name}::#{action_name} #{params}"
+    logger.debug "#{__method__}: called to #{controller_name}::#{action_name} #{params}"
     # avoid infinite loop
     return if action_name == 'finish_signup' ||
       (controller_name == "sessions" &&
        action_name == "destroy") ||
       (controller_name == "registrations" &&
-       action_name == "create")
+       action_name == "create") ||
+      (controller_name == "confirmations" &&
+       action_name == "show")
+
+    logger.debug "#{__method__}: email verified yet? #{controller_name}::#{action_name} #{params}"
     if current_user && !current_user.email_verified?
-      logger.debug "#{__method__}: redirecting to #{finish_signup_path(current_user)}"
-      redirect_to finish_signup_path(current_user)
+      logger.debug "#{__method__}: email not verified. Redirecting to #{finish_signup_path(current_user)}"
+      redirect_to finish_signup_path(current_user), notice: 'Your email is not verified yet. Be sure to check your emails and click on the verification link.'
     end
   end
   def configure_permitted_parameters
