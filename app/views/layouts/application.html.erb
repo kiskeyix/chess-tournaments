@@ -45,15 +45,16 @@
           <% end %>
           <li class="dropdown"> 
             <%- uimg = '' %>
-            <%- if current_user.player and current_user.player.image > '' %>
+            <%- if not current_user.player.blank? and current_user.player.image > '' %>
               <% uimg = image_tag(current_user.player.image, size: "32x32") %>
             <%- elsif current_user.image > '' %>
               <% uimg = image_tag(current_user.image, size: "32x32") %>
             <%- end %>
             <%= link_to uimg + " " + current_user.full_name + " > ",'#',
-              class: "dropdown-toggle " + ( uimg < '' ? '' : "glyphicon glyphicon-user" ),
+              class: "dropdown-toggle " + ( uimg > '' ? '' : "glyphicon glyphicon-user" ),
               data: { toggle: "dropdown" },
-              role: "button"
+              role: "button",
+              title: current_user.username
             %> 
           <ul class="dropdown-menu" role="menu">
               <% if current_user.identities.size < 1 %>
@@ -61,7 +62,7 @@
                 <li> <%= link_to ' Preferences', edit_user_registration_path %></li>
                 <li> <%= link_to ' Edit Player', edit_player_path(current_user.player) if current_user.player%></li>
               <% else %>
-                <li> <%= link_to ' Preferences', edit_player_path(current_user.player) %></li>
+                <li> <%= link_to ' Preferences', edit_player_path(current_user.player) unless current_user.player.blank? %></li>
               <% end %>
               <li>
               <%= link_to ' Sign Out',
