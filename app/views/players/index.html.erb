@@ -1,6 +1,6 @@
 <h1>Listing Players</h1>
 
-<table class='table'>
+<table class='table table-striped'>
   <thead>
     <tr>
       <th>User</th>
@@ -8,7 +8,7 @@
       <th>Nationality</th>
       <th>Gender</th>
       <th>Image</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -22,7 +22,6 @@
         <td><%= player.image %></td>
         <td><%= link_to 'Show', player %></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +29,7 @@
 
 <br>
 
+<% if current_user.admin? %>
 <%= link_to 'New Player', new_player_path %>
+<% end %>
+<%= will_paginate @players, renderer: BootstrapPagination::Rails %>
