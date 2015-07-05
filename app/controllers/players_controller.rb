@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    if current_user.player.nil?
+    if current_user.player.nil? or current_player.admin?
       @player = Player.new
       @player.name = current_user.full_name
       @player.image = current_user.image
@@ -32,7 +32,7 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    if current_user.player.nil?
+    if current_user.player.nil? or current_player.admin?
       @player = Player.new(player_params)
 
       respond_to do |format|
