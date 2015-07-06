@@ -15,11 +15,14 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    if current_user.player.nil? or current_player.admin?
+    if current_user.player.nil? or current_user.admin?
       @player = Player.new
-      @player.name = current_user.full_name
-      @player.image = current_user.image
-      @player.gender = current_user.gender
+      unless current_user.admin?
+        @player.name = current_user.full_name
+        @player.image = current_user.image
+        @player.gender = current_user.gender
+        @player.user_id = current_user.id
+      end
     else
       redirect_to root_path, alert: 'Player aleady associated with this account.'
     end
@@ -32,7 +35,7 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    if current_user.player.nil? or current_player.admin?
+    if current_user.player.nil? or current_user.admin?
       @player = Player.new(player_params)
 
       respond_to do |format|
