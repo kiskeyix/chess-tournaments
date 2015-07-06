@@ -20,8 +20,8 @@
         <td><%= player.nationality %></td>
         <td><%= player.gender %></td>
         <td><%= player.image %></td>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Show', player, class: 'btn btn-default' %></td>
+        <td><%= link_to 'Edit', edit_player_path(player), class: 'btn btn-default' if player == current_user.player or current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,6 +30,7 @@
 <br>
 
 <% if current_user.admin? %>
-<%= link_to 'New Player', new_player_path %>
+<%= button_to 'New Player', new_player_path, class: 'btn btn-primary', method: :get %>
 <% end %>
+
 <%= will_paginate @players, renderer: BootstrapPagination::Rails %>
