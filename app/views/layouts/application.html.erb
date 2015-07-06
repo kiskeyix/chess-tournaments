@@ -45,6 +45,7 @@
           <% end %>
           <li class="dropdown"> 
             <%- uimg = '' %>
+            <%- extra = current_user.admin? ? ' (admin)' : '' %>
             <%- if not current_user.player.blank? and current_user.player.image > '' %>
               <% uimg = image_tag(current_user.player.image, size: "32x32") %>
             <%- elsif current_user.image > '' %>
@@ -54,7 +55,7 @@
               class: "dropdown-toggle " + ( uimg > '' ? '' : "glyphicon glyphicon-user" ),
               data: { toggle: "dropdown" },
               role: "button",
-              title: current_user.username
+              title: current_user.username + extra
             %> 
           <ul class="dropdown-menu" role="menu">
               <% if current_user.identities.size < 1 %>
