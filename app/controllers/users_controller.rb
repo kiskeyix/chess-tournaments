@@ -60,14 +60,21 @@ class UsersController < ApplicationController
 
   # POST /users/delete_identity
   def delete_identity
-    # authorize! :delete, @user
+    unless current_user.identities.size > 1
+      current_user.errors[:base] << "Only 1 identity provider left."
+      respond_to do |format|
+        format.html { redirect_to :back, alert: 'Only 1 identity provider left.' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+      return
+    end
     user_identity = current_user.identities.find params[:id]
     respond_to do |format|
       if user_identity and user_identity.destroy
         format.html { redirect_to :back }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', alert: 'Could not disconnect provider' }
+        format.html { redirect_to :back, alert: 'Could not disconnect provider' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

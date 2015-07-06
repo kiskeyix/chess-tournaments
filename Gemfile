@@ -58,3 +58,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-gplus'
 gem 'omniauth-twitch'
+
+gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
