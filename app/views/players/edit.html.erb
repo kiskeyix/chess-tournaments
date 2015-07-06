@@ -1,4 +1,7 @@
-<%= render 'users/user_identities' %>
+<% unless current_user.identities.size < 1 %>
+  <%= render 'users/user_identities' %>
+<% end %>
+
 <h1>Editing Player</h1>
 
 <%= render 'form' %>
