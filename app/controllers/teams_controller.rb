@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /teams/1
@@ -56,6 +56,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1.json
   def destroy
     #@team.destroy
+    # TODO maybe we allow captains to remove teams if there is no results associated?
     respond_to do |format|
       format.html { redirect_to teams_url, alert: 'Team cannot be removed.' }
       format.json { head :no_content }
