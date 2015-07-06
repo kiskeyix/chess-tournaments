@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
     logger.debug "#{__method__}: called to #{controller_name}::#{action_name} #{params}"
     # avoid infinite loop
     return if action_name == 'finish_signup' ||
-      (controller_name == "sessions" &&
-       action_name == "destroy") ||
+      (controller_name == "devise/sessions" &&
+       action_name =~ /destroy|new|create/) ||
       (controller_name == "registrations" &&
        action_name == "create") ||
       (controller_name == "confirmations" &&
