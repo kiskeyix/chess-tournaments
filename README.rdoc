@@ -29,7 +29,6 @@ By default it deploys to /srv/web/apps/chess-tournaments/current when you run:
 
 Users can be either local or remote, authentication done via Oauth.
 
-  * Local users have local preferences for themselves, and if they create a *player*, they
-are then able to edit the preferences for this.
+  * Local users have local preferences for themselves, and if they create a *player*, they are then able to edit the preferences for this.
   * Remote users do not have local preferences and they must create a player if they want to update their profiles.
   * A local user becomes remote if it associates 1 or more remote accounts with itself. Once a remote identity is associated with the account, it cannot be removed. If more than 1 identities are associated, the user can remove/disconnect from all but one. So, the user always has at least 1 remote identity.
