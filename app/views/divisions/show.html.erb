@@ -1,0 +1,25 @@
+<h1><%= @division.tournament.name %></h1>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Division:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @division.name %>
+  </p>
+</div>
+<div class='row'>
+  <p class='col-sm-2'>&nbsp;</p>
+  <p class='col-sm-10'>
+    <%= @division.image %>
+  </p>
+</div>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Description:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @division.description %>
+  </p>
+</div>
+
+<%= button_to 'Edit', edit_division_path(@division), class: 'btn btn-primary', method: :get %>

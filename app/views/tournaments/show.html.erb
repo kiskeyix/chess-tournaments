@@ -1,0 +1,26 @@
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Name:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @tournament.name %>
+  </p>
+</div>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Image:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= image_tag @tournament.image, alt: @tournament.name %>
+  </p>
+</div>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Description:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @tournament.description %>
+  </p>
+</div>
+
+<%= button_to 'Edit', edit_tournament_path(@tournament), class: 'btn btn-primary' %>

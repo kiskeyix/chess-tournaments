@@ -1,0 +1,41 @@
+<%= form_for(@division, html: { class: 'form-horizontal' }) do |f| %>
+  <% if @division.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@division.errors.count, "error") %> prohibited this division from being saved:</h2>
+
+      <ul>
+      <% @division.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='form-group'>
+    <%= f.label :name, class: 'control-label col-sm-2' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :image, class: 'control-label col-sm-2' %>
+    <div class='col-sm-10'>
+      <%= f.text_field :image, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :description, class: 'control-label col-sm-2' %>
+    <div class='col-sm-10'>
+      <%= f.text_area :description, size: '20x10', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :tournament, class: 'control-label col-sm-2' %>
+    <div class='col-sm-10'>
+      <%= f.select :tournament_id, Tournament.all.collect { |t| [t.name, t.id] }, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="text-center">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

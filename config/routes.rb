@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :divisions
+
+  resources :tournaments
+
   resources :teams
 
   resources :players
