@@ -1,4 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Name:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= @team.name %>
+  </p>
+</div>
+<div class='row'>
+  <p class='col-sm-2'>
+    <strong>Logo:</strong>
+  </p>
+  <p class='col-sm-10'>
+    <%= image_tag @team.image, alt: "#{@team.name} logo" %>
+  </p>
+</div>
+<%# TODO only captains can edit teams %>
+<%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary' if (not current_user.player.nil? and current_user.player.teams.include? @team) or current_user.admin? %>

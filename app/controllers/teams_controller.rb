@@ -20,11 +20,13 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    # TODO check if team member is captain
   end
 
   # POST /teams
   # POST /teams.json
   def create
+    # TODO creating a team makes you captain
     @team = Team.new(team_params)
 
     respond_to do |format|
@@ -41,6 +43,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+    # TODO check if team member is captain
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
@@ -58,7 +61,7 @@ class TeamsController < ApplicationController
     #@team.destroy
     # TODO maybe we allow captains to remove teams if there is no results associated?
     respond_to do |format|
-      format.html { redirect_to teams_url, alert: 'Team cannot be removed.' }
+      format.html { redirect_to teams_url, alert: 'Teams cannot be removed.' }
       format.json { head :no_content }
     end
   end
@@ -71,6 +74,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params[:team]
+      params.require(:team).permit(:name, :image)
     end
 end
