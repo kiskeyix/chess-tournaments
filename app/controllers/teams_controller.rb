@@ -58,6 +58,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
+    if @team.captain == current_user.player
     #@team.destroy
     # TODO maybe we allow captains to remove teams if there is no results associated?
     respond_to do |format|

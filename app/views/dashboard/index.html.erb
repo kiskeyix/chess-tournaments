@@ -1,6 +1,21 @@
-<h1>Hello World</h1>
-<ul>
-  <% @teams.each do |t| %>
-    <li><%= link_to t.name, 'http://nytimes.com', class: 'btn btn-default' %></li>
+<div class="row">
+  <% if current_user.player.teams.size > 0 %>
+    <% current_user.player.teams.each do |t| %>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= image_tag t.image, alt: t.name if t.image %>
+          <div class="caption">
+            <h3><%= t.name %></h3>
+            <%= button_to t.name, t, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <% if current_user.player.nil? %>
+      <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
+    <% else %>
+      <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
+    <% end %>
   <% end %>
-</ul>
+</div>
