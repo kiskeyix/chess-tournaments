@@ -6,5 +6,5 @@ class Team < ActiveRecord::Base
   belongs_to :division
 
   has_many :team_captains
-  has_many :captains, through: :team_captains
+  has_many :captains, through: :team_captains, source: :player
 end
