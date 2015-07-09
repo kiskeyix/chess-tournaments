@@ -4,4 +4,7 @@ class Team < ActiveRecord::Base
 
   has_and_belongs_to_many :players
   belongs_to :division
+
+  has_many :team_captains
+  has_many :captains, through: :team_captains
 end

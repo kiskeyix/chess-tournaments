@@ -58,9 +58,21 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    if @team.captain == current_user.player
-    #@team.destroy
     # TODO maybe we allow captains to remove teams if there is no results associated?
+    msg = {}
+    current_captain = @team.captains.include? current_user.player
+    if current_captain and @team.players < 1
+      if @team.destroy
+        msg[:notice] = "Successfully removed team!"
+      else
+        # TODO admin email here
+        msg[:alert] = "Failed to remove team. Contact your administrator."
+      end
+    else
+      msg[:alert] = "Failed to remove team. "
+      msg[:alert] << "Only captains can remove teams." unless current_captain
+      msg[:alert] << "Must remove all players first." unless @team.players < 1
+    end
     respond_to do |format|
       format.html { redirect_to teams_url, alert: 'Teams cannot be removed.' }
       format.json { head :no_content }
