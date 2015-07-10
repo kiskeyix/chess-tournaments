@@ -2,5 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @team %> |
-<%= link_to 'Back', teams_path %>
+<%= button_to 'Show', @team, class: 'btn btn-primary', method: :get %>
