@@ -28,10 +28,15 @@ class TeamsController < ApplicationController
   def create
     # TODO creating a team makes you captain
     @team = Team.new(team_params)
-
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
+        msg = {}
+        if @team.team_captains.create(player_id: current_user.player.id)
+          msg = { notice: 'Team was successfully created.' }
+        else
+          msg = { alert: "Team was successfully created but you were not assigned as captain. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+        end
+        format.html { redirect_to @team, msg }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new }

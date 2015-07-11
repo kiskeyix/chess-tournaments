@@ -28,4 +28,4 @@
   </p>
 </div>
 <%# TODO only captains can edit teams %>
-<%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary' if (not current_user.player.nil? and current_user.player.teams.include? @team) or current_user.admin? %>
+<%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary', method: :get if (not current_user.player.nil? and current_user.player.teams.include? @team) or current_user.admin? %>
