@@ -1,5 +1,11 @@
-<div class="row">
-  <% if current_user.player.teams.size > 0 %>
+<%# TODO this section should be a case statement? %>
+<% if not current_user %>
+  <%# TODO if you're not a user, what can you see? %>
+  <h1>It's more fun if you're a user. Consider <%= link_to 'signing in', new_user_session_path %></h1>
+<% elsif current_user.player.nil? %>
+  <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
+<% elsif current_user.player.teams.size > 0 %>
+  <div class="row">
     <% current_user.player.teams.each do |t| %>
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
@@ -11,11 +17,8 @@
         </div>
       </div>
     <% end %>
-  <% else %>
-    <% if current_user.player.nil? %>
-      <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
-    <% else %>
-      <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
-    <% end %>
-  <% end %>
-</div>
+  </div>
+<% else %>
+  <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
+  <%= debug current_user.player.team_captains %>
+<% end %>
