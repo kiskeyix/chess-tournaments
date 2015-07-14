@@ -5,14 +5,25 @@
 <% elsif current_user.player.nil? %>
   <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
 <% elsif current_user.player.teams.size > 0 %>
+  <h1>My <%= "Team".pluralize(current_user.player.teams.size) %></h1>
   <div class="row">
     <% current_user.player.teams.each do |t| %>
       <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <%= image_tag t.image, alt: t.name if t.image %>
+        <div class="thumbnail"> 
+          <%= image_tag t.image, alt: t.name unless t.image.blank? %>
           <div class="caption">
-            <h3><%= t.name %></h3>
-            <%= button_to t.name, t, class: 'btn btn-default' %>
+            <h3><%= t.name %> Team</h3>
+            <% t.players.each do |p| %> 
+              <% if t.captains.include? p %>
+                <div class="text-right">
+                  <%= p.name %> <span class="glyphicon glyphicon-star" title="Team captain"></span>
+                </div>
+              <% end %>
+            <% end %>
+            <hr />
+            <div class="text-right">
+              <%= button_to 'Edit', t, class: 'btn btn-default', method: :get %>
+            </div>
           </div>
         </div>
       </div>
@@ -20,5 +31,4 @@
   </div>
 <% else %>
   <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
-  <%= debug current_user.player.team_captains %>
 <% end %>
