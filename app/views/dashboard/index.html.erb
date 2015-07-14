@@ -20,10 +20,12 @@
                 </div>
               <% end %>
             <% end %>
-            <hr />
-            <div class="text-right">
-              <%= button_to 'Edit', t, class: 'btn btn-default', method: :get %>
-            </div>
+            <% if t.captains.include? current_user.player %>
+              <hr />
+              <div class="text-right">
+                <%= button_to 'Edit', t, class: 'btn btn-default', method: :get %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
