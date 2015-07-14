@@ -11,7 +11,7 @@
     <strong>Logo:</strong>
   </p>
   <p class='col-sm-10'>
-    <%= image_tag @team.image, alt: "#{@team.name} logo" %>
+    <%= image_tag @team.image, alt: "#{@team.name} logo" unless @team.image.blank? %>
   </p>
 </div>
 <div class='row'>
@@ -20,12 +20,11 @@
   </p>
 
   <p class='col-sm-10'>
-    <ul>
     <% @team.captains.each do |tc| %>
-    <li><%= tc.name %></li>
+      <p><%= tc.name %></p>
     <% end %>
-    </ul>
   </p>
 </div>
-<%# TODO only captains can edit teams %>
-<%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary', method: :get if (not current_user.player.nil? and current_user.player.teams.include? @team) or current_user.admin? %>
+<div class='text-center'>
+  <%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
+</div>
