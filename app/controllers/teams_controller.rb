@@ -26,12 +26,21 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-    # TODO creating a team makes you captain
+    if current_user.player.nil?
+      msg = { alert: "Only players can create or manipulate teams. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { render :new, msg }
+        format.json { render json: @team.errors, status: :unprocessable_entity }
+      end
+      return
+    end
+    # TODO creating a team makes you captain and player
     @team = Team.new(team_params)
     respond_to do |format|
       if @team.save
         msg = {}
-        if @team.team_captains.create(player_id: current_user.player.id)
+        if @team.players << current_user.player and
+          @team.team_captains.create(player_id: current_user.player.id)
           msg = { notice: 'Team was successfully created.' }
         else
           msg = { alert: "Team was successfully created but you were not assigned as captain. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
@@ -66,7 +75,7 @@ class TeamsController < ApplicationController
     # TODO maybe we allow captains to remove teams if there is no results associated?
     msg = {}
     current_captain = @team.captains.include? current_user.player
-    if current_captain and @team.players < 1
+    if current_captain and @team.players <= 1
       if @team.destroy
         msg[:notice] = "Successfully removed team!"
       else
