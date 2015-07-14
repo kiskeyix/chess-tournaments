@@ -6,5 +6,5 @@ class Player < ActiveRecord::Base
 
   has_and_belongs_to_many :teams
   has_many :team_captains
-  has_many :captains, through: :team_captains, source: :player
+  has_many :captain_of_teams, through: :team_captains, source: :team
 end
