@@ -28,3 +28,50 @@
 <div class='text-center'>
   <%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
 </div>
+<% @team.players.build(name: '') %>
+<%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>
+  <% if @team.errors.any? %>
+    <div class='alert alert-danger' role='alert'>
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<h2>Players</h2>
+<table class='table table-striped'>
+  <thead>
+    <th>Name</th>
+    <th></th>
+  </thead>
+  <tbody>
+  <%= f.fields_for :players do |players_form| %>
+      <% if players_form.object.name.blank? %>
+      <div class='form-group'>
+        <div class='col-sm-4'>
+          <%= players_form.hidden_field :id, id: 'players_id' %>
+          <%= players_form.text_field :name, class: 'form-control', id: 'players_name', placeholder: "Add Player" %>
+        </div>
+      </div>
+      <% else %>
+        
+        <tr>
+          <td><%= players_form.object.name %></td>
+          <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
+          <td>
+            <% if @team.captains.include? players_form.object %>Captain<% else %>
+            <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+  </table>
+  <%= f.submit 'Update Players', class: 'btn btn-default', title: "Add player to the #{@team.name.humanize} team" %>
+<% end %>
+
+    
+
