@@ -85,7 +85,15 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Player.find(params[:id])
+      begin
+        @player = Player.find(params[:id])
+      rescue => e
+        logger.error "#{__method__} #{e.class}: #{e.message}"
+        respond_to do |format|
+          format.html { redirect_to players_url, alert: 'Player not found.' }
+          format.json { head :no_content }
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
