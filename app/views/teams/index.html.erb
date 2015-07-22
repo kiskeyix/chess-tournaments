@@ -10,7 +10,7 @@
 
   <tbody>
     <% @teams.each do |team| %>
-      <tr>
+      <tr data-no-turbolink>
         <td><%= link_to team.name, team %></td>
         <td><%= link_to 'Edit', edit_team_path(team), class: 'btn btn-default' if team.captains.include? current_user.player or current_user.admin? %></td>
         <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if current_user.admin? %></td>
