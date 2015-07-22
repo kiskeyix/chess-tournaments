@@ -51,3 +51,12 @@
     <%= button_to 'Edit', edit_player_path(@player), class: "form-control btn btn-primary", method: :get %>
   </div>
 </div>
+<% if @player.teams.size > 0 %>
+<h2>Teams</h2>
+<ul>
+  <% @player.teams.each do |t| %>
+  <% icon = ''; icon = 'glyphicon glyphicon-star' if t.captains.include? @player %>
+  <li><%= link_to t.name, t, title: "#{t.name} Team" %> <span title='Captain' class="<%= icon %>"></span></li>
+<% end %>
+</ul>
+<% end %>
