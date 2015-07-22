@@ -13,7 +13,7 @@
           <td><%= link_to players_form.object.name, players_form.object %></td>
           <td><%= players_form.object.nationality %></td>
           <td><%= players_form.object.gender %></td>
-          <td><%= players_form.object.image %></td>
+          <td><%= image_tag players_form.object.image unless players_form.object.image.blank? %></td>
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
