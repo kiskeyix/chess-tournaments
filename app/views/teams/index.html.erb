@@ -12,15 +12,16 @@
     <% @teams.each do |team| %>
       <tr>
         <td><%= link_to team.name, team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) if team.captains.include? current_user.player or current_user.admin? %></td>
-        <td><%#= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_team_path(team), class: 'btn btn-default' if team.captains.include? current_user.player or current_user.admin? %></td>
+        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= button_to 'New Team', new_team_path, class: 'btn btn-primary', method: :get %>
-
+<div class='row'>
+  <div class='col-sm-2'>
+    <%= button_to 'New Team', new_team_path, class: 'form-control btn btn-primary', method: :get %>
+  </div>
+</div>
 <%= will_paginate @teams, renderer: BootstrapPagination::Rails %>

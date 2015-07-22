@@ -15,13 +15,16 @@
   <tbody>
     <% @players.each do |player| %>
       <tr>
-        <td><%= player.user_id %></td>
+        <td>
+          <% icon=''; icon='glyphicon glyphicon-check' unless player.user_id.blank? %>
+          <span class='<%= icon %>' title='Player has associated user'></span>
+        </td>
         <td><%= player.name %></td>
         <td><%= player.nationality %></td>
         <td><%= player.gender %></td>
-        <td><%= player.image %></td>
-        <td><%= link_to 'Show', player, class: 'btn btn-default' %></td>
-        <td><%= link_to 'Edit', edit_player_path(player), class: 'btn btn-default' if player == current_user.player or current_user.admin? %></td>
+        <td><%= image_tag player.image unless player.image.blank? %></td>
+        <td><%= link_to 'Show', player, class: 'form-control btn btn-default' %></td>
+        <td><%= link_to 'Edit', edit_player_path(player), class: 'form-control btn btn-default' if player == current_user.player or current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,7 +33,11 @@
 <br>
 
 <% if current_user.admin? %>
-<%= button_to 'New Player', new_player_path, class: 'btn btn-primary', method: :get %>
+<div class='row'>
+  <div class='col-sm-2'>
+    <%= button_to 'New Player', new_player_path, class: 'form-control btn btn-primary', method: :get %>
+  </div>
+</div>
 <% end %>
 
 <%= will_paginate @players, renderer: BootstrapPagination::Rails %>

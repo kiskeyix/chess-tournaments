@@ -1,48 +1,53 @@
-<%- unless @player.user.nil? %>
+<%- if not @player.user.blank? and current_user.admin? %>
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>User:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= @player.user.username %>
-  </p>
+  </div>
 </div>
 <% end %>
 
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Name:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= @player.name %>
-  </p>
+  </div>
 </div>
 
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Nationality:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= @player.nationality %>
-  </p>
+  </div>
 </div>
 
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Gender:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= @player.gender %>
-  </p>
+  </div>
 </div>
 
 <div class='row'>
-  <p class='col-sm-2'>&nbsp;</p>
-  <p class='col-sm-10'>
+  <div class='col-sm-2'>&nbsp;</div>
+  <div class='col-sm-10'>
     <%= image_tag @player.image unless @player.image.blank? %>
-  </p>
+  </div>
 </div>
 
-<div>
-  <%= button_to 'Edit', edit_player_path(@player), class: "btn btn-primary", method: :get %>
+<div class='row'>
+  <div class='col-sm-2'>
+    <%= button_to 'List', players_path, title: 'List all players', class: "form-control btn btn-default", method: :get %>
+  </div>
+  <div class='col-sm-2'>
+    <%= button_to 'Edit', edit_player_path(@player), class: "form-control btn btn-primary", method: :get %>
+  </div>
 </div>

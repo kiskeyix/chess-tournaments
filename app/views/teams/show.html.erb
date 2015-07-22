@@ -26,7 +26,9 @@
   </div>
 </div>
 <div class='text-left'>
-  <%= button_to 'Edit', edit_team_path(@team), title: 'Change team properties or remove players', class: 'btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
+  <%= button_to 'Edit', edit_team_path(@team),
+    title: 'Change team properties or remove players',
+    class: 'form-control btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
 </div>
 <% @team.players.build(name: '') %>
 <%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>

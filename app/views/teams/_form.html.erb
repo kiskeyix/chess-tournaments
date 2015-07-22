@@ -32,6 +32,7 @@
   <%= render 'players_form', f: f %>
 
   <div class='text-center'>
+    <%= link_to 'Show', @team, class: "btn btn-default" %>
     <%= f.submit 'Save', class: "btn btn-primary" %>
   </div>
   <div class='text-center'>
