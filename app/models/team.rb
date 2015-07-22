@@ -8,5 +8,5 @@ class Team < ActiveRecord::Base
   has_many :team_captains
   has_many :captains, through: :team_captains, source: :player
 
-  accepts_nested_attributes_for :players #, reject_if: :new_record?
+  accepts_nested_attributes_for :players, reject_if: :new_record?, allow_destroy: true
 end

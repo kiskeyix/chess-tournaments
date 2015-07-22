@@ -1,32 +1,32 @@
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Name:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= @team.name %>
-  </p>
+  </div>
 </div>
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Logo:</strong>
-  </p>
-  <p class='col-sm-10'>
+  </div>
+  <div class='col-sm-10'>
     <%= image_tag @team.image, alt: "#{@team.name} logo" unless @team.image.blank? %>
-  </p>
+  </div>
 </div>
 <div class='row'>
-  <p class='col-sm-2'>
+  <div class='col-sm-2'>
     <strong>Captains:</strong>
-  </p>
+  </div>
 
-  <p class='col-sm-10'>
+  <div class='col-sm-10'>
     <% @team.captains.each do |tc| %>
       <p><%= tc.name %></p>
     <% end %>
-  </p>
+  </div>
 </div>
-<div class='text-center'>
-  <%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-primary', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
+<div class='text-left'>
+  <%= button_to 'Edit', edit_team_path(@team), class: 'btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
 </div>
 <% @team.players.build(name: '') %>
 <%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>
@@ -40,38 +40,18 @@
       </ul>
     </div>
   <% end %>
-<h2>Players</h2>
-<table class='table table-striped'>
-  <thead>
-    <th>Name</th>
-    <th></th>
-  </thead>
-  <tbody>
-  <%= f.fields_for :players do |players_form| %>
-      <% if players_form.object.name.blank? %>
-      <div class='form-group'>
-        <div class='col-sm-4'>
-          <%= players_form.hidden_field :id, id: 'players_id' %>
-          <%= players_form.text_field :name, class: 'form-control', id: 'players_name', placeholder: "Add Player" %>
-        </div>
-      </div>
-      <% else %>
-        
-        <tr>
-          <td><%= players_form.object.name %></td>
-          <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
-          <td>
-            <% if @team.captains.include? players_form.object %>Captain<% else %>
-            <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
-            <% end %>
-          </td>
-        </tr>
-    <% end %>
+  <h2>Players</h2>
+  <% @team.players.collect(&:id).each do |tid| %>
+    <%= hidden_field_tag 'team[player_ids][]', tid unless tid.blank? %>
   <% end %>
-  </tbody>
-  </table>
-  <%= f.submit 'Update Players', class: 'btn btn-default', title: "Add player to the #{@team.name.humanize} team" %>
+  <%= hidden_field_tag 'team[player_ids][]', '', id: 'players_id' %>
+  <div class='row'>
+    <div class='col-sm-10'>
+      <%= text_field_tag :players_name, '', class: 'form-control', placeholder: "Add Existing Player" %>
+    </div>
+    <div class='col-sm-2'>
+      <%= f.submit 'Add Player', class: 'btn btn-primary', title: "Add player to the #{@team.name.humanize} team" %>
+    </div>
+  </div>
+  <%= render 'players_form', f: f %>
 <% end %>
-
-    
-

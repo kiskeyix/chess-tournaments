@@ -57,13 +57,21 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
-    # TODO check if team member is captain
+    msg = {}
+    current_captain = @team.captains.include? current_user.player
     respond_to do |format|
-      if @team.update(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+      # Note we do not allow creating records for players, this is only to display a message
+      # to educate the user(s)
+      if current_captain and @team.update(team_params)
+        msg = "Note that players cannot be added if they do not exist!"
+        format.html { redirect_to @team, notice: "Team was successfully updated. #{msg}" }
         format.json { render :show, status: :ok, location: @team }
       else
-        format.html { render :edit }
+        if team_params[:player_ids]
+          format.html { render :show }
+        else
+          format.html { render :edit }
+        end
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
     end
@@ -101,7 +109,7 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :image, :division_id,
+      params.require(:team).permit(:name, :image, :division_id, player_ids: [],
                                    players_attributes: [:id, :name, :_destroy])
     end
 end

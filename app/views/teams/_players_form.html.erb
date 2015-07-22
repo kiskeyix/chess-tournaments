@@ -1,0 +1,25 @@
+<table class='table table-striped'>
+  <thead>
+    <th>Name</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+  <%= f.fields_for :players do |players_form| %>
+      <% unless players_form.object.name.blank? %>
+        <tr>
+          <td><%= players_form.object.name %></td>
+          <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
+          <td>
+            <% if @team.captains.include? players_form.object %>
+              Captain
+            <% else %>
+              <% if params[:action] != "show" %>
+              <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+  </table>
