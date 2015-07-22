@@ -12,7 +12,7 @@
         <div class="thumbnail"> 
           <%= image_tag t.image, alt: t.name unless t.image.blank? %>
           <div class="caption">
-            <h3><%= t.name %> Team</h3>
+            <h3><%= link_to "#{t.name} Team", t %></h3>
             <% t.players.each do |p| %> 
               <% if t.captains.include? p %>
                 <div class="text-right">
@@ -20,6 +20,7 @@
                 </div>
               <% end %>
             <% end %>
+            <p class='text-right'>...</p>
             <% if t.captains.include? current_user.player %>
               <hr />
               <div class="text-right">
