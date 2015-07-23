@@ -18,6 +18,9 @@
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
             <% if @team.captains.include? players_form.object %>
+              <%= button_to :remove_from_captains,
+                { action: :remove_captain },
+                class: 'form-control btn btn-default' %>
               <span class='glyphicon glyphicon-star' title='Captain'></span>
             <% else %>
               <% if params[:action] != "show" %>

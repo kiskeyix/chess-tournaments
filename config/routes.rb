@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :tournaments
 
-  resources :teams
+  resources :teams do
+    post 'remove_captain' => 'remove_captain'
+  end
 
   resources :players
 
