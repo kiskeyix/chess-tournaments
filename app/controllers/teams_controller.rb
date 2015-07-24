@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: [:show, :edit, :update, :destroy, :remove_captain]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :remove_captain, :make_captain]
 
   # GET /teams
   # GET /teams.json
@@ -133,6 +133,39 @@ class TeamsController < ApplicationController
     end
     msg[:alert] = 'You cannot remove self!' if current_user.player == captain
     msg[:alert] = 'You cannot remove captains!' unless current_captain
+    respond_to do |format|
+      format.html { redirect_to @team, msg }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /teams/1/make_captain?captain_id=1
+  # GET /teams/1/make_captain.json?captain_id=1
+  # TODO these are use GET instead of POST|PATCH because I couldn't make it work
+  def make_captain
+    msg = {}
+    current_captain = false
+    captain = nil
+    if params[:captain_id]
+      captain = Player.find params[:captain_id]
+      logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) adding captain #{params[:captain_id]} to team #{@team.id}"
+      current_captain = @team.captains.include? current_user.player
+      # you can add captains if:
+      # 1. you're a captain
+      # 2. validations work
+      if current_captain
+        @team.captains << captain
+        respond_to do |format|
+          format.html { redirect_to @team, notice: "#{captain.name.humanize} is now captain of #{@team.name.humanize} Team." }
+          format.json { render :show, status: :ok, location: @team }
+        end
+        logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) added captain #{params[:captain_id]} to team #{@team.id}"
+        return
+      end
+    else
+      msg = { notice: 'Missing parameter captain_id' }
+    end
+    msg[:alert] = 'You cannot add captains!' unless current_captain
     respond_to do |format|
       format.html { redirect_to @team, msg }
       format.json { head :no_content }
