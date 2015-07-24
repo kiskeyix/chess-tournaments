@@ -8,20 +8,37 @@
   </thead>
   <tbody>
   <%= f.fields_for :players do |players_form| %>
-      <% unless players_form.object.name.blank? %>
+    <% unless players_form.object.name.blank? %>
+        <% current_captain = @team.captains.include? current_user.player %>
+        <% player_is_captain = @team.captains.include? players_form.object %>
         <tr>
-          <td><%= link_to players_form.object.name, players_form.object %></td>
+          <td><%= link_to players_form.object.name, players_form.object %>
+            <% if player_is_captain %>
+              <span class='glyphicon glyphicon-star' title='Captain'></span>
+            <% end %>
+          </td>
           <td><%= players_form.object.nationality %></td>
           <td><%= players_form.object.gender %></td>
           <td><%= image_tag players_form.object.image unless players_form.object.image.blank? %></td>
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
-            <% if @team.captains.include? players_form.object %>
-              <%= button_to :remove_from_captains,
-                { action: :remove_captain },
-                class: 'form-control btn btn-default' %>
-              <span class='glyphicon glyphicon-star' title='Captain'></span>
+            <% if current_captain %>
+              <% unless players_form.object == current_user.player %>
+                <% if player_is_captain %>
+                  <%= link_to ' Remove Captain', { controller: 'teams',
+                    captain_id: players_form.object.id,
+                    action: :remove_captain },
+                    class: 'btn btn-default glyphicon glyphicon-remove'
+                  %>
+                <% else %>
+                  <%= link_to_unless player_is_captain, ' Make Captain', { controller: 'teams',
+                    captain_id: players_form.object.id,
+                    action: :make_captain },
+                    class: 'btn btn-default glyphicon glyphicon-plus'
+                  %>
+                <% end %>
+              <% end %>
             <% else %>
               <% if params[:action] != "show" %>
               <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
