@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :tournaments
 
   resources :teams do
-    post 'remove_captain' => 'remove_captain'
+    member do
+      delete 'remove_captain' => :remove_captain
+      post 'make_captain' => :make_captain
+    end
   end
 
   resources :players

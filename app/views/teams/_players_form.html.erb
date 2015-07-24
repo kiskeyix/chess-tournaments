@@ -30,14 +30,16 @@
                     captain_id: players_form.object.id,
                     action: :remove_captain },
                     class: 'btn btn-default glyphicon glyphicon-remove',
-                    data: { confirm: "Are you sure you want to remove #{players_form.object.name} from captains?" }
+                    data: { confirm: "Are you sure you want to remove #{players_form.object.name} from captains?" },
+                    method: :delete
                   %>
                 <% else %>
                   <%= link_to_unless player_is_captain, ' Make Captain', { controller: 'teams',
                     captain_id: players_form.object.id,
                     action: :make_captain },
                     class: 'btn btn-default glyphicon glyphicon-plus',
-                    data: { confirm: "Are you sure you want to make #{players_form.object.name} captain?" }
+                    data: { confirm: "Are you sure you want to make #{players_form.object.name} captain?" },
+                    method: :post
                   %>
                 <% end %>
               <% end %>

@@ -101,9 +101,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/1/remove_captain?captain_id=1
-  # GET /teams/1/remove_captain.json?captain_id=1
-  # TODO these are use GET instead of DELETE because I couldn't make it work
+  # DELETE /teams/1/remove_captain?captain_id=1
+  # DELETE /teams/1/remove_captain.json?captain_id=1
   def remove_captain
     msg = {}
     current_captain = false
@@ -139,9 +138,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/1/make_captain?captain_id=1
-  # GET /teams/1/make_captain.json?captain_id=1
-  # TODO these are use GET instead of POST|PATCH because I couldn't make it work
+  # POST /teams/1/make_captain?captain_id=1
+  # POST /teams/1/make_captain.json?captain_id=1
   def make_captain
     msg = {}
     current_captain = false
