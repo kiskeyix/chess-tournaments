@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :remove_captain]
 
   # GET /teams
   # GET /teams.json
@@ -96,7 +96,45 @@ class TeamsController < ApplicationController
       msg[:alert] << "Must remove all players first." unless @team.players < 1
     end
     respond_to do |format|
-      format.html { redirect_to teams_url, alert: 'Teams cannot be removed.' }
+      format.html { redirect_to teams_url, msg }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /teams/1/remove_captain?captain_id=1
+  # GET /teams/1/remove_captain.json?captain_id=1
+  # TODO these are use GET instead of DELETE because I couldn't make it work
+  def remove_captain
+    msg = {}
+    current_captain = false
+    captain = nil
+    if params[:captain_id]
+      captain = Player.find params[:captain_id]
+      logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) removing captain #{params[:captain_id]} from team #{@team.id}"
+      current_captain = @team.captains.include? current_user.player
+      # you can remove captains if:
+      # 1. you're a captain
+      # 2. you're not removing self
+      # 3. number of captains is more than 1
+      # 4. validations work
+      if @team.captains.size > 1 and
+        current_captain and
+        current_user.player != captain and
+        @team.captains.delete captain
+        respond_to do |format|
+          format.html { redirect_to @team, notice: "#{captain.name.humanize} is no longer captain of #{@team.name.humanize} Team." }
+          format.json { render :show, status: :ok, location: @team }
+        end
+        logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) removed captain #{params[:captain_id]} from team #{@team.id}"
+        return
+      end
+    else
+      msg = { notice: 'Missing parameter captain_id' }
+    end
+    msg[:alert] = 'You cannot remove self!' if current_user.player == captain
+    msg[:alert] = 'You cannot remove captains!' unless current_captain
+    respond_to do |format|
+      format.html { redirect_to @team, msg }
       format.json { head :no_content }
     end
   end
