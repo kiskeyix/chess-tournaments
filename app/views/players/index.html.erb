@@ -16,8 +16,20 @@
     <% @players.each do |player| %>
       <tr>
         <td>
-          <% icon=''; icon='glyphicon glyphicon-check' unless player.user_id.blank? %>
-          <span class='<%= icon %>' title='Player has associated user'></span>
+          <% if player.user_id.blank? and current_user.admin? %>
+            <%# html: { class: "form form-inline" } %>
+            <div>
+            <%= form_for :user, url: { controller: :users, action: :link_player } do |f| %>
+              <%= f.hidden_field 'player_id', value: player.id %>
+              <%= f.select :id, User.without_player,
+                include_blank: false, class: 'form-control'%>
+              <%= f.submit 'Link Player', class: 'form-control' %>
+            <% end %>
+            </div>
+          <% else %>
+            <% icon=''; icon='glyphicon glyphicon-check' unless player.user_id.blank? %>
+            <span class='<%= icon %>' title='Player has associated user'></span>
+          <% end %>
         </td>
         <td><%= player.name %></td>
         <td><%= player.nationality %></td>

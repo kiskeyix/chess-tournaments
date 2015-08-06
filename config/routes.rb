@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   #post '/users/delete_identity/:id' => 'users#delete_identity'
   post '/users/delete_identity' => 'users#delete_identity'
 
+  match '/users/:id/finish_signup' => 'users#finish_signup',
+    via: [:get, :patch], :as => :finish_signup
+
+  match '/users/link_player' => 'users#link_player',
+    via: [:post], :as => :link_player
+
   get 'dashboard' => 'dashboard#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -48,9 +54,5 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'dashboard#index'
-
-  match '/users/:id/finish_signup' => 'users#finish_signup',
-    via: [:get, :patch], :as => :finish_signup
-
   resources :messages
 end

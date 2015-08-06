@@ -80,6 +80,22 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/link_player
+  def link_player
+    @user = User.find(user_params[:id])
+    @player = Player.find(user_params[:player_id])
+    @user.player = @player
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to :back, notice: "User linked with player" }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, alert: 'Could not disconnect provider' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
   def set_user
     @user = User.find(params[:id])
@@ -88,6 +104,7 @@ class UsersController < ApplicationController
   def user_params
     accessible = [ :username, :name, :email ] # extend with your own params
     accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+    accessible << [ :player_id, :id ] if current_user.admin?
     params.require(:user).permit(accessible)
   end
 end

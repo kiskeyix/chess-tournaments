@@ -103,4 +103,14 @@ class User < ActiveRecord::Base
     where('firstname LIKE ? or lastname LIKE ? or middlename LIKE ? or surname LIKE ?',
           "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%")
   end
+
+  # This is a helper for linking players without users to users. Only visible to administrators
+  # returns arrays of name and user id
+  def self.without_player
+    [''] + all.collect do |u|
+      next unless u.player.blank?
+      name = u.full_name.blank? ? u.email : u.full_name
+      [name, u.id]
+    end.compact
+  end
 end
