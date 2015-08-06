@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   def self.without_player
     all.collect do |u|
       next unless u.player.blank?
-      name = u.full_name.blank? ? u.email : u.full_name
+      name = u.full_name.blank? ? "#{u.username} <#{u.email}>" : u.full_name
       [name, u.id]
     end.compact
   end
