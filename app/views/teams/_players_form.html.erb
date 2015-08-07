@@ -23,7 +23,7 @@
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
-            <% if current_captain %>
+            <% if current_captain or current_user.admin? %>
               <% unless players_form.object == current_user.player %>
                 <% if player_is_captain %>
                   <%= link_to ' Remove Captain', { controller: 'teams',
