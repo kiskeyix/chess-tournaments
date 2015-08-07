@@ -20,7 +20,7 @@
                 </div>
               <% end %>
             <% end %>
-            <p class='text-right' title='Click title to see more players'>...</p>
+            <p class='text-right' title='<%= "#{t.players.size} player".pluralize(t.players.size) %>'><%= link_to "...", t %></p>
             <% if t.captains.include? current_user.player %>
               <hr />
               <div class="text-right">
