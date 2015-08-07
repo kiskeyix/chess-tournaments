@@ -23,30 +23,37 @@
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
+            <div class='row'>
             <% if current_captain or current_user.admin? %>
               <% unless players_form.object == current_user.player %>
-                <% if player_is_captain %>
-                  <%= link_to ' Remove Captain', { controller: 'teams',
+                <% if current_captain %>
+                  <div class='col-sm-4'>
+                  <%= link_to_if player_is_captain, '', { controller: 'teams',
                     captain_id: players_form.object.id,
                     action: :remove_captain },
                     class: 'btn btn-default glyphicon glyphicon-remove',
                     data: { confirm: "Are you sure you want to remove #{players_form.object.name} from captains?" },
-                    method: :delete
+                    method: :delete,
+                    title: "Remove captain"
                   %>
-                <% else %>
-                  <%= link_to_unless player_is_captain, ' Make Captain', { controller: 'teams',
+                  <%= link_to_unless player_is_captain, '', { controller: 'teams',
                     captain_id: players_form.object.id,
                     action: :make_captain },
                     class: 'btn btn-default glyphicon glyphicon-plus',
                     data: { confirm: "Are you sure you want to make #{players_form.object.name} captain?" },
-                    method: :post
+                    method: :post,
+                    title: "Make captain"
                   %>
+                  </div>
                 <% end %>
               <% end %>
               <% if params[:action] != "show" %>
-              <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
+                <div class='col-sm-4'>
+              <%= players_form.check_box :_destroy, class: 'form-control', title: "Remove Player" %> 
+                </div>
               <% end %>
             <% end %>
+            </div>
           </td>
         </tr>
     <% end %>
