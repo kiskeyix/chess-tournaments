@@ -43,7 +43,6 @@
                   %>
                 <% end %>
               <% end %>
-            <% else %>
               <% if params[:action] != "show" %>
               <%= players_form.check_box :_destroy, class: 'form-control col-sm-1', title: "Remove Player" %> 
               <% end %>
