@@ -24,6 +24,8 @@
                   <%= f.hidden_field 'player_id', value: player.id %>
                   <%= f.select :id, User.without_player,
                     include_blank: true, class: 'form-control'%>
+                  <%# are you sure? %>
+                  <%#data: { confirm: "Are you sure you want to remove #{players_form.object.name} from captains?" }, %>
                   <%= f.submit 'Link Player', class: 'form-control' %>
                 <% end %>
               <% end %>
