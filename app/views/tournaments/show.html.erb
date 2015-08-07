@@ -24,10 +24,17 @@
 </div>
 <br />
 <div class='row'>
-  <div class='col-sm-2'>
-    <%= button_to 'List', tournaments_path, method: :get, class: 'form-control btn btn-default', title: 'List all tournaments' %>
+  <div class='col-sm-3'>
+    <%= button_to 'Tournaments', tournaments_path, method: :get, class: 'form-control btn btn-default', title: 'List all tournaments' %>
   </div>
   <div class='col-sm-2'>
     <%= button_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'form-control btn btn-primary' %>
   </div>
 </div>
+
+<% @tournament.divisions.each do |division| %>
+  <h2><%= division.name %></h2>
+  <%# division.teams.each do |team| %>
+    <p><%#= team.name %></p>
+  <%# end %>
+<% end %>
