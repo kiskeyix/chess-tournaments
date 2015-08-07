@@ -25,6 +25,11 @@
           <td>
             <div class='row'>
             <% if current_captain or current_user.admin? %>
+              <% if params[:action] != "show" %>
+                <div class='col-sm-4'>
+                  <%= players_form.check_box :_destroy, class: 'form-control', title: "Remove Player" %>
+                </div>
+              <% end %>
               <% unless players_form.object == current_user.player %>
                 <% if current_captain %>
                   <div class='col-sm-4'>
@@ -46,11 +51,6 @@
                   %>
                   </div>
                 <% end %>
-              <% end %>
-              <% if params[:action] != "show" %>
-                <div class='col-sm-4'>
-              <%= players_form.check_box :_destroy, class: 'form-control', title: "Remove Player" %> 
-                </div>
               <% end %>
             <% end %>
             </div>
