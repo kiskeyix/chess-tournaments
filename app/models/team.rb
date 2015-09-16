@@ -3,7 +3,8 @@ class Team < ActiveRecord::Base
   validates_uniqueness_of :name
 
   has_and_belongs_to_many :players
-  belongs_to :division
+  # you cannot join a tournament, you always are in a division of a tournament
+  has_and_belongs_to_many :divisions
 
   has_many :team_captains
   has_many :captains, through: :team_captains, source: :player
