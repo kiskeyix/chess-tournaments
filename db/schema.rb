@@ -99,10 +99,8 @@ ActiveRecord::Schema.define(version: 20150914123608) do
     t.string   "name"
     t.text     "description"
     t.string   "image"
-    t.integer  "division_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "division_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
