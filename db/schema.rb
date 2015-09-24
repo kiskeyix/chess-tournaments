@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(version: 20150914123608) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "divisions_players", force: :cascade do |t|
-    t.integer  "player_id"
-    t.integer  "division_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "divisions_teams", id: false, force: :cascade do |t|
     t.integer "division_id", null: false
     t.integer "team_id",     null: false

@@ -32,7 +32,8 @@
   <div class="form-group">
     <%= f.label :divisions, class: 'control-label col-sm-2' %>
     <div class='col-sm-10'>
-      <%= f.collection_check_boxes :divisions, Division.all, :id, :name, class: 'form-control' %>
+      <%= f.collection_check_boxes :division_ids, @tournament.divisions, :id,
+        :name %>
     </div>
   </div>
   <div class="text-center">

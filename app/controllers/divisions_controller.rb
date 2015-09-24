@@ -70,6 +70,6 @@ class DivisionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def division_params
-      params.require(:division).permit(:name, :image, :description, :tournament_id)
+      params.require(:division).permit(:name, :image, :description, :tournament_id, team_ids: [])
     end
 end

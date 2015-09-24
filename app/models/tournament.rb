@@ -1,4 +1,11 @@
 class Tournament < ActiveRecord::Base
   has_many :divisions
-  has_many :players, through: :divisions
+  # TODO maybe this can be made simpler with a scope or join?
+  def players
+    divisions.collect do |division|
+      division.teams.collect do |team|
+        team.players
+      end.flatten
+    end.flatten
+  end
 end

@@ -16,6 +16,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments/new
   def new
     @tournament = Tournament.new
+    #@tournament.divisions.build name: "A"
   end
 
   # GET /tournaments/1/edit
@@ -29,6 +30,16 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
+        if @tournament.divisions.size < 1
+          begin
+            logger.info "#{self.class}.#{__method__} Adding default division"
+            @tournament.divisions.create name: "A"
+            @tournament.save
+            logger.info "#{self.class}.#{__method__} done Adding default division"
+          rescue => e
+            logger.error "#{self.class}.#{__method__} #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+          end
+        end
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
         format.json { render :show, status: :created, location: @tournament }
       else

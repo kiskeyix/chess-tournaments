@@ -25,8 +25,7 @@
   <div class="form-group">
     <%= f.label :tournament, class: 'col-sm-2 control-label' %>
     <div class='col-sm-10'>
-      <%= f.select :division_id, tournament_divisions,
-        class: 'form-control', include_blank: true %>
+      <%= f.collection_check_boxes :division_ids, Division.all, :id, :name %>
     </div>
   </div>
   
