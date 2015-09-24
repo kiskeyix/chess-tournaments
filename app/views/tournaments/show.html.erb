@@ -22,9 +22,9 @@
     <%= button_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'form-control btn btn-primary' %>
   </div>
 </div>
-
+<h1>Divisions</h1>
 <% @tournament.divisions.each do |division| %>
-  <h2><%= division.name %></h2>
+  <h2><%= link_to division.name, division %></h2>
   <%# division.teams.each do |team| %>
     <p><%#= team.name %></p>
   <%# end %>
