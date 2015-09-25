@@ -1,15 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-  name: MyString
-  nationality: MyString
-  gender: MyString
-  image: MyString
+  user: user_one
+  name: Dominican User
+  nationality: DO
+  gender: F
+  image: "image1.png"
 
 two:
-  user_id: 1
-  name: MyString
-  nationality: MyString
-  gender: MyString
-  image: MyString
+  user: user_two
+  name: German User
+  nationality: DE
+  gender: ""
+  image: "http://example.com/image2.png"
+
+three:
+  user: user_three
+  name: Player Name Admin
+  nationality: US
+  gender: M
+  image: "http://example.com/image3.png"

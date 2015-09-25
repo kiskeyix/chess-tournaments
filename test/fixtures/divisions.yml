@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  tournament: one
   name: MyString
   image: MyString
   description: MyText
 
 two:
+  tournament: two
   name: MyString
   image: MyString
   description: MyText
