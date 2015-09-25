@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  resources :divisions
-
-  resources :tournaments
+  resources :tournaments do
+    resources :divisions
+  end
 
   resources :teams do
     member do
       delete 'remove_captain' => :remove_captain
       post 'make_captain' => :make_captain
     end
+    resources :players
   end
-
   resources :players
 
   get 'search' => 'search#index'
