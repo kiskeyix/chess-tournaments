@@ -29,7 +29,7 @@
     </div>
   </div>
   
-  <%= render 'players_form', f: f %>
+  <%= render 'players_form', f: f unless params[:action] == "new" %>
 
   <div class='text-center'>
     <%= link_to 'Show', @team, class: "btn btn-default" %>
