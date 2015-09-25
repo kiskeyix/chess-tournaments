@@ -16,3 +16,9 @@ user_two:
   email: 'test2@example.com'
   active: false
   surname: "sur-name2"
+
+user_three:
+  username: 'admin1'
+  email: 'test3@example.com'
+  active: true
+  admin: true
