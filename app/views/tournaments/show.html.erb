@@ -24,7 +24,7 @@
 </div>
 <h1>Divisions</h1>
 <% @tournament.divisions.each do |division| %>
-  <h2><%= link_to division.name, division %></h2>
+  <h2><%= link_to division.name, division, title: division.description %></h2>
   <%# division.teams.each do |team| %>
     <p><%#= team.name %></p>
   <%# end %>
