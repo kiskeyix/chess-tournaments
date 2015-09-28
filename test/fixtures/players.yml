@@ -2,14 +2,14 @@
 
 one:
   user: user_one
-  name: Dominican User
+  name: Dominican Player
   nationality: DO
   gender: F
   image: "image1.png"
 
 two:
   user: user_two
-  name: German User
+  name: German Player
   nationality: DE
   gender: ""
   image: "http://example.com/image2.png"

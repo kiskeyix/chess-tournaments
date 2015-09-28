@@ -7,3 +7,7 @@ one:
 two:
   team_id: 1
   player_id: 1
+
+three:
+  team: one
+  player: three

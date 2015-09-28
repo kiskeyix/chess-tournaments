@@ -2,12 +2,12 @@
 
 one:
   tournament: one
-  name: MyString
+  name: A_div_tourney_one
   image: MyString
   description: MyText
 
 two:
   tournament: two
-  name: MyString
+  name: B_div_tourney_two
   image: MyString
   description: MyText

@@ -10,15 +10,22 @@ user_one:
   active: true
   surname: "sur-name1"
   #password: 'this_is_a_test'
+  #confirmation_token:
+  confirmed_at: "2011-01-02 08:31:23"
 
 user_two:
   username: 'test2'
   email: 'test2@example.com'
   active: false
   surname: "sur-name2"
+  #confirmation_token:
+  confirmed_at: "2012-01-02 08:31:23"
 
+# captain of team 'one'
 user_three:
   username: 'admin1'
   email: 'test3@example.com'
   active: true
   admin: true
+  #confirmation_token:
+  confirmed_at: "2013-01-02 08:31:23"
