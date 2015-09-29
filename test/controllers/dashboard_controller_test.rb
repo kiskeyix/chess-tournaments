@@ -27,8 +27,6 @@ class DashboardControllerTest < ActionController::TestCase
   it "should get index after sign in" do
     sign_in users(:user_one)
     get :index
-    assert_response :redirect
-    get :index
     assert_response :success
   end
 end
