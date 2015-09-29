@@ -2,7 +2,8 @@ require 'test_helper'
 
 class DivisionsControllerTest < ActionController::TestCase
   setup do
-    @division = divisions(:one)
+    @tournament = tournaments(:one)
+    @division = @tournament.divisions.first
 
     sign_in users(:user_three)
     @team = teams(:one)
@@ -11,19 +12,20 @@ class DivisionsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index, tournament_id: @tournament.id
     assert_response :success
     assert_not_nil assigns(:divisions)
   end
 
   test "should get new" do
-    get :new
+    get :new, tournament_id: @tournament.id
     assert_response :success
   end
 
   test "should create division" do
     assert_difference('Division.count') do
-      post :create, division: { description: @division.description, image: @division.image, name: @division.name }
+      post :create, tournament_id: @tournament.id, division: { description: @division.description,
+                                image: @division.image, name: @division.name }
     end
 
     assert_redirected_to division_path(assigns(:division))
@@ -49,6 +51,6 @@ class DivisionsControllerTest < ActionController::TestCase
       delete :destroy, id: @division
     end
 
-    assert_redirected_to divisions_path
+    assert_redirected_to tournament_url(@tournament)
   end
 end

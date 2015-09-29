@@ -2,10 +2,12 @@ class DivisionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_division, only: [:show, :edit, :update, :destroy]
 
-  # GET /divisions
-  # GET /divisions.json
+  # GET /tournament/:tournament_id/divisions
+  # GET /tournament/:tournament_id/divisions.json
   def index
-    @divisions = Division.paginate(page: params[:page], per_page: 15)
+    # TODO requires @tournament in order to make sense
+    @tournament = Tournament.find params[:tournament_id]
+    @divisions = @tournament.divisions #.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /divisions/1
@@ -13,9 +15,10 @@ class DivisionsController < ApplicationController
   def show
   end
 
-  # GET /divisions/new
+  # GET /tournament/:tournament_id/divisions/new
   def new
-    @division = Division.new
+    @tournament = Tournament.find params[:tournament_id]
+    @division = @tournament.divisions.new
   end
 
   # GET /divisions/1/edit
@@ -55,9 +58,10 @@ class DivisionsController < ApplicationController
   # DELETE /divisions/1
   # DELETE /divisions/1.json
   def destroy
+    @tournament = @division.tournament
     @division.destroy
     respond_to do |format|
-      format.html { redirect_to divisions_url, notice: 'Division was successfully destroyed.' }
+      format.html { redirect_to tournament_url(@tournament), notice: 'Division was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

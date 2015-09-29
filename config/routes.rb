@@ -1,16 +1,22 @@
 Rails.application.routes.draw do
-  resources :tournaments do
-    resources :divisions
+  # "shallow: true" allows for index, new, create to be deep nested,
+  # :show, :edit, :update, :destroy to be shallow
+  shallow do
+    resources :tournaments do
+      resources :divisions
+    end
   end
 
-  resources :teams do
-    member do
-      delete 'remove_captain' => :remove_captain
-      post 'make_captain' => :make_captain
+  shallow do
+    resources :teams do
+      member do
+        delete 'remove_captain' => :remove_captain
+        post 'make_captain' => :make_captain
+      end
+      resources :players
     end
-    resources :players
   end
-  resources :players
+  resources :players # players can be done outside of teams
 
   get 'search' => 'search#index'
   devise_for :users, skip: :registrations,

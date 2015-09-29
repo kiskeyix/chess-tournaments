@@ -11,6 +11,8 @@ class TournamentsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    assert_routing({ path: 'tournaments', method: :get },
+                   { controller: 'tournaments', action: 'index' })
     get :index
     assert_response :success
     assert_not_nil assigns(:tournaments)
@@ -23,13 +25,17 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "should create tournament" do
     assert_difference('Tournament.count') do
-      post :create, tournament: { description: @tournament.description, image: @tournament.image, name: @tournament.name }
+      post :create, tournament: { description: @tournament.description,
+                                  image: @tournament.image, name: @tournament.name }
     end
 
     assert_redirected_to tournament_path(assigns(:tournament))
   end
 
   test "should show tournament" do
+    assert_routing({ path: 'tournaments/1', method: :get },
+                   { controller: 'tournaments', action: 'show', id: '1' })
+
     get :show, id: @tournament
     assert_response :success
   end
