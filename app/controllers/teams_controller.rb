@@ -83,7 +83,7 @@ class TeamsController < ApplicationController
     # TODO maybe we allow captains to remove teams if there is no results associated?
     msg = {}
     current_captain = @team.captains.include? current_user.player
-    if current_captain and @team.players <= 1
+    if current_captain and @team.players.size <= 1
       if @team.destroy
         msg[:notice] = "Successfully removed team!"
       else

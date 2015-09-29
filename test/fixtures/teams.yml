@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
+  #  id: 1
   name: team one
   description: first team
   image: image1
 
 two:
-  id: 2
+  #id: 2
   name: team two
   description: second team
   image: image2

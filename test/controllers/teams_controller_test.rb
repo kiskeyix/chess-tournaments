@@ -54,10 +54,11 @@ class TeamsControllerTest < ActionController::TestCase
   end
 
   it "should destroy team if there is no results and your user is captain" do
-    #sign_in users(:user_three)
-    #assert_difference('Team.count', -1) do
-    #  delete :destroy, id: @team
-    #end
-    #assert_redirected_to teams_path
+    sign_in users(:user_three)
+    @team.captains.include?(@user.player).must_equal true
+    assert_difference('Team.count', -1) do
+      delete :destroy, id: @team
+    end
+    assert_redirected_to teams_path
   end
 end
