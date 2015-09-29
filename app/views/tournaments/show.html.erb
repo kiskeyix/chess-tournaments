@@ -32,7 +32,7 @@
       <%= division.teams.collect(&:name).join(', ') %>
     </div>
     <div class='col-sm-2'>
-      <div><%= link_to 'Edit', edit_tournament_division_path(id: division.id, tournament_id: @tournament.id), class: 'form-control btn btn-default' if current_user.admin? %></div>
+      <div><%= link_to 'Edit', edit_division_path(division), class: 'form-control btn btn-default' if current_user.admin? %></div>
     </div>
   </div>
 <% end %>
