@@ -75,6 +75,7 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.json
   def destroy
+    # TODO only allow players to be removed when?
     #@player.destroy
     respond_to do |format|
       format.html { redirect_to players_url, alert: 'Players cannot be removed.' }
