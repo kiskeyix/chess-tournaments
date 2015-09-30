@@ -27,6 +27,16 @@ Setup
 3. edit the mailer domain in config/environments/production.rb
 4. if using Capistrano to deploy your app, your path will be /srv/web/apps/chess-tournaments/current/public
 
+Usage
+=====
+
+Creating Users
+--------------
+
+Creating Players
+----------------
+When creating players we default to images from Gravatar if the image link is not defined or left blank.
+
 Developing/Hacking
 ==================
 
