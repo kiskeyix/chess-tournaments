@@ -38,6 +38,14 @@ Creating a local admin account
 1. launch server: `rails s`
 2. choose "Create local account" from drop-down menu
 3. verify your email following the user from log/development.log. i.e.: `http://localhost:3000/users/confirmation?confirmation_token=SECRET_STRING`
+4. using the terminal, go into the Rails Console: `rails console`
+5. select the user you created and made it admin
+```
+u = User.last
+u.admin
+u.save
+```
+
 
 Contributing
 ============
