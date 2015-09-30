@@ -27,6 +27,18 @@ Setup
 3. edit the mailer domain in config/environments/production.rb
 4. if using Capistrano to deploy your app, your path will be /srv/web/apps/chess-tournaments/current/public
 
+Developing/Hacking
+==================
+
+These are a few considerations to keep in mind when working in `RAILS_ENV=development`.
+
+Creating a local admin account
+------------------------------
+
+1. launch server: `rails s`
+2. choose "Create local account" from drop-down menu
+3. verify your email following the user from log/development.log. i.e.: `http://localhost:3000/users/confirmation?confirmation_token=SECRET_STRING`
+
 Contributing
 ============
 
