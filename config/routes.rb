@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :players # players can be done outside of teams. Must come first
   shallow do
     resources :teams do
       member do
@@ -16,7 +17,6 @@ Rails.application.routes.draw do
       resources :players
     end
   end
-  resources :players # players can be done outside of teams
 
   get 'search' => 'search#index'
   devise_for :users, skip: :registrations,
