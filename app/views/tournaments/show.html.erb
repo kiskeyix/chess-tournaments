@@ -25,14 +25,11 @@
 <h1>Divisions</h1>
 <% @tournament.divisions.each do |division| %>
   <div class='row'>
-    <div class='col-sm-4'>
-      <h2><%#= link_to division.name, division, title: division.description  %></h2>
+    <div class='col-sm-2'>
+      <h3><%= link_to division.name, division, title: division.description  %></h3>
     </div>
     <div class='col-sm-4'>
       <%= division.teams.collect(&:name).join(', ') %>
-    </div>
-    <div class='col-sm-2'>
-      <div><%= link_to 'Edit', edit_division_path(division), class: 'form-control btn btn-default' if current_user.admin? %></div>
     </div>
   </div>
 <% end %>
