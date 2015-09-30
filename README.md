@@ -25,6 +25,7 @@ Setup
     SECRET_KEY_BASE
 ```
 3. edit the mailer domain in config/environments/production.rb
+4. if using Capistrano to deploy your app, your path will be /srv/web/apps/chess-tournaments/current/public
 
 Contributing
 ============
