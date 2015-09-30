@@ -83,8 +83,6 @@ class PlayersController < ApplicationController
       begin
         if params[:id] =~ /^\d+$/
           @player = Player.find(params[:id])
-        else
-          fake_new_player
         end
       rescue => e
         logger.error "#{__method__} #{e.class}: #{e.message}"
