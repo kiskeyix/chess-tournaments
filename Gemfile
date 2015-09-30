@@ -47,8 +47,9 @@ group :development, :test do
   gem 'spring'
 
   gem 'minitest-spec-rails'
-  gem 'pry'
 end
+
+gem 'pry'
 
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'devise', '~> 3.4' #github: 'plataformatec/devise', branch: 'lm-rails-4-2'
