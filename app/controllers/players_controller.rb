@@ -22,13 +22,7 @@ class PlayersController < ApplicationController
   # GET /players/new
   def new
     if current_user.player.nil? or current_user.admin?
-      @player = Player.new
-      unless current_user.admin?
-        @player.name = current_user.full_name
-        @player.image = current_user.image
-        @player.gender = current_user.gender
-        @player.user_id = current_user.id
-      end
+      fake_new_player
     else
       redirect_to root_path, alert: 'Player aleady associated with this account.'
     end
@@ -87,7 +81,11 @@ class PlayersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_player
       begin
-        @player = Player.find(params[:id])
+        if params[:id] =~ /^\d+$/
+          @player = Player.find(params[:id])
+        else
+          fake_new_player
+        end
       rescue => e
         logger.error "#{__method__} #{e.class}: #{e.message}"
         respond_to do |format|
@@ -100,5 +98,15 @@ class PlayersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
       params.require(:player).permit(:user_id, :name, :nationality, :gender, :image)
+    end
+
+    def fake_new_player
+      @player = Player.new
+      unless current_user.admin?
+        @player.name = current_user.full_name
+        @player.image = current_user.image
+        @player.gender = current_user.gender
+        @player.user_id = current_user.id
+      end
     end
 end
