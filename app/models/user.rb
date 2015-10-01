@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
           birthday: auth.extra.birthday || "",
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
+          time_zone: auth.time_zone || "Eastern Time (US & Canada)"
         )
         user.skip_confirmation!
         user.save!

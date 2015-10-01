@@ -62,3 +62,5 @@ gem 'omniauth-twitch'
 
 gem 'will_paginate', '~> 3.0.7'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
+
+gem "simple_calendar", "~> 2.0"
