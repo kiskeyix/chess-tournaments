@@ -5,4 +5,8 @@ class Division < ActiveRecord::Base
   def name_with_tournament
     "#{tournament.respond_to?(:name) ? tournament.name : "No Tournament Yet"} - #{name}"
   end
+  def self.open_tournaments
+    # TODO only display on-going tournaments
+    all
+  end
 end
