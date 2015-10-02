@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
     if current_user.player.nil? or current_user.admin?
       @player = Player.new(player_params)
 
-      @player.strip!
+      @player.name.strip!
 
       if @player.image.blank?
         @player.image = gravatar_image_url(current_user.email,format='pgn')
