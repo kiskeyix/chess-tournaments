@@ -2,6 +2,8 @@ class PlayersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_player, only: [:show, :edit, :update, :destroy]
 
+  include PlayersHelper
+
   # GET /players
   # GET /players.json
   def index
@@ -40,7 +42,7 @@ class PlayersController < ApplicationController
 
       @player.name.strip!
 
-      if @player.image.blank?
+      if not current_user.admin? and @player.image.blank?
         @player.image = gravatar_image_url(current_user.email,format='pgn')
       end
 
