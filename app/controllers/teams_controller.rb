@@ -87,8 +87,7 @@ class TeamsController < ApplicationController
       if @team.destroy
         msg[:notice] = "Successfully removed team!"
       else
-        # TODO admin email here
-        msg[:alert] = "Failed to remove team. Contact your administrator."
+        msg[:alert] = "Failed to remove team. Contact your administrator #{CHESS_ADMIN_EMAIL}."
       end
     else
       msg[:alert] = "Failed to remove team. "
