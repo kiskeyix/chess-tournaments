@@ -5,7 +5,7 @@ class RulesController < ApplicationController
   # GET /rules
   # GET /rules.json
   def index
-    @rules = Rule.all
+    @rules = Rule.paginate(page: params[:page], per_page: 15)
   end
 
   # GET /rules/1

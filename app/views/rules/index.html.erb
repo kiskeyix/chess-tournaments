@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Rules</h1>
 
-<table>
+<table class='table table-striped'>
   <thead>
     <tr>
       <th>Name</th>
@@ -28,4 +26,12 @@
 
 <br>
 
-<%= link_to 'New Rule', new_rule_path %>
+<% if current_user.admin? %>
+<div class='row'>
+  <div class='col-sm-2'>
+    <%= button_to 'New Rule', new_rule_path, class: 'form-control btn btn-primary', method: :get %>
+  </div>
+</div>
+<% end %>
+
+<%= will_paginate @rules, renderer: BootstrapPagination::Rails %>
