@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :rules
+
   # "shallow: true" allows for index, new, create to be deep nested,
   # :show, :edit, :update, :destroy to be shallow
   shallow do

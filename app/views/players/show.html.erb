@@ -37,6 +37,19 @@
 </div>
 
 <div class='row'>
+  <div class='col-sm-2'>
+    <strong>Ratings:</strong>
+  </div>
+  <div class='col-sm-10'>
+    <ul>
+      <% @player.last_ratings_per_league do |rating| %>
+        <li><strong><%= rating.league.name %>:</strong> <%= rating.value %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class='row'>
   <div class='col-sm-2'>&nbsp;</div>
   <div class='col-sm-10'>
     <%= image_tag @player.image, alt: "#{@player.name}'s image" unless @player.image.blank? %>
