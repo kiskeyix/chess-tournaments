@@ -19,7 +19,7 @@
           </td>
           <td><%= players_form.object.nationality %></td>
           <td><%= players_form.object.gender %></td>
-          <td><%= image_tag players_form.object.image unless players_form.object.image.blank? %></td>
+          <td><%= image_tag players_form.object.image, alt: "#{players_form.object.name}'s image" unless players_form.object.image.blank? %></td>
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
@@ -29,7 +29,7 @@
               <% end %>
           </td>
           <td>
-              <%# unless players_form.object == current_user.player %>
+              <% if current_user.admin? or players_form.object != current_user.player %>
                 <% if current_captain or current_user.admin? %>
                   <%= link_to_if player_is_captain, '', { controller: 'teams',
                     captain_id: players_form.object.id,
@@ -48,7 +48,7 @@
                     title: "Make captain"
                   %>
                 <% end %>
-              <%# end %>
+              <% end %>
             <% end %>
           </td>
         </tr>
