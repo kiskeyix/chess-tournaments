@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :leagues
+
   resources :rules
 
   # "shallow: true" allows for index, new, create to be deep nested,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005125129) do
+ActiveRecord::Schema.define(version: 20151005232127) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20151005125129) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "leagues", force: :cascade do |t|
+    t.string   "name"
+    t.string   "image"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "leagues_rules", id: false, force: :cascade do |t|
+    t.integer "league_id", null: false
+    t.integer "rule_id",   null: false
+  end
+
+  add_index "leagues_rules", ["league_id", "rule_id"], name: "index_leagues_rules_on_league_id_and_rule_id"
+  add_index "leagues_rules", ["rule_id", "league_id"], name: "index_leagues_rules_on_rule_id_and_league_id"
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
