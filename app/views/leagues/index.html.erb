@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Leagues</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -27,5 +25,8 @@
 </table>
 
 <br>
-
-<%= link_to 'New League', new_league_path %>
+<div class='row'>
+  <div class='col-sm-4'>
+    <%= button_to 'New League', new_league_path, class: "form-control btn btn-primary", method: :get %>
+  </div>
+</div>
