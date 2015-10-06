@@ -14,8 +14,8 @@ class Team < ActiveRecord::Base
   #  allow_destroy: true
   accepts_nested_attributes_for :divisions #, reject_if: :new_record?, allow_destroy: true
 
-  def players_must_not_be_captain(attributes)
-    logger.info attributes
-    new_record? or true #FIXME
-  end
+  #def players_must_not_be_captain(attributes)
+  #  logger.info attributes
+  #  new_record? or true #FIXME
+  #end
 end
