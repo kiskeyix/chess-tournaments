@@ -56,6 +56,11 @@ class PlayersControllerTest < ActionController::TestCase
 
     assert_redirected_to players_path
 
-    # TODO test with normal user here
+    sign_out users(:user_three)
+
+    assert_difference('Player.count', 0) do
+      delete :destroy, id: @player
+    end
+    assert_redirected_to new_user_session_path
   end
 end
