@@ -41,7 +41,12 @@
     <%= f.label :divisions, class: 'control-label col-sm-2' %>
     <div class='col-sm-10'>
       <%= f.collection_check_boxes :division_ids, @tournament.divisions, :id,
-        :name %>
+        :name do |b| %>
+        <%= b.label class:"control-label" do %>
+          <%= b.check_box + b.text %>
+        <% end %>
+        <br />
+      <% end %>
     </div>
   </div>
 
