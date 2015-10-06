@@ -15,8 +15,15 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/new
   def new
-    @tournament = Tournament.new
-    #@tournament.divisions.build name: "A"
+    if current_user.admin?
+      @tournament = Tournament.new
+    else
+      msg = { alert: "Only administrators can create or manipulate tournaments. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /tournaments/1/edit
@@ -26,25 +33,33 @@ class TournamentsController < ApplicationController
   # POST /tournaments
   # POST /tournaments.json
   def create
-    @tournament = Tournament.new(tournament_params)
+    if current_user.admin?
+      @tournament = Tournament.new(tournament_params)
 
-    respond_to do |format|
-      if @tournament.save
-        if @tournament.divisions.size < 1
-          begin
-            logger.info "#{self.class}.#{__method__} Adding default division"
-            @tournament.divisions.create name: "A"
-            @tournament.save
-            logger.info "#{self.class}.#{__method__} done Adding default division"
-          rescue => e
-            logger.error "#{self.class}.#{__method__} #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+      respond_to do |format|
+        if @tournament.save
+          if @tournament.divisions.size < 1
+            begin
+              logger.info "#{self.class}.#{__method__} Adding default division"
+              @tournament.divisions.create name: "A"
+              @tournament.save
+              logger.info "#{self.class}.#{__method__} done Adding default division"
+            rescue => e
+              logger.error "#{self.class}.#{__method__} #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+            end
           end
+          format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
+          format.json { render :show, status: :created, location: @tournament }
+        else
+          format.html { render :new }
+          format.json { render json: @tournament.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
-        format.json { render :show, status: :created, location: @tournament }
-      else
-        format.html { render :new }
-        format.json { render json: @tournament.errors, status: :unprocessable_entity }
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate tournaments. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
@@ -66,10 +81,18 @@ class TournamentsController < ApplicationController
   # DELETE /tournaments/1
   # DELETE /tournaments/1.json
   def destroy
-    @tournament.destroy
-    respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin?
+      @tournament.destroy
+      respond_to do |format|
+        format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate tournaments. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
     end
   end
 

@@ -20,7 +20,7 @@ class RulesController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
-        format.json { head :no_content }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
@@ -30,7 +30,7 @@ class RulesController < ApplicationController
     unless current_user.admin?
       respond_to do |format|
         format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
-        format.json { head :no_content }
+        format.json { render json: "", status: :unprocessable_entity }
       end
       return
     end
@@ -53,8 +53,8 @@ class RulesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to rules_url, notice: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
-        format.json { head :no_content }
+        format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
@@ -75,7 +75,7 @@ class RulesController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
-        format.json { head :no_content }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
@@ -92,19 +92,20 @@ class RulesController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
-        format.json { head :no_content }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rule
-      @rule = Rule.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rule_params
-      params.require(:rule).permit(:name, :summary, :body)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rule
+    @rule = Rule.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rule_params
+    params.require(:rule).permit(:name, :summary, :body)
+  end
 end

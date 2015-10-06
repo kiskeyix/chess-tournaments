@@ -1,19 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class='row'>
+  <div class='col-sm-10'>
+    <h2><%= @rule.name %></h2>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @rule.name %>
-</p>
+<div class='row'>
+  <div class='col-sm-10'>
+    <strong>Summary:</strong>
+    <%= @rule.summary %>
+  </div>
+</div>
 
-<p>
-  <strong>Summary:</strong>
-  <%= @rule.summary %>
-</p>
+<div class='row'>
+  <div class='col-sm-10'>
+    <strong>Body:</strong>
+    <%= @rule.body %>
+  </div>
+</div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @rule.body %>
-</p>
-
-<%= link_to 'Edit', edit_rule_path(@rule) %> |
-<%= link_to 'Back', rules_path %>
+<div class='row'>
+  <div class='col-sm-3'>
+    <%= button_to 'Rules', rules_path, method: :get, class: 'form-control btn btn-default', title: 'List all tournaments' %>
+  </div>
+  <div class='col-sm-2'>
+    <%= button_to 'Edit', edit_rule_path(@rule), method: :get, class: 'form-control btn btn-primary' %>
+  </div>
+</div>

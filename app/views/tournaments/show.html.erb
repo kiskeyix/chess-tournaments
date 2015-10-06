@@ -24,13 +24,28 @@
   </div>
 </div>
 <h1>Divisions</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Teams</th>
+    </tr>
+  </thead>
+
+  <tbody>
 <% @tournament.divisions.each do |division| %>
-  <div class='row'>
-    <div class='col-sm-2'>
+  <tr>
+    <td>
       <h3><%= link_to division.name, division, title: division.description  %></h3>
-    </div>
-    <div class='col-sm-4'>
-      <%= division.teams.collect(&:name).join(', ') %>
-    </div>
-  </div>
+    </td>
+    <td>
+      <ul style='list-style-type: none;'>
+        <% division.teams.each do |team| %>
+          <li><%= link_to team.name, team %></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
 <% end %>
+  </tbody>
+</table>

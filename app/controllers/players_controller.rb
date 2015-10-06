@@ -77,11 +77,19 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.json
   def destroy
-    # TODO only allow players to be removed when?
-    #@player.destroy
-    respond_to do |format|
-      format.html { redirect_to players_url, alert: 'Players cannot be removed.' }
-      format.json { head :no_content }
+    if current_user.admin?
+      # TODO only allow players to be removed when?
+      @player.destroy
+      respond_to do |format|
+        format.html { redirect_to players_url, alert: 'Players cannot be removed.' }
+        format.json { head :no_content }
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate players. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
     end
   end
 

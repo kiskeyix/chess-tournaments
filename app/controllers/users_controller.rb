@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
-    logger.debug "#{__method__}: #{params}"
+    logger.debug "#{__method__}: params=#{params}"
     # authorize! :update, @user
     if request.patch? && params[:user] && params[:user][:email]
       if @user.update(user_params)

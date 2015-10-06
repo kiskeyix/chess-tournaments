@@ -1,4 +1,5 @@
 class LeaguesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_league, only: [:show, :edit, :update, :destroy]
 
   # GET /leagues
@@ -14,7 +15,15 @@ class LeaguesController < ApplicationController
 
   # GET /leagues/new
   def new
-    @league = League.new
+    if current_user.admin?
+      @league = League.new
+    else
+      msg = { alert: "Only administrators can create or manipulate leagues. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /leagues/1/edit
@@ -24,15 +33,23 @@ class LeaguesController < ApplicationController
   # POST /leagues
   # POST /leagues.json
   def create
-    @league = League.new(league_params)
+    if current_user.admin?
+      @league = League.new(league_params)
 
-    respond_to do |format|
-      if @league.save
-        format.html { redirect_to @league, notice: 'League was successfully created.' }
-        format.json { render :show, status: :created, location: @league }
-      else
-        format.html { render :new }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @league.save
+          format.html { redirect_to @league, notice: 'League was successfully created.' }
+          format.json { render :show, status: :created, location: @league }
+        else
+          format.html { render :new }
+          format.json { render json: @league.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate leagues. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
@@ -54,10 +71,18 @@ class LeaguesController < ApplicationController
   # DELETE /leagues/1
   # DELETE /leagues/1.json
   def destroy
-    @league.destroy
-    respond_to do |format|
-      format.html { redirect_to leagues_url, notice: 'League was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin?
+      @league.destroy
+      respond_to do |format|
+        format.html { redirect_to leagues_url, notice: 'League was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate leagues. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
     end
   end
 
