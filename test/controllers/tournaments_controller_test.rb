@@ -26,7 +26,7 @@ class TournamentsControllerTest < ActionController::TestCase
   test "should create tournament" do
     assert_difference('Tournament.count') do
       post :create, tournament: { description: @tournament.description,
-                                  image: @tournament.image, name: @tournament.name }
+                                  image: @tournament.image, name: @tournament.name + " new" }
     end
 
     assert_redirected_to tournament_path(assigns(:tournament))

@@ -3,6 +3,11 @@ require 'test_helper'
 class LeaguesControllerTest < ActionController::TestCase
   setup do
     @league = leagues(:one)
+
+    sign_in users(:user_three)
+    @team = teams(:one)
+    @user = users(:user_three)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   test "should get index" do
@@ -18,7 +23,8 @@ class LeaguesControllerTest < ActionController::TestCase
 
   test "should create league" do
     assert_difference('League.count') do
-      post :create, league: { description: @league.description, image: @league.image, name: @league.name }
+      post :create, league: { description: @league.description,
+                              image: @league.image, name: @league.name + " new" }
     end
 
     assert_redirected_to league_path(assigns(:league))

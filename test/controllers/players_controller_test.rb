@@ -48,11 +48,14 @@ class PlayersControllerTest < ActionController::TestCase
     assert_redirected_to player_path(assigns(:player))
   end
 
-  test "should not destroy player" do
-    assert_difference('Player.count', 0) do
+  test "should not destroy player unless admin" do
+    @user.admin?.must_equal true
+    assert_difference('Player.count', -1) do
       delete :destroy, id: @player
     end
 
     assert_redirected_to players_path
+
+    # TODO test with normal user here
   end
 end

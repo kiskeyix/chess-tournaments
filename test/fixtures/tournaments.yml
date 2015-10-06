@@ -4,8 +4,10 @@ one:
   name: tourney_one
   image: MyString
   description: MyText
+  league: one
 
 two:
   name: tourney_two
   image: MyString
   description: MyText
+  league: two
