@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>League</th>
       <th>Image</th>
       <th>Description</th>
       <th>Divisions</th>
@@ -15,6 +16,7 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= link_to tournament.name, tournament %></td>
+        <td><%= tournament.league.name %></td>
         <td><%= image_tag tournament.image unless tournament.image.blank? %></td>
         <td><%= tournament.description %></td>
         <%# TODO should show if team belongs to this tournament.division %>
