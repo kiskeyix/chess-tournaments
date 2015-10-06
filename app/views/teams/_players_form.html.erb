@@ -4,7 +4,7 @@
       <th>Nationality</th>
       <th>Gender</th>
       <th>Image</th>
-      <th></th>
+      <th colspan='2'></th>
   </thead>
   <tbody>
   <%= f.fields_for :players do |players_form| %>
@@ -23,16 +23,14 @@
 
           <%# TODO we should allow removal if more than 1 captain and current_user.player is not the same? %>
           <td>
-            <div class='row'>
-            <% if current_captain or current_user.admin? %>
+              <% if current_captain or current_user.admin? %>
               <% if params[:action] != "show" %>
-                <div class='col-sm-4'>
                   <%= players_form.check_box :_destroy, class: 'form-control', title: "Remove Player" %>
-                </div>
               <% end %>
-              <% unless players_form.object == current_user.player %>
-                <% if current_captain %>
-                  <div class='col-sm-4'>
+          </td>
+          <td>
+              <%# unless players_form.object == current_user.player %>
+                <% if current_captain or current_user.admin? %>
                   <%= link_to_if player_is_captain, '', { controller: 'teams',
                     captain_id: players_form.object.id,
                     action: :remove_captain },
@@ -49,11 +47,9 @@
                     method: :post,
                     title: "Make captain"
                   %>
-                  </div>
                 <% end %>
-              <% end %>
+              <%# end %>
             <% end %>
-            </div>
           </td>
         </tr>
     <% end %>

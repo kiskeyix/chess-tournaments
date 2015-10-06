@@ -21,7 +21,19 @@
 
   <div class='col-sm-10'>
     <% @team.captains.each do |tc| %>
-      <p><%= tc.name %></p>
+      <p>
+        <%= tc.name %>
+        <% no_player_is_captain_or_admin = !@team.players.include?(tc) && (current_user.admin? || @team.captains.include?(current_user.player)) %>
+        <%# TODO this can be removed once we can remove players from team_captains when removing them from team associations%> 
+        <%= link_to_if no_player_is_captain_or_admin, '', { controller: 'teams',
+                    captain_id: tc.id,
+                    action: :remove_captain },
+                    class: 'btn btn-default glyphicon glyphicon-remove',
+                    data: { confirm: "Are you sure you want to remove #{tc.name} from captains?" },
+                    method: :delete,
+                    title: "Remove captain who is not current player"
+        %>
+      </p>
     <% end %>
   </div>
 </div>

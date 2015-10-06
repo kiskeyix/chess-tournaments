@@ -111,26 +111,26 @@ class TeamsController < ApplicationController
       logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) removing captain #{params[:captain_id]} from team #{@team.id}"
       current_captain = @team.captains.include? current_user.player
       # you can remove captains if:
-      # 1. you're a captain
-      # 2. you're not removing self
-      # 3. number of captains is more than 1
-      # 4. validations work
-      if @team.captains.size > 1 and
-        current_captain and
-        current_user.player != captain and
-        @team.captains.delete captain
-        respond_to do |format|
-          format.html { redirect_to @team, notice: "#{captain.name.humanize} is no longer captain of #{@team.name.humanize} Team." }
-          format.json { render :show, status: :ok, location: @team }
+      # 1. you're site admin
+      # 2. you're a captain
+      # 3. you're not removing self
+      # 4. number of captains is more than 1
+      # 5. validations work
+      if current_user.admin? || (@team.captains.size > 1 and current_captain and current_user.player != captain)
+        if @team.captains.delete captain
+          respond_to do |format|
+            format.html { redirect_to @team, notice: "#{captain.name.humanize} is no longer captain of #{@team.name.humanize} Team." }
+            format.json { render :show, status: :ok, location: @team }
+          end
+          logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) removed captain #{params[:captain_id]} from team #{@team.id}"
+          return
         end
-        logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) removed captain #{params[:captain_id]} from team #{@team.id}"
-        return
       end
     else
       msg = { notice: 'Missing parameter captain_id' }
     end
-    msg[:alert] = 'You cannot remove self!' if current_user.player == captain
-    msg[:alert] = 'You cannot remove captains!' unless current_captain
+    msg[:alert] = 'You cannot remove self!' if current_user.player == captain and not current_user.admin?
+    msg[:alert] = 'You cannot remove captains!' unless current_captain or current_user.admin?
     respond_to do |format|
       format.html { redirect_to @team, msg }
       format.json { head :no_content }
@@ -148,9 +148,10 @@ class TeamsController < ApplicationController
       logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) adding captain #{params[:captain_id]} to team #{@team.id}"
       current_captain = @team.captains.include? current_user.player
       # you can add captains if:
-      # 1. you're a captain
-      # 2. validations work
-      if current_captain
+      # 1. you're site admin
+      # 2. you're a captain
+      # 3. validations work
+      if current_user.admin? or current_captain
         @team.captains << captain
         respond_to do |format|
           format.html { redirect_to @team, notice: "#{captain.name.humanize} is now captain of #{@team.name.humanize} Team." }
