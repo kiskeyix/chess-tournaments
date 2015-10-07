@@ -33,12 +33,22 @@
     <% end %>
     <%= will_paginate @teams, renderer: BootstrapPagination::Rails, param_name: :page %>
     <% @open_tournaments.each do |t| %>
-      <div class="col-sm-6 col-md-4">
+      <div class="col-sm-6 col-md-6">
         <h1><%= "Tournament".pluralize(@open_tournaments.size) %></h1>
         <div class="thumbnail">
           <%= image_tag t.image, alt: "#{t.name} image" unless t.image.blank? %>
           <div class="caption">
-            <h3><%= link_to "#{t.name} Tournament division #{t.player_divisions(current_user.player).name}", t %></h3>
+            <h3><%= link_to "#{t.name}: #{t.player_divisions(current_user.player).name}", t %></h3>
+            <div class="text-right">
+              Next Match:
+              <%# TODO display next match here %>
+              Team Foo vs <%= t.player_team(current_user.player).name %>
+              <hr />
+              <div class="text-right">
+                Line Up Here
+                <%#= button_to 'Line Up', lineup_path(t), class: 'btn btn-default', method: :get %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
