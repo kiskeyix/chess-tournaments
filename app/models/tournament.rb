@@ -5,12 +5,7 @@ class Tournament < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  # TODO maybe this can be made simpler with a scope or join?
   def players
-    divisions.collect do |division|
-      division.teams.collect do |team|
-        team.players
-      end.flatten
-    end.flatten
+    Player.joins(:teams => :divisions).where('tournament_id = ?', id)
   end
 end
