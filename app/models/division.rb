@@ -6,7 +6,6 @@ class Division < ActiveRecord::Base
     "#{tournament.respond_to?(:name) ? tournament.name : "No Tournament Yet"} - #{name}"
   end
   def self.open_tournaments
-    # TODO only display on-going tournaments
-    all
+    joins(:tournament).where('tournaments.end_date >= ?',Time.now)
   end
 end
