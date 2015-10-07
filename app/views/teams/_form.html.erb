@@ -25,7 +25,18 @@
   <div class="form-group">
     <%= f.label :tournament, class: 'col-sm-2 control-label' %>
     <div class='col-sm-10'>
-      <%= f.collection_check_boxes( :division_ids, Division.open_tournaments, :id, :name_with_tournament ) do |b|
+      <% today = Time.now %>
+      <% @team.divisions.each do |div| %>
+        <% next if div.tournament.end_date >= today %>
+      <%= hidden_field_tag 'team[division_ids][]', div.id %>
+      <% end %>
+      <% Division.open_tournaments.each do |div| %>
+        <%= f.label :division_ids, class: "control-label col-sm-4" do %>
+          <%= radio_button_tag 'team[division_ids][]', div.id, @team.divisions.include?(div), class: 'form-control' %>
+          <%= div.name_with_tournament %>
+        <% end %>
+      <% end %>
+      <%#= f.collection_check_boxes( :division_ids, Division.open_tournaments, :id, :name_with_tournament ) do |b|
         b.label(class: "control-label col-sm-4") { b.check_box(class: "form-control") + b.text }
        end %>
     </div>
