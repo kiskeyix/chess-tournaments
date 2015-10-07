@@ -11,4 +11,21 @@ class Player < ActiveRecord::Base
   def last_ratings_per_league
     # TODO choose last rating per each league the user is in, return Rating object
   end
+  def tournaments
+    Division.joins(:teams => :players).where('players.id = ?',id).collect do |division|
+      division.tournament
+    end
+  end
+  def open_tournaments
+    today = Time.now
+    tournaments.collect do |tournament|
+      tournament if tournament.end_date >= today
+    end.compact
+  end
+  def past_tournaments
+    today = Time.now
+    tournaments.collect do |tournament|
+      tournament if tournament.end_date < today
+    end.compact
+  end
 end
