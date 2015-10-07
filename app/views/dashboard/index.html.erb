@@ -5,15 +5,15 @@
 <% elsif current_user.player.nil? %>
   <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
 <% elsif current_user.player.teams.size > 0 %>
-  <h1>My <%= "Team".pluralize(current_user.player.teams.size) %></h1>
   <div class="row">
-    <% current_user.player.teams.each do |t| %>
+    <% @teams.each do |t| %>
       <div class="col-sm-6 col-md-4">
-        <div class="thumbnail"> 
-          <%= image_tag t.image, alt: t.name unless t.image.blank? %>
+        <h1>My <%= "Team".pluralize(@teams.size) %></h1>
+        <div class="thumbnail">
+          <%= image_tag t.image, alt: "#{t.name} image" unless t.image.blank? %>
           <div class="caption">
             <h3><%= link_to "#{t.name} Team", t %></h3>
-            <% t.players.each do |p| %> 
+            <% t.players.each do |p| %>
               <% if t.captains.include? p %>
                 <div class="text-right">
                   <%= p.name %> <span class="glyphicon glyphicon-star" title="Team captain"></span>
@@ -31,7 +31,46 @@
         </div>
       </div>
     <% end %>
+    <%= will_paginate @teams, renderer: BootstrapPagination::Rails, param_name: :page %>
+    <% @open_tournaments.each do |t| %>
+      <div class="col-sm-6 col-md-4">
+        <h1><%= "Current Tournament".pluralize(@open_tournaments.size) %></h1>
+        <div class="thumbnail">
+          <%= image_tag t.image, alt: "#{t.name} image" unless t.image.blank? %>
+          <div class="caption">
+            <h3><%= link_to "#{t.name} Tournament", t %></h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= will_paginate @open_tournaments, renderer: BootstrapPagination::Rails, param_name: :otpage %>
   </div>
+
+  <h1><%= "Past " + "Tournament".pluralize(@past_tournaments.size) %></h1>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>League</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Division</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @past_tournaments.each do |tournament| %>
+      <tr>
+        <td><%= link_to tournament.name, tournament %></td>
+        <td><%= tournament.league.name %></td>
+        <td><%= image_tag tournament.image unless tournament.image.blank? %></td>
+        <td><%= tournament.description %></td>
+        <%# TODO should show if team belongs to this tournament.division %>
+        <td><%#= tournament.divisions.collect(&:name).join(', ') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+  <%= will_paginate @past_tournaments, renderer: BootstrapPagination::Rails, param_name: :ptpage %>
 <% else %>
   <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
 <% end %>

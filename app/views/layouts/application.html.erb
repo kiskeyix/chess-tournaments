@@ -45,7 +45,7 @@
           <% end %>
 
           <%- if current_user.admin? %>
-          <li class="dropdown"> 
+          <li class="dropdown">
             <%= link_to '#',
               class: "dropdown-toggle ",
               data: { toggle: "dropdown" },
@@ -70,7 +70,7 @@
           </li>
           <%- end %>
 
-          <li class="dropdown"> 
+          <li class="dropdown">
             <%- uimg = '' %>
             <%- extra = current_user.admin? ? ' (admin)' : '' %>
             <%# We display "Menu" if the user cannot reach server with image %>
@@ -84,7 +84,7 @@
               data: { toggle: "dropdown" },
               role: "button",
               title: current_user.username + extra do
-            %> 
+            %>
               <%= uimg + " " + current_user.full_name %> <span class='caret'></span>
             <%- end %>
           <ul class="dropdown-menu" role="menu">
@@ -101,7 +101,7 @@
                 method: :delete,
                 class: "glyphicon glyphicon-log-out",
                 title: "Terminate session"
-              %> 
+              %>
               </li>
             </ul>
           </li>
