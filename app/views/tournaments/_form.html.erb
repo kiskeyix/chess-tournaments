@@ -47,7 +47,9 @@
         <% end %>
         <br />
       <% end %>
+      <% unless params[:action] == 'new' %>
       <%= link_to 'Add Division', new_tournament_division_path(@tournament) %>
+      <% end %>
     </div>
   </div>
   <div class="form-group">
