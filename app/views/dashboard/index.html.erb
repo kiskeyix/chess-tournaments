@@ -34,11 +34,11 @@
     <%= will_paginate @teams, renderer: BootstrapPagination::Rails, param_name: :page %>
     <% @open_tournaments.each do |t| %>
       <div class="col-sm-6 col-md-4">
-        <h1><%= "Current Tournament".pluralize(@open_tournaments.size) %></h1>
+        <h1><%= "Tournament".pluralize(@open_tournaments.size) %></h1>
         <div class="thumbnail">
           <%= image_tag t.image, alt: "#{t.name} image" unless t.image.blank? %>
           <div class="caption">
-            <h3><%= link_to "#{t.name} Tournament", t %></h3>
+            <h3><%= link_to "#{t.name} Tournament division #{t.player_divisions(current_user.player).name}", t %></h3>
           </div>
         </div>
       </div>
