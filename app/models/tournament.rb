@@ -9,6 +9,12 @@ class Tournament < ActiveRecord::Base
   validates :boards_per_match, inclusion: { in: (1..100).to_a,
     message: "%{value} is not a valid size" }
 
+  def teams
+    divisions.collect do |div|
+      div.teams
+    end.flatten
+  end
+
   def players
     Player.joins(:teams => :divisions).where('tournament_id = ?', id)
   end
