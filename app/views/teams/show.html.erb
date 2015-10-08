@@ -1,15 +1,5 @@
+<h1><%= @team.name %> team</h1>
 <div class='row'>
-  <div class='col-sm-2'>
-    <strong>Name:</strong>
-  </div>
-  <div class='col-sm-10'>
-    <%= @team.name %>
-  </div>
-</div>
-<div class='row'>
-  <div class='col-sm-2'>
-    <strong>Logo:</strong>
-  </div>
   <div class='col-sm-10'>
     <%= image_tag @team.image, alt: "#{@team.name} logo" unless @team.image.blank? %>
   </div>
@@ -38,11 +28,29 @@
   </div>
 </div>
 <div class='row'>
-<div class='col-sm-2'>
-  <%= button_to 'Edit', edit_team_path(@team),
-    title: 'Change team properties or remove players',
-    class: 'form-control btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
+  <div class='col-sm-2'>
+    <strong>Tournaments:</strong>
+  </div>
+
+  <div class='col-sm-10'>
+    <% today = Time.now %>
+    <% @team.divisions.each do |div| %>
+      <p title="<%= div.tournament.end_date < today ? "Tournament has ended on #{div.tournament.end_date}" : ""%>">
+        <%= div.tournament.name %>
+        <%= div.name %>
+        </p>
+    <% end %>
+  </div>
 </div>
+<div class='row'>
+  <div class='col-sm-2'>
+    <%= button_to 'Edit Team', edit_team_path(@team),
+      title: 'Change team properties or remove players',
+      class: 'form-control btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
+  </div>
+  <div class='col-sm-2'>
+    <%= link_to 'Join Tournaments', team_join_tournaments_path(@team), class: 'btn btn-default' %>
+  </div>
 </div>
 <% @team.players.build(name: '') %>
 <%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
+#   match '/tournaments/join_tournaments/:id' => 'tournaments#join_tournaments',
+#     via: [:get], :as => :join_tournaments
+
   resources :players # players can be done outside of teams. Must come first
   shallow do
     resources :teams do
@@ -19,6 +22,8 @@ Rails.application.routes.draw do
         post 'make_captain' => :make_captain
       end
       resources :players
+      get 'join_tournaments' => :join_tournaments
+      patch 'join_divisions' => :join_divisions
     end
   end
 

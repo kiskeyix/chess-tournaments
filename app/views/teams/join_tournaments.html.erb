@@ -1,0 +1,22 @@
+<h1>Join Tournaments</h1>
+<%= form_for @team, url: team_join_divisions_path(@team) do |f| %>
+<table class='table table-striped'>
+  <tbody>
+  <% @tournaments.each do |t| %>
+    <tr>
+    <td><%= t.name %></td>
+    <td>
+      <% t.divisions.each do |div| %>
+        <%= f.label :division_ids, class: "control-label col-sm-2" do %>
+          <%= radio_button_tag 'team[division_ids][]',
+            div.id, @team.divisions.include?(div), class: 'form-control' %>
+          <%= div.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= f.submit 'Save', class: 'btn btn-primary' %>
+<% end %>

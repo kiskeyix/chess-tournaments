@@ -170,6 +170,30 @@ class TeamsController < ApplicationController
     end
   end
 
+  # GET /teams/:team_id/join_tournaments
+  def join_tournaments
+    @team = Team.includes(:divisions).find(params[:team_id])
+    #@divisions = Division.open_tournaments
+    @tournaments = Division.open_tournaments.collect { |div| div.tournament }.uniq
+  end
+
+
+  # POST /teams/:team_id/join_divisions
+  def join_divisions
+    @team = Team.includes(:divisions).find(params[:team_id])
+    @team.transaction do
+      params[:team][:division_ids].each do |id|
+        division = Division.find id
+        raise ActiveRecord::Rollback if division.nil?
+        @team.divisions << division
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @team, notice: "Team was successfully updated." }
+      format.json { render :show, status: :ok, location: @team }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
@@ -178,7 +202,7 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :image, :division_id, player_ids: [],
+      params.require(:team).permit(:name, :image, player_ids: [],
                                    division_ids: [],
                                    players_attributes: [:id, :name, :_destroy])
     end

@@ -62,7 +62,6 @@
     <tr>
       <th>Name</th>
       <th>League</th>
-      <th>Image</th>
       <th>Description</th>
       <th>Division</th>
     </tr>
@@ -71,11 +70,9 @@
     <% @past_tournaments.each do |tournament| %>
       <tr>
         <td><%= link_to tournament.name, tournament %></td>
-        <td><%= tournament.league.name %></td>
-        <td><%= image_tag tournament.image unless tournament.image.blank? %></td>
+        <td><%= link_to tournament.league.name, tournament.league %></td>
         <td><%= tournament.description %></td>
-        <%# TODO should show if team belongs to this tournament.division %>
-        <td><%#= tournament.divisions.collect(&:name).join(', ') %></td>
+        <td><%= tournament.player_divisions(current_user.player).name if current_user.player %></td>
       </tr>
     <% end %>
   </tbody>
