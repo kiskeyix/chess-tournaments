@@ -1,7 +1,13 @@
 <div class='row'>
   <div class='col-sm-10'>
     <h2><%= @tournament.name %></h2>
-    <h4><%= @tournament.league.name %> league</h4>
+    <h4><%= link_to "#{@tournament.league.name} league", @tournament.league %></h4>
+      <strong>Rules</strong>
+      <ul>
+      <% @tournament.league.rules.each do |rule| %>
+        <li><%= link_to rule.name, rule %></li>
+      <% end %>
+      </ul>
   </div>
 </div>
 <div class='row'>
