@@ -180,17 +180,27 @@ class TeamsController < ApplicationController
 
   # POST /teams/:team_id/join_divisions
   def join_divisions
+    msg = {}
     @team = Team.includes(:divisions).find(params[:team_id])
-    @team.transaction do
-      params[:team][:division_ids].each do |id|
-        division = Division.find id
-        raise ActiveRecord::Rollback if division.nil?
-        @team.divisions << division
+    if @team.captains.include? current_user.player or current_user.admin?
+      @team.transaction do
+        params[:team][:division_ids].each do |id|
+          division = Division.find id
+          raise ActiveRecord::Rollback if division.nil?
+          @team.divisions << division
+        end
       end
-    end
-    respond_to do |format|
-      format.html { redirect_to @team, notice: "Team was successfully updated." }
-      format.json { render :show, status: :ok, location: @team }
+      msg[:notice] = "Team was successfully updated."
+      respond_to do |format|
+        format.html { redirect_to @team, msg }
+        format.json { render :show, status: :ok, location: @team }
+      end
+    else
+      msg[:alert] = 'You cannot join tournaments. Contact your team captain.'
+      respond_to do |format|
+        format.html { redirect_to @team, msg }
+        format.json { head :no_content }
+      end
     end
   end
 
