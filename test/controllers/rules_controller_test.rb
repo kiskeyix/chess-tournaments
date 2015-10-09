@@ -23,7 +23,8 @@ class RulesControllerTest < ActionController::TestCase
 
   test "should create rule" do
     assert_difference('Rule.count') do
-      post :create, rule: { body: @rule.body, name: @rule.name, summary: @rule.summary }
+      post :create, rule: { body: @rule.body,
+                            name: @rule.name + "new", summary: @rule.summary }
     end
 
     assert_redirected_to rule_path(assigns(:rule))
