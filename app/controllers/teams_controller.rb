@@ -161,7 +161,7 @@ class TeamsController < ApplicationController
           format.html { redirect_to @team, notice: "#{captain.name.humanize} is now captain of #{@team.name.humanize} Team." }
           format.json { render :show, status: :ok, location: @team }
         end
-        logger.info "#{__method__}: User #{current_user.full_name} (#{current_user.id}) added captain #{params[:captain_id]} to team #{@team.id}"
+        logger.info "#{__method__}: User #{current_user.full_name} (user.id=#{current_user.id}) added captain captain_id=#{params[:captain_id]} to team.id=#{@team.id}"
         return
       end
     else
@@ -222,6 +222,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:team_id])
     if @team.captains.include?( current_user.player ) or current_user.admin?
       begin
+        players = []
         @team.transaction do
           params[:team][:player_ids].each do |id|
             logger.info "#{__method__}: searching for player=#{id}"
@@ -230,9 +231,10 @@ class TeamsController < ApplicationController
             next if @team.players.include? player
             logger.info "#{__method__}: adding player=#{id} to team=#{@team.id}"
             @team.players << player
+            players << player
           end
         end
-        msg[:notice] = "Your team joined tournaments successfully!"
+        msg[:notice] = "#{players.collect { |p| p.name }.join(',')} successfully added to team #{@team.name}!"
       rescue ActiveRecord::ActiveRecordError => e
         logger.error "#{__method__}: player could not be added to team #{@team.name} because #{e.message}"
         msg[:alert] = "Could not add player. Contact site administrator"

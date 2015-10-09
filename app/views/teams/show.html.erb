@@ -77,7 +77,6 @@
       <%= f.submit 'Add Player', class: 'btn btn-primary', title: "Add player to the #{@team.name.humanize} team" %>
     </div>
   </div>
-  
   <hr />
   <%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>
     <%= render 'players_form', f: f %>
