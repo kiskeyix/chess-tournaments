@@ -28,12 +28,14 @@
       <% today = Time.now %>
       <% @team.divisions.each do |div| %>
         <% next if div.tournament.end_date >= today %>
-      <%= hidden_field_tag 'team[division_ids][]', div.id %>
+        <%= hidden_field_tag 'team[division_ids][]', div.id %>
       <% end %>
-      <% Division.open_tournaments.each do |div| %>
-        <%= f.label :division_ids, class: "control-label col-sm-4" do %>
-          <%= radio_button_tag 'team[division_ids][]', div.id, @team.divisions.include?(div), class: 'form-control' %>
-          <%= div.name_with_tournament %>
+      <% Division.open_tournaments.each do |tournament| %>
+        <% tournament.divisions.each do |div| %>
+          <%= f.label :division_ids, class: "control-label col-sm-4" do %>
+            <%= radio_button_tag 'team[division_ids][]', div.id, @team.divisions.include?(div), class: 'form-control' %>
+            <%= div.name_with_tournament %>
+          <% end %>
         <% end %>
       <% end %>
       <%#= f.collection_check_boxes( :division_ids, Division.open_tournaments, :id, :name_with_tournament ) do |b|
