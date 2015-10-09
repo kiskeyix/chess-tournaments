@@ -48,6 +48,11 @@ class PlayersController < ApplicationController
 
       respond_to do |format|
         if @player.save
+          if not current_user.admin? and current_user.player.nil?
+            current_user.player = @player
+            current_user.save
+          end
+
           format.html { redirect_to @player, notice: 'Player was successfully created.' }
           format.json { render :show, status: :created, location: @player }
         else
