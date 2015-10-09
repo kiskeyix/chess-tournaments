@@ -8,7 +8,6 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
-    #TODO image is always set to something odd? (username)
     # authorize! :update, @user
   end
 
