@@ -49,10 +49,12 @@
       class: 'form-control btn btn-default', method: :get if (not current_user.player.nil? and @team.captains.include? current_user.player) or current_user.admin? %>
   </div>
   <div class='col-sm-2'>
-    <%= link_to 'Join Tournaments', team_join_tournaments_path(@team), class: 'btn btn-default' %>
+    <%= link_to 'Join Tournaments', team_join_tournaments_path(@team), class: 'btn btn-default' if @team.captains.include? current_user.player or current_user.admin? %>
   </div>
 </div>
-<% @team.players.build(name: '') %>
+<% if @team.captains.include? current_user.player or current_user.admin? %>
+  <% @team.players.build(name: '') %>
+<% end %>
 <%= form_for @team, url: team_add_player_path(@team), html: { class: 'form form-horizontal' } do |f| %>
   <% if @team.errors.any? %>
     <div class='alert alert-danger' role='alert'>
@@ -65,19 +67,22 @@
     </div>
   <% end %>
   <h2>Players</h2>
-  <% @team.players.collect(&:id).each do |tid| %>
-    <%= hidden_field_tag 'team[player_ids][]', tid unless tid.blank? %>
+  
+  <% if @team.captains.include? current_user.player or current_user.admin? %>
+    <% @team.players.collect(&:id).each do |tid| %>
+      <%= hidden_field_tag 'team[player_ids][]', tid unless tid.blank? %>
+    <% end %>
+    <%= hidden_field_tag 'team[player_ids][]', '', id: 'players_id' %>
+    <div class='row'>
+      <div class='col-sm-10'>
+        <%= text_field_tag :players_name, '', class: 'form-control', placeholder: "Add Existing Player" %>
+      </div>
+      <div class='col-sm-2'>
+        <%= f.submit 'Add Player', class: 'btn btn-primary', title: "Add player to the #{@team.name.humanize} team" %>
+      </div>
+    </div>
+    <hr />
   <% end %>
-  <%= hidden_field_tag 'team[player_ids][]', '', id: 'players_id' %>
-  <div class='row'>
-    <div class='col-sm-10'>
-      <%= text_field_tag :players_name, '', class: 'form-control', placeholder: "Add Existing Player" %>
-    </div>
-    <div class='col-sm-2'>
-      <%= f.submit 'Add Player', class: 'btn btn-primary', title: "Add player to the #{@team.name.humanize} team" %>
-    </div>
-  </div>
-  <hr />
   <%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>
     <%= render 'players_form', f: f %>
   <% end %>

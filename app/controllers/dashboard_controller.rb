@@ -5,9 +5,9 @@ class DashboardController < ApplicationController
       @open_tournaments = current_user.player.open_tournaments.paginate(page: params[:otpage], per_page: 15)
       @past_tournaments = current_user.player.past_tournaments.paginate(page: params[:ptpage], per_page: 15)
     else
-      @teams = []
-      @open_tournaments = []
-      @past_tournaments = []
+      @teams = [] # TODO all competing teams Team.all_competing
+      @open_tournaments = Division.open_tournaments.paginate(page: params[:otpage], per_page: 15)
+      @past_tournaments = Division.past_tournaments.paginate(page: params[:ptpage], per_page: 15)
     end
   end
 end

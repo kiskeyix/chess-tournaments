@@ -3,7 +3,55 @@
   <%# TODO if you're not a user, what can you see? %>
   <h1>It's more fun if you're a user. Consider <%= link_to 'signing in', new_user_session_path %></h1>
 <% elsif current_user.player.nil? %>
-  <h1>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h1>
+  <h1>Tournaments</h1>
+  <%# TODO make to partial %>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>League</th>
+      <th>Description</th>
+      <th>Division</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @open_tournaments.each do |tournament| %>
+      <tr>
+        <td><%= link_to tournament.name, tournament %></td>
+        <td><%= link_to tournament.league.name, tournament.league %></td>
+        <td><%= tournament.description %></td>
+        <td><%= tournament.player_divisions(current_user.player).name if current_user.player %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+  <%= will_paginate @open_tournaments, renderer: BootstrapPagination::Rails, param_name: :otpage %>
+  
+  <h1>Past Tournaments</h1>
+  <%# TODO make to partial %>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>League</th>
+      <th>Description</th>
+      <th>Division</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @past_tournaments.each do |tournament| %>
+      <tr>
+        <td><%= link_to tournament.name, tournament %></td>
+        <td><%= link_to tournament.league.name, tournament.league %></td>
+        <td><%= tournament.description %></td>
+        <td><%= tournament.player_divisions(current_user.player).name if current_user.player %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+  <%= will_paginate @past_tournaments, renderer: BootstrapPagination::Rails, param_name: :ptpage %>
+
+  <h2>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h2>
 <% elsif current_user.player.teams.size > 0 %>
   <div class="row">
     <h1>My <%= "Team".pluralize(@teams.size) %></h1>
