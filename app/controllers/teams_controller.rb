@@ -192,9 +192,9 @@ class TeamsController < ApplicationController
             division = Division.find id
             # raise ActiveRecord::Rollback # this is caught for us but we need to change the message to the user
             raise ActiveRecord::ActiveRecordError if division.nil? or
-              @team.divisions.include? division or division.tournament.teams.include? @team
-            #@team.divisions << division
-            @team.divisions.find_or_create_by_division_id division.id
+              division.tournament.teams.include? @team
+            next if @team.divisions.include? division
+            @team.divisions << division
           end
         end
         msg[:notice] = "Your team joined tournaments successfully!"
@@ -218,20 +218,22 @@ class TeamsController < ApplicationController
   # PATCH /teams/:team_id/add_player
   def add_player
     msg = {}
-    @team = Team.includes(:divisions => :players).find(params[:team_id])
-    if @team.captains.include? current_user.player or current_user.admin?
+    @team = Team.find(params[:team_id])
+    if @team.captains.include?( current_user.player ) or current_user.admin?
       begin
         @team.transaction do
           params[:team][:player_ids].each do |id|
+            logger.info "#{__method__}: searching for player=#{id}"
             player = Player.find id
-            raise ActiveRecord::ActiveRecordError if player.nil? or
-              @team.players.include? player
-            @team.players.find_or_create_by_player_id player.id
+            raise ActiveRecord::ActiveRecordError if player.nil?
+            next if @team.players.include? player
+            logger.info "#{__method__}: adding player=#{id} to team=#{@team.id}"
+            @team.players << player
           end
         end
         msg[:notice] = "Your team joined tournaments successfully!"
       rescue ActiveRecord::ActiveRecordError => e
-        logger.error "#{__method__}: player '#{player}' could not be added to team #{@team.name} because #{e.message}"
+        logger.error "#{__method__}: player could not be added to team #{@team.name} because #{e.message}"
         msg[:alert] = "Could not add player. Contact site administrator"
       end
       respond_to do |format|

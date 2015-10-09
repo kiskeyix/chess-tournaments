@@ -53,7 +53,7 @@
   </div>
 </div>
 <% @team.players.build(name: '') %>
-<%= form_for @team, html: { class: 'form form-horizontal' } do |f| %>
+<%= form_for @team, url: team_add_player_path(@team), html: { class: 'form form-horizontal' } do |f| %>
   <% if @team.errors.any? %>
     <div class='alert alert-danger' role='alert'>
       <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -79,5 +79,8 @@
   </div>
   
   <hr />
-  <%= render 'players_form', f: f %>
+  <% @team.players.each do |player| %>
+    <p><%= player.name %></p>
+  <% end %>
+  <%#= render 'players_form', f: f %>
 <% end %>
