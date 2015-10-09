@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
+    #TODO image is always set to something odd? (username)
     # authorize! :update, @user
   end
 
@@ -102,7 +103,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    accessible = [ :username, :name, :email ] # extend with your own params
+    accessible = [ :username, :name, :email, :time_zone ] # extend with your own params
     accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
     accessible << [ :player_id, :id ] if current_user.admin?
     params.require(:user).permit(accessible)
