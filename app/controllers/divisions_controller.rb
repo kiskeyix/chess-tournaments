@@ -31,6 +31,13 @@ class DivisionsController < ApplicationController
 
   # GET /divisions/1/edit
   def edit
+    unless current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to root_url, alert: "You are not a site admin. Contact #{CHESS_ADMIN_EMAIL}." }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
+      return
+    end
   end
 
   # POST /divisions

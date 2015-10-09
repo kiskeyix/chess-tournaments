@@ -24,6 +24,6 @@
     <%= button_to 'Rules', rules_path, method: :get, class: 'form-control btn btn-default', title: 'List all tournaments' %>
   </div>
   <div class='col-sm-2'>
-    <%= button_to 'Edit', edit_rule_path(@rule), method: :get, class: 'form-control btn btn-primary' %>
+    <%= button_to 'Edit', edit_rule_path(@rule), method: :get, class: 'form-control btn btn-primary' if current_user.admin? %>
   </div>
 </div>

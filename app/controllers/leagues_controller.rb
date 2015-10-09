@@ -28,6 +28,13 @@ class LeaguesController < ApplicationController
 
   # GET /leagues/1/edit
   def edit
+    unless current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to root_url, alert: "You are not a site admin. Contact #{CHESS_ADMIN_EMAIL}." }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
+      return
+    end
   end
 
   # POST /leagues
@@ -57,13 +64,21 @@ class LeaguesController < ApplicationController
   # PATCH/PUT /leagues/1
   # PATCH/PUT /leagues/1.json
   def update
-    respond_to do |format|
-      if @league.update(league_params)
-        format.html { redirect_to @league, notice: 'League was successfully updated.' }
-        format.json { render :show, status: :ok, location: @league }
-      else
-        format.html { render :edit }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
+    if current_user.admin?
+      respond_to do |format|
+        if @league.update(league_params)
+          format.html { redirect_to @league, notice: 'League was successfully updated.' }
+          format.json { render :show, status: :ok, location: @league }
+        else
+          format.html { render :edit }
+          format.json { render json: @league.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate leagues. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end

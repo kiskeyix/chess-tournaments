@@ -14,8 +14,8 @@
       <tr>
         <td><%= link_to rule.name, rule %></td>
         <td><%= rule.summary %></td>
-        <td><%= link_to 'Edit', edit_rule_path(rule), class: 'btn btn-default' %></td>
-        <td><%= link_to 'Destroy', rule, method: :delete, class: 'btn btn-default', data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_rule_path(rule), class: 'btn btn-default' if current_user.admin? %></td>
+        <td><%= link_to 'Destroy', rule, method: :delete, class: 'btn btn-default', data: { confirm: 'Are you sure?' } if current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>

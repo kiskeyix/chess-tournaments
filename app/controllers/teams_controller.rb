@@ -20,7 +20,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    # TODO check if team member is captain
+    pri_user = @team.captains.include?(current_user.player) || current_user.admin?
+    unless pri_user
+      respond_to do |format|
+        format.html { redirect_to root_url, alert: "You are not a site admin or captain of this team. Contact #{CHESS_ADMIN_EMAIL}." }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
+      return
+    end
   end
 
   # POST /teams

@@ -29,7 +29,7 @@ class RulesController < ApplicationController
   def edit
     unless current_user.admin?
       respond_to do |format|
-        format.html { redirect_to rules_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
+        format.html { redirect_to root_url, alert: "You are not a site admin. Rules can only be updated by admins. Contact #{CHESS_ADMIN_EMAIL}." }
         format.json { render json: "", status: :unprocessable_entity }
       end
       return
