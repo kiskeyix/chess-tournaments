@@ -244,7 +244,7 @@ class TeamsController < ApplicationController
         format.json { render :show, status: :ok, location: @team }
       end
     else
-      msg[:alert] = 'You cannot join tournaments. Contact your team captain.'
+      msg[:alert] = 'You cannot add players. Contact your team captain.'
       respond_to do |format|
         format.html { redirect_to @team, msg }
         format.json { head :no_content }
