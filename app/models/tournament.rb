@@ -10,9 +10,7 @@ class Tournament < ActiveRecord::Base
     message: "%{value} is not a valid size" }
 
   def teams
-    divisions.collect do |div|
-      div.teams
-    end.flatten
+    Team.joins(:divisions => :tournament).where('tournaments.id = ?',id).group(:id)
   end
 
   def players
