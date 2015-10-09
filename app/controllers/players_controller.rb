@@ -63,13 +63,21 @@ class PlayersController < ApplicationController
   # PATCH/PUT /players/1
   # PATCH/PUT /players/1.json
   def update
-    respond_to do |format|
-      if @player.update(player_params)
-        format.html { redirect_to @player, notice: 'Player was successfully updated.' }
-        format.json { render :show, status: :ok, location: @player }
-      else
-        format.html { render :edit }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
+    if current_user.admin?
+      respond_to do |format|
+        if @player.update(player_params)
+          format.html { redirect_to @player, notice: 'Player was successfully updated.' }
+          format.json { render :show, status: :ok, location: @player }
+        else
+          format.html { render :edit }
+          format.json { render json: @player.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate players. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to root_path, msg }
+        format.json { render json: "", status: :unprocessable_entity }
       end
     end
   end
