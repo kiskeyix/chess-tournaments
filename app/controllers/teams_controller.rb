@@ -60,20 +60,21 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1.json
   def update
     msg = {}
-    priviledge_user = @team.captains.include?(current_user.player) or current_user.admin?
+    pri_user = @team.captains.include?(current_user.player) || current_user.admin?
+    logger.info "#{__method__}: user #{current_user.id} (admin=#{current_user.admin?}) is priviledged? #{pri_user}"
     respond_to do |format|
       # Note we do not allow creating records for players, this is only to display a message
       # to educate the user(s)
-      if priviledge_user and @team.update(team_params)
+      if pri_user and @team.update(team_params)
         msg = "Note that players cannot be added if they do not exist!"
         format.html { redirect_to @team, notice: "Team was successfully updated. #{msg}" }
         format.json { render :show, status: :ok, location: @team }
       else
         msg[:alert] = 'Only captains can perform this action.'
         if team_params[:player_ids]
-          format.html { render :show, msg }
+          format.html { redirect_to @team, msg }
         else
-          format.html { render :edit, msg }
+          format.html { redirect_to edit_team_path(@team), msg }
         end
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
@@ -85,8 +86,8 @@ class TeamsController < ApplicationController
   def destroy
     # TODO maybe we allow captains to remove teams if there is no results associated?
     msg = {}
-    priviledge_user = @team.captains.include?(current_user.player) or current_user.admin?
-    if priviledge_user and @team.players.size <= 1
+    pri_user = @team.captains.include?(current_user.player) || current_user.admin?
+    if pri_user and @team.players.size <= 1
       if @team.destroy
         msg[:notice] = "Successfully removed team!"
       else
