@@ -173,8 +173,7 @@ class TeamsController < ApplicationController
   # GET /teams/:team_id/join_tournaments
   def join_tournaments
     @team = Team.includes(:divisions).find(params[:team_id])
-    #@divisions = Division.open_tournaments
-    @tournaments = Division.open_tournaments.collect { |div| div.tournament }.uniq
+    @tournaments = Division.open_tournaments_without_team(@team).collect { |div| div.tournament }.uniq
   end
 
 
@@ -183,14 +182,21 @@ class TeamsController < ApplicationController
     msg = {}
     @team = Team.includes(:divisions).find(params[:team_id])
     if @team.captains.include? current_user.player or current_user.admin?
-      @team.transaction do
-        params[:team][:division_ids].each do |id|
-          division = Division.find id
-          raise ActiveRecord::Rollback if division.nil?
-          @team.divisions << division
+      begin
+        @team.transaction do
+          params[:team][:division_ids].each do |id|
+            division = Division.find id
+            # raise ActiveRecord::Rollback # this is caught for us but we need to change the message to the user
+            raise ActiveRecord::ActiveRecordError if division.nil? or
+              @team.divisions.include? division or division.tournament.teams.include? @team
+            @team.divisions << division
+          end
         end
+        msg[:notice] = "Your team joined tournaments successfully!"
+      rescue ActiveRecord::ActiveRecordError => e
+        logger.error "#{__method__}: team #{@team.name} cannot join tournament because #{e.message}"
+        msg[:alert] = "Teams cannot join tournaments on different divisions or join more than once on same division."
       end
-      msg[:notice] = "Team was successfully updated."
       respond_to do |format|
         format.html { redirect_to @team, msg }
         format.json { render :show, status: :ok, location: @team }
