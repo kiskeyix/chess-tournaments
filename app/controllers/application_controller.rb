@@ -30,7 +30,9 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     extra_params = [ :email,
                      :image, :firstname, :lastname,
-                     :middlename, :surname, :gender, :birthday ]
+                     :middlename, :surname, :gender, :birthday,
+                     :time_zone
+                   ]
     devise_parameter_sanitizer.for(:sign_up) << extra_params
     devise_parameter_sanitizer.for(:account_update) << extra_params
   end

@@ -53,9 +53,19 @@ class UsersController < ApplicationController
   def destroy
     # authorize! :delete, @user
     #@user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
+    if current_user.admin?
+      @user.active = false
+      if @user.save
+        respond_to do |format|
+          format.html { redirect_to root_url, notice: "User #{@user.name} (#{@user.id}) deactivated." }
+          format.json { head :no_content }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back, alert: "Could not deactivate user. You need to be a site admin to do so." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -83,21 +93,29 @@ class UsersController < ApplicationController
 
   # POST /users/link_player
   def link_player
-    @user = User.find(user_params[:id])
-    @player = Player.find(user_params[:player_id])
-    @user.player = @player
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to :back, notice: "User linked with player" }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to :back, alert: 'Could not disconnect provider' }
+    if current_user.admin? # or current_user.player.nil?
+      @user = User.find(user_params[:id])
+      @player = Player.find(user_params[:player_id])
+      @user.player = @player
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to :back, notice: "User linked with player" }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to :back, alert: "Could not link user to player" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back, alert: "Could not link user to player. You need to be a site admin to do so." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
+
   def set_user
     @user = User.find(params[:id])
   end
