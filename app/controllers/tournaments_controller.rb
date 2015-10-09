@@ -67,12 +67,20 @@ class TournamentsController < ApplicationController
   # PATCH/PUT /tournaments/1
   # PATCH/PUT /tournaments/1.json
   def update
-    respond_to do |format|
-      if current_user.admin? and @tournament.update(tournament_params)
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tournament }
-      else
-        format.html { render :edit }
+    if current_user.admin?
+      respond_to do |format|
+        if @tournament.update(tournament_params)
+          format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
+          format.json { render :show, status: :ok, location: @tournament }
+        else
+          format.html { render :edit }
+          format.json { render json: @tournament.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      msg = { alert: "Only administrators can create or manipulate tournaments. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      respond_to do |format|
+        format.html { redirect_to tournament_url(@tournament), msg }
         format.json { render json: @tournament.errors, status: :unprocessable_entity }
       end
     end
