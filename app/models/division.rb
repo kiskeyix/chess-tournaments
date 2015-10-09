@@ -7,11 +7,22 @@ class Division < ActiveRecord::Base
     "#{tournament.respond_to?(:name) ? tournament.name : "No Tournament Yet"} - #{name}"
   end
 
+  def self.past_tournaments
+#     joins(:tournament).where('tournaments.end_date < ?',Time.now).group(:tournament_id).collect do |div|
+#       div.tournament
+#     end
+
+    today = Time.now
+    Tournament.where('end_date < ?', today).group(:id)
+  end
+
   def self.open_tournaments
     #joins(:tournament).where('tournaments.end_date >= ?',Time.now)
-    joins(:tournament).where('tournaments.end_date >= ?',Time.now).group(:tournament_id).collect do |div|
-      div.tournament
-    end
+#     joins(:tournament).where('tournaments.end_date >= ?',Time.now).group(:tournament_id).collect do |div|
+#       div.tournament
+#     end
+    today = Time.now
+    Tournament.where('end_date >= ?', today).group(:id)
   end
 
   def self.open_tournaments_without_team(team)
@@ -20,5 +31,8 @@ class Division < ActiveRecord::Base
       next if div.tournament.teams.include? team
       div.tournament
     end.compact.uniq
+    #     TODO make this query work:
+#    today = Time.now
+#    Tournament.joins(:divisions => { :teams => :players }).where('teams.id != ? AND end_date >= ?', id, today)
   end
 end
