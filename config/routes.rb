@@ -22,7 +22,9 @@ Rails.application.routes.draw do
         post 'make_captain' => :make_captain
       end
       resources :players
+      # tournaments is what people think of
       get 'join_tournaments' => :join_tournaments
+      # divisions is what they actually join
       patch 'join_divisions' => :join_divisions
     end
   end
