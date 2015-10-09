@@ -85,9 +85,12 @@ class User < ActiveRecord::Base
       self.email !~ TEMP_EMAIL_REGEX && \
       self.confirmation_token.blank?
   end
+
   def full_name
     "#{firstname.humanize} #{lastname.humanize}"
   end
+  alias :name :full_name
+
   def unread_messages
     messages.where(' messages_users.read=?', false)
   end
