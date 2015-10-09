@@ -39,11 +39,13 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.save
         msg = {}
-        if @team.players << current_user.player and
-          @team.team_captains.create(player_id: current_user.player.id)
-          msg = { notice: 'Team was successfully created.' }
-        else
-          msg = { alert: "Team was successfully created but you were not assigned as captain. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+        @team.transaction do
+          if @team.players << current_user.player and
+            @team.team_captains.create(player_id: current_user.player.id)
+            msg = { notice: 'Team was successfully created.' }
+          else
+            msg = { alert: "Team was successfully created but you were not assigned as captain. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+          end
         end
         format.html { redirect_to @team, msg }
         format.json { render :show, status: :created, location: @team }
@@ -58,19 +60,20 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1.json
   def update
     msg = {}
-    current_captain = @team.captains.include? current_user.player
+    priviledge_user = @team.captains.include?(current_user.player) or current_user.admin?
     respond_to do |format|
       # Note we do not allow creating records for players, this is only to display a message
       # to educate the user(s)
-      if current_captain and @team.update(team_params)
+      if priviledge_user and @team.update(team_params)
         msg = "Note that players cannot be added if they do not exist!"
         format.html { redirect_to @team, notice: "Team was successfully updated. #{msg}" }
         format.json { render :show, status: :ok, location: @team }
       else
+        msg[:alert] = 'Only captains can perform this action.'
         if team_params[:player_ids]
-          format.html { render :show }
+          format.html { render :show, msg }
         else
-          format.html { render :edit }
+          format.html { render :edit, msg }
         end
         format.json { render json: @team.errors, status: :unprocessable_entity }
       end
@@ -82,8 +85,8 @@ class TeamsController < ApplicationController
   def destroy
     # TODO maybe we allow captains to remove teams if there is no results associated?
     msg = {}
-    current_captain = @team.captains.include? current_user.player
-    if current_captain and @team.players.size <= 1
+    priviledge_user = @team.captains.include?(current_user.player) or current_user.admin?
+    if priviledge_user and @team.players.size <= 1
       if @team.destroy
         msg[:notice] = "Successfully removed team!"
       else
@@ -173,11 +176,12 @@ class TeamsController < ApplicationController
   # GET /teams/:team_id/join_tournaments
   def join_tournaments
     @team = Team.includes(:divisions).find(params[:team_id])
-    @tournaments = Division.open_tournaments_without_team(@team).collect { |div| div.tournament }.uniq
+    @tournaments = Division.open_tournaments_without_team(@team)
+    #.collect { |div| div.tournament }.uniq
   end
 
 
-  # POST /teams/:team_id/join_divisions
+  # PATCH /teams/:team_id/join_divisions
   def join_divisions
     msg = {}
     @team = Team.includes(:divisions).find(params[:team_id])
@@ -189,13 +193,46 @@ class TeamsController < ApplicationController
             # raise ActiveRecord::Rollback # this is caught for us but we need to change the message to the user
             raise ActiveRecord::ActiveRecordError if division.nil? or
               @team.divisions.include? division or division.tournament.teams.include? @team
-            @team.divisions << division
+            #@team.divisions << division
+            @team.divisions.find_or_create_by_division_id division.id
           end
         end
         msg[:notice] = "Your team joined tournaments successfully!"
       rescue ActiveRecord::ActiveRecordError => e
         logger.error "#{__method__}: team #{@team.name} cannot join tournament because #{e.message}"
         msg[:alert] = "Teams cannot join tournaments on different divisions or join more than once on same division."
+      end
+      respond_to do |format|
+        format.html { redirect_to @team, msg }
+        format.json { render :show, status: :ok, location: @team }
+      end
+    else
+      msg[:alert] = 'You cannot join tournaments. Contact your team captain.'
+      respond_to do |format|
+        format.html { redirect_to @team, msg }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  # PATCH /teams/:team_id/add_player
+  def add_player
+    msg = {}
+    @team = Team.includes(:divisions => :players).find(params[:team_id])
+    if @team.captains.include? current_user.player or current_user.admin?
+      begin
+        @team.transaction do
+          params[:team][:player_ids].each do |id|
+            player = Player.find id
+            raise ActiveRecord::ActiveRecordError if player.nil? or
+              @team.players.include? player
+            @team.players.find_or_create_by_player_id player.id
+          end
+        end
+        msg[:notice] = "Your team joined tournaments successfully!"
+      rescue ActiveRecord::ActiveRecordError => e
+        logger.error "#{__method__}: player '#{player}' could not be added to team #{@team.name} because #{e.message}"
+        msg[:alert] = "Could not add player. Contact site administrator"
       end
       respond_to do |format|
         format.html { redirect_to @team, msg }
