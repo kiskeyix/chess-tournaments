@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       get 'join_tournaments' => :join_tournaments
       # divisions is what they actually join
       patch 'join_divisions' => :join_divisions
+      patch 'add_player' => :add_player
     end
   end
 
