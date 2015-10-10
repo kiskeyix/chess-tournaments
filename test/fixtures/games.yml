@@ -12,6 +12,7 @@ one:
   fen: MyString
   pgn: MyText
   division: one
+  visibility: 'private'
 
 two:
   event: MyString2
@@ -25,3 +26,18 @@ two:
   fen: fEE
   pgn: "PGN here"
   division: two
+  visibility: 'public'
+
+three:
+  event: MyString3
+  name: MyString3
+  date: 2014-09-09 20:57:47
+  timecontrol: 4500
+  while_elo: 1200
+  black_elo: 1400
+  site: New York, NY
+  result: "0-1"
+  fen: fEE
+  pgn: "PGN here"
+  division: two
+  visibility: 'teams'

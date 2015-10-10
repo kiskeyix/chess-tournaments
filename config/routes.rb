@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :games
   resources :leagues
 
   resources :rules
@@ -22,7 +21,9 @@ Rails.application.routes.draw do
         delete 'remove_captain' => :remove_captain
         post 'make_captain' => :make_captain
       end
-      resources :players
+      resources :players do
+        resources :games
+      end
       # tournaments is what people think of
       get 'join_tournaments' => :join_tournaments
       # divisions is what they actually join

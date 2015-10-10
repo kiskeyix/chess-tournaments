@@ -23,6 +23,13 @@
         <%= link_to "Chess::Tournaments", root_path, title: "Home", class: "navbar-brand" %>
       </div>
       <div class="collapse navbar-collapse" id="chess-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <% if current_user.player %>
+          <li>
+            <%= link_to "Games", player_games_path(player_id: current_user.player.id), title: "Games", class: "navbar-brand" %>
+          </li> 
+          <% end %>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
           <form class="navbar-form navbar-left" role="search" action='/search'>

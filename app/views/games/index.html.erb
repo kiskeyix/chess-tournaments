@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Games</h1>
 
-<table>
+<table class='table table-striped'>
   <thead>
     <tr>
       <th>Event</th>
@@ -15,8 +13,9 @@
       <th>Result</th>
       <th>Fen</th>
       <th>Pgn</th>
-      <th>Division</th>
-      <th colspan="3"></th>
+      <th>Tournament</th>
+      <th>Visible to</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -33,15 +32,11 @@
         <td><%= game.result %></td>
         <td><%= game.fen %></td>
         <td><%= game.pgn %></td>
-        <td><%= game.division_id %></td>
-        <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= game.division.name_with_tournament %></td>
+        <td><%= game.visibility.humanize %></td>
+        <td><%= link_to 'Edit', edit_game_path(game) if game.players.include? current_user.player %></td>
+        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } if game.players.include? current_user.player %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Game', new_game_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009235747) do
+ActiveRecord::Schema.define(version: 20151010000623) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
@@ -41,10 +41,22 @@ ActiveRecord::Schema.define(version: 20151009235747) do
     t.string   "result"
     t.string   "fen"
     t.text     "pgn"
+    t.string   "visibility"
     t.integer  "division_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "games", ["event"], name: "index_games_on_event"
+  add_index "games", ["name"], name: "index_games_on_name"
+
+  create_table "games_players", id: false, force: :cascade do |t|
+    t.integer "game_id",   null: false
+    t.integer "player_id", null: false
+  end
+
+  add_index "games_players", ["game_id", "player_id"], name: "index_games_players_on_game_id_and_player_id"
+  add_index "games_players", ["player_id", "game_id"], name: "index_games_players_on_player_id_and_game_id"
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
