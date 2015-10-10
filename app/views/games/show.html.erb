@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @game.event %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @game.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @game.date %>
+</p>
+
+<p>
+  <strong>Timecontrol:</strong>
+  <%= @game.timecontrol %>
+</p>
+
+<p>
+  <strong>While elo:</strong>
+  <%= @game.while_elo %>
+</p>
+
+<p>
+  <strong>Black elo:</strong>
+  <%= @game.black_elo %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @game.site %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @game.result %>
+</p>
+
+<p>
+  <strong>Fen:</strong>
+  <%= @game.fen %>
+</p>
+
+<p>
+  <strong>Pgn:</strong>
+  <%= @game.pgn %>
+</p>
+
+<p>
+  <strong>Division:</strong>
+  <%= @game.division_id %>
+</p>
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
