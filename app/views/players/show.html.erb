@@ -73,3 +73,12 @@
 <% end %>
 </ul>
 <% end %>
+<% if @player.games.size > 0 %>
+<h2>Games</h2>
+<ul>
+  <% @player.games.each do |g| %>
+  <%# icon = ''; icon = 'glyphicon glyphicon-star' if t.captains.include? @player %>
+  <li><%= link_to g.name, g, title: "#{g.name}" %></li>
+<% end %>
+</ul>
+<% end %>
