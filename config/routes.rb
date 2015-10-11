@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       patch 'add_player' => :add_player
     end
   end
+  get 'games' => 'games#index'
 
   get 'search' => 'search#index'
   devise_for :users, skip: :registrations,
