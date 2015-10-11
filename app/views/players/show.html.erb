@@ -78,7 +78,7 @@
 <ul>
   <% @player.games.each do |g| %>
   <%# icon = ''; icon = 'glyphicon glyphicon-star' if t.captains.include? @player %>
-  <li><%= link_to g.name, g, title: "#{g.name}" %></li>
+  <li><%= link_to g.name, g, title: "#{g.name}" if g.players.include?(current_user.player) || g.visibility == 'public' || (g.visibility == 'team' && g.players.grep(current_user.player).size > 0)  %></li>
 <% end %>
 </ul>
 <% end %>
