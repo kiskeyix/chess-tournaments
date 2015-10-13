@@ -3,6 +3,13 @@ require 'test_helper'
 class GamesControllerTest < ActionController::TestCase
   setup do
     @game = games(:one)
+    @player_one = players(:one)
+    @player_two = players(:two)
+
+    sign_in users(:user_three)
+    @team = teams(:one)
+    @user = users(:user_three)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   test "should get index" do
@@ -12,20 +19,24 @@ class GamesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new
+    get :new, player_id: @player_two.id
     assert_response :success
   end
 
   test "should create game" do
     assert_difference('Game.count') do
-      post :create, game: { black_elo: @game.black_elo, date: @game.date, division_id: @game.division_id, event: @game.event, fen: @game.fen, name: @game.name, pgn: @game.pgn, result: @game.result, site: @game.site, timecontrol: @game.timecontrol, while_elo: @game.while_elo }
+      post :create, player_id: @player_one.id, game: { black_elo: @game.black_elo, date: @game.date,
+                            division_id: @game.division_id, event: @game.event,
+                            fen: @game.fen, name: @game.name + "new", pgn: @game.pgn,
+                            result: @game.result, site: @game.site,
+                            timecontrol: @game.timecontrol, while_elo: @game.while_elo }
     end
 
     assert_redirected_to game_path(assigns(:game))
   end
 
   test "should show game" do
-    get :show, id: @game
+    get :show, id: @game, player_id: @player_one
     assert_response :success
   end
 
@@ -35,7 +46,13 @@ class GamesControllerTest < ActionController::TestCase
   end
 
   test "should update game" do
-    patch :update, id: @game, game: { black_elo: @game.black_elo, date: @game.date, division_id: @game.division_id, event: @game.event, fen: @game.fen, name: @game.name, pgn: @game.pgn, result: @game.result, site: @game.site, timecontrol: @game.timecontrol, while_elo: @game.while_elo }
+    patch :update, id: @game, game: { black_elo: @game.black_elo,
+                                      date: @game.date, division_id: @game.division_id,
+                                      event: @game.event, fen: @game.fen,
+                                      name: @game.name + "new", pgn: @game.pgn,
+                                      result: @game.result, site: @game.site,
+                                      timecontrol: @game.timecontrol,
+                                      while_elo: @game.while_elo }
     assert_redirected_to game_path(assigns(:game))
   end
 
