@@ -23,24 +23,6 @@
         <%= link_to "Chess::Tournaments", root_path, title: "Home", class: "navbar-brand" %>
       </div>
       <div class="collapse navbar-collapse" id="chess-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-left">
-          <% if user_signed_in? and current_user.player %>
-          <li class='dropdown'>
-            <%= link_to '#',
-              class: 'dropdown-toggle',
-              data: { toggle: 'dropdown' },
-              role: 'button',
-              title: "My Games" do
-            %>
-              Games <span class='carret'></span>
-            <% end %>
-            <ul class='dropdown-menu' role='menu'>
-              <li><%= link_to "My Games", player_games_path(player_id: current_user.player.id), title: "My Games" %></li>
-              <li><%= link_to "All Games", games_path, title: "All Games" %></li>
-            </ul>
-          </li> 
-          <% end %>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
           <form class="navbar-form navbar-left" role="search" action='/search'>
@@ -61,7 +43,23 @@
             role: "button", title: "User not associated with player. Click to create." %>
           </li>
           <% end %>
-
+          
+          <% if user_signed_in? and current_user.player %>
+          <li class='dropdown'>
+            <%= link_to '#',
+              class: 'dropdown-toggle',
+              data: { toggle: 'dropdown' },
+              role: 'button',
+              title: "My Games" do
+            %>
+              Games <span class='carret'></span>
+            <% end %>
+            <ul class='dropdown-menu' role='menu'>
+              <li><%= link_to "My Games", player_games_path(player_id: current_user.player.id), title: "My Games" %></li>
+              <li><%= link_to "All Games", games_path, title: "All Games" %></li>
+            </ul>
+          </li> 
+          <% end %>
           <%- if current_user.admin? %>
           <li class="dropdown">
             <%= link_to '#',
