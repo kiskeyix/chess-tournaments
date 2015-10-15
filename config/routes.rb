@@ -13,17 +13,18 @@ Rails.application.routes.draw do
 
 #   match '/tournaments/join_tournaments/:id' => 'tournaments#join_tournaments',
 #     via: [:get], :as => :join_tournaments
-
-  resources :players # players can be done outside of teams. Must come first
+ 
+  # players can be done outside of teams. Must come first
+  resources :players do
+    resources :games
+  end
   shallow do
     resources :teams do
       member do
         delete 'remove_captain' => :remove_captain
         post 'make_captain' => :make_captain
       end
-      resources :players do
-        resources :games
-      end
+      resources :players
       # tournaments is what people think of
       get 'join_tournaments' => :join_tournaments
       # divisions is what they actually join

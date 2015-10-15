@@ -1,4 +1,5 @@
-<%= form_for(new_player_game_path(player_id: current_user.player), html: { class: 'form-horizontal' }) do |f| %>
+<%= form_for([current_user.player,@game],
+             html: { class: 'form-horizontal' }) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
@@ -39,7 +40,8 @@
   <div class='form-group'>
     <%= f.label :timecontrol , class: 'col-sm-2'%>
     <div class='col-sm-10'>
-    <%= f.text_field :timecontrol , class: 'form-control'%>
+      <%= f.text_field :timecontrol, placeholder: '4200+5',
+        title: '70 min +5 increments is 4200+5', class: 'form-control'%>
     </div>
   </div>
   <div class='form-group'>
@@ -57,7 +59,7 @@
   <div class='form-group'>
     <%= f.label :site , class: 'col-sm-2'%>
     <div class='col-sm-10'>
-    <%= f.text_field :site , class: 'form-control'%>
+    <%= f.text_field :site, placeholder: 'New York, NY', class: 'form-control'%>
     </div>
   </div>
   <div class='form-group'>
