@@ -70,9 +70,11 @@ var updateStatus = function() {
   pgnEl.html(game.pgn());
 };
 
+var initial_position = $('#fen').text();
+
 var cfg = {
   draggable: true,
-  position: 'start',
+  position: typeof initial_position === 'string' ? initial_position : 'start',
   onDragStart: onDragStart,
   onDrop: onDrop,
   onSnapEnd: onSnapEnd

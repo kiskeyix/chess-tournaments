@@ -1,5 +1,8 @@
-<p id="notice"><%= notice %></p>
-
+<div class='row'>
+  <div class='col-sm-10'>
+    <div id='board' style='width: 400px'></div>
+  </div>
+</div>
 <p>
   <strong>Event:</strong>
   <%= @game.event %>
@@ -42,18 +45,15 @@
 
 <p>
   <strong>Fen:</strong>
-  <%= @game.fen %>
+  <span id='pgn'><%= @game.fen %></span>
 </p>
 
 <p>
   <strong>Pgn:</strong>
-  <%= @game.pgn %>
+  <span id='pgn'><%= @game.pgn %></span>
 </p>
 
 <p>
   <strong>Division:</strong>
-  <%= @game.division_id %>
+  <%= @game.division.name_with_tournament if @game.division %>
 </p>
-
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
