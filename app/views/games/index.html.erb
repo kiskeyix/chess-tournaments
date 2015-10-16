@@ -7,12 +7,13 @@
       <th>Name</th>
       <th>Date</th>
       <th>Timecontrol</th>
+      <th>While Player</th>
       <th>While elo</th>
+      <th>Black Player</th>
       <th>Black elo</th>
       <th>Site</th>
       <th>Result</th>
-      <th>Fen</th>
-      <th>Pgn</th>
+      <th>Game</th>
       <th>Tournament</th>
       <th>Visible to</th>
       <th colspan="2"></th>
@@ -26,17 +27,22 @@
         <td><%= game.name %></td>
         <td><%= game.date %></td>
         <td><%= game.timecontrol %></td>
+        <td><%= game.white_player.name %></td>
         <td><%= game.while_elo %></td>
+        <td><%= game.black_player.name %></td>
         <td><%= game.black_elo %></td>
         <td><%= game.site %></td>
         <td><%= game.result %></td>
-        <td><%= game.fen %></td>
-        <td><%= game.pgn %></td>
-        <td><%= game.division.name_with_tournament %></td>
-        <td><%= game.visibility.humanize %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) if game.players.include? current_user.player %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } if game.players.include? current_user.player %></td>
+        <td><%= link_to player_game_path(game.white_player,game) do %><span id="board_<%= game.id %>" style='width: 200px'></span><% end %></td>
+        <td><%= game.division.name_with_tournament if game.division %></td>
+        <td><%= game.visibility.humanize if game.visibility %></td>
+        <td><%= link_to 'Edit', edit_player_game_path(current_user.player,game), class: 'btn btn-primary' if game.players.include? current_user.player or current_user.admin? %></td>
+        <td><%= link_to 'Destroy', player_game_path(current_user.player,game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if game.players.include? current_user.player or current_user.admin? %></td>
       </tr>
+      <script type='text/javascript'>
+        <%= render 'board.js', game: game %>
+      </script>
     <% end %>
   </tbody>
 </table>
+

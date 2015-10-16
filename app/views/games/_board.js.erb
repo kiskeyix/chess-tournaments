@@ -1,0 +1,92 @@
+// vi: ft=javascript :
+$(function() {
+var board<%= game.id %>,
+  game<%= game.id %> = new Chess(),
+  statusEl<%= game.id %> = $('#status_<%= game.id %>'),
+  fenEl<%= game.id %> = $('#fen_<%= game.id %>'),
+  pgnEl<%= game.id %> = $('#pgn_<%= game.id %>');
+  <% if game.pgn > '' %>
+  game<%= game.id %>.load_pgn('<%= game.pgn %>');
+  pgnEl<%= game.id %>.html('<%= game.pgn %>');
+  <% end %>
+
+// do not pick up pieces if the game is over
+// only pick up pieces for the side to move
+var onDragStart<%= game.id %> = function(source, piece, position, orientation) {
+  if (game<%= game.id %>.game_over() === true ||
+      (game<%= game.id %>.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game<%= game.id %>.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    return false;
+  }
+};
+
+var onDrop<%= game.id %> = function(source, target) {
+  // see if the move is legal
+  var move = game<%= game.id %>.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  });
+
+  // illegal move
+  if (move === null) return 'snapback';
+
+  updateStatus<%= game.id %>();
+};
+
+// update the board position after the piece snap 
+// for castling, en passant, pawn promotion
+var onSnapEnd<%= game.id %> = function() {
+  board<%= game.id %>.position(game<%= game.id %>.fen());
+};
+
+var updateStatus<%= game.id %> = function() {
+  var status = '';
+
+  var moveColor = 'White';
+  if (game<%= game.id %>.turn() === 'b') {
+    moveColor = 'Black';
+  }
+
+  // checkmate?
+  if (game<%= game.id %>.in_checkmate() === true) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  }
+
+  // draw?
+  else if (game<%= game.id %>.in_draw() === true) {
+    status = 'Game over, drawn position';
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move';
+
+    // check?
+    if (game<%= game.id %>.in_check() === true) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+
+  statusEl<%= game.id %>.html(status);
+  //fenEl.html(game.fen());
+  fenEl<%= game.id %>.val(game<%= game.id %>.fen());
+  pgnEl<%= game.id %>.html(game<%= game.id %>.pgn());
+};
+
+//var initial_position = fenEl.text();
+var initial_position = '<%= game.fen %>';
+
+var cfg = {
+  draggable: true,
+  position: typeof initial_position === 'string' && initial_position != '' ? initial_position : 'start',
+  onDragStart: onDragStart<%= game.id %>,
+  onDrop: onDrop<%= game.id %>,
+  onSnapEnd: onSnapEnd<%= game.id %>,
+  //sparePieces: true
+};
+board<%= game.id %> = ChessBoard('board_<%= game.id %>', cfg);
+$('#start_btn_<%= game.id %>').on('click', board<%= game.id %>.start);
+$('#clear_btn_<%= game.id %>').on('click', board<%= game.id %>.clear);
+updateStatus<%= game.id %>();
+});

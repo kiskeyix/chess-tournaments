@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010000623) do
+ActiveRecord::Schema.define(version: 20151015131945) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
@@ -43,8 +43,10 @@ ActiveRecord::Schema.define(version: 20151010000623) do
     t.text     "pgn"
     t.string   "visibility"
     t.integer  "division_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "white_player_id"
+    t.integer  "black_player_id"
   end
 
   add_index "games", ["event"], name: "index_games_on_event"

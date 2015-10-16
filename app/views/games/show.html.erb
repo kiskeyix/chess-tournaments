@@ -1,6 +1,6 @@
 <div class='row'>
   <div class='col-sm-10'>
-    <div id='board' style='width: 400px'></div>
+    <div id="board_<%= @game.id %>" style='width: 400px'></div>
   </div>
 </div>
 <p>
@@ -45,15 +45,18 @@
 
 <p>
   <strong>Fen:</strong>
-  <span id='pgn'><%= @game.fen %></span>
+  <span id='fen_<%= @game.id %>'><%= @game.fen %></span>
 </p>
 
 <p>
   <strong>Pgn:</strong>
-  <span id='pgn'><%= @game.pgn %></span>
+  <span id='pgn_<%= @game.id %>'><%= @game.pgn %></span>
 </p>
 
 <p>
   <strong>Division:</strong>
   <%= @game.division.name_with_tournament if @game.division %>
 </p>
+<script type='text/javascript'>
+<%= render 'board.js', game: @game %>
+</script>
