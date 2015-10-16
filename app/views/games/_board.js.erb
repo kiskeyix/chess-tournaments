@@ -86,7 +86,13 @@ var cfg = {
   //sparePieces: true
 };
 board<%= game.id %> = ChessBoard('board_<%= game.id %>', cfg);
-$('#start_btn_<%= game.id %>').on('click', board<%= game.id %>.start);
+$('#start_btn_<%= game.id %>').on('click', function() {
+  //console.log('clear board');
+  board<%= game.id %>.start();
+  game<%= game.id %>.reset();
+  updateStatus<%= game.id %>();
+  return false; // prevent default
+});
 $('#clear_btn_<%= game.id %>').on('click', board<%= game.id %>.clear);
 updateStatus<%= game.id %>();
 });
