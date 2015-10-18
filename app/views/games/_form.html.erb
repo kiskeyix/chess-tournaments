@@ -18,6 +18,7 @@
       <div id="board_<%= @game.id %>" style="width: 400px"></div>
       <p>Status: <span id="status_<%= @game.id %>"></span></p>
       <%= link_to 'Start Position', '#', id: "start_btn_#{ @game.id }", class: 'btn btn-default' %>
+      <%= link_to 'Flip', '#', id: "flip_btn_#{ @game.id }", class: 'btn btn-default' %>
     </div>
   </div>
   <div class='form-group'>

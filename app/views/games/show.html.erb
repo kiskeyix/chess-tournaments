@@ -1,6 +1,32 @@
 <div class='row'>
-  <div class='col-sm-10'>
+  <div class='col-sm-4'>
     <div id="board_<%= @game.id %>" style='width: 400px'></div>
+    <p>Status: <span id="status_<%= @game.id %>"></span></p>
+    <div id="board-buttons">
+      <button type="button" class="btn btn-default" id="btnStart"><i class="glyphicon glyphicon-fast-backward"></i></button>
+      <button type="button" class="btn btn-default" id="btnPrevious"><i class="glyphicon glyphicon-step-backward"></i></button>
+      <button type="button" class="btn btn-default" id="btnNext"><i class="glyphicon glyphicon-step-forward"></i></button>
+      <button type="button" class="btn btn-default" id="btnEnd"><i class="glyphicon glyphicon-fast-forward"></i></button>
+      |
+      <%= link_to 'Flip', '#', id: "flip_btn_#{ @game.id }", class: 'btn btn-default' %>
+      <%= link_to 'Help', '#', id: "help_btn_#{ @game.id }", class: 'btn btn-default' %>
+    </div>
+  </div>
+  <div class='col-sm-8'><div id="game-data<%= @game.id %>"></div></div>
+</div>
+<div id='board-help' class="row" style='display: none'>
+  <div class="col-xs-12">
+    <h4>Keyboard Shortcuts</h4>
+    <dl class="dl-horizontal">
+      <dt>Next move:</dt><dd>Right arrow key</dd>
+      <dt>Previous move:</dt><dd>Left arrow key</dd>
+      <dt>End of game:</dt><dd>Ctrl + right arrow key</dd>
+      <dt>Start of game:</dt><dd>Ctrl + left arrow key</dd>
+      <dt>Next game:</dt><dd>Up arrow key</dd>
+      <dt>Previous game:</dt><dd>Down arrow key</dd>
+      <dt>First game:</dt><dd>Ctrl + up  arrow key</dd>
+      <dt>Last game:</dt><dd>Ctrl + down arrow key</dd>
+    </dl>
   </div>
 </div>
 <p>
