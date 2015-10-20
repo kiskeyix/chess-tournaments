@@ -13,6 +13,7 @@ var board<%= game.id %>,
   game<%= game.id %>.load_pgn('<%= game.pgn %>');
   pgnEl<%= game.id %>.html('<%= game.pgn %>');
   gameHistory<%= game.id %> = game<%= game.id %>.history({verbose: true});
+  currentPly<%= game.id %> = gameHistory<%= game.id %>.length - 1
 <% end %>
 
 // do not pick up pieces if the game is over
@@ -134,6 +135,7 @@ $('#btnStart<%= game.id %>').on('click', function() {
 $('#btnPrevious<%= game.id %>').on('click', function() {
   if (currentPly<%= game.id %> >= 0) {
     game<%= game.id %>.undo();
+    //console.log(currentPly<%= game.id %>);
     currentPly<%= game.id %>--;
     //console.log(currentPly<%= game.id %>);
     board<%= game.id %>.position(game<%= game.id %>.fen());
