@@ -160,9 +160,9 @@ $(document).ready(function(){
   $(document).keydown(function(e){
     if (e.keyCode == 39) { //right arrow
       if (e.ctrlKey) {
-        $('#btnEnd').click();
+        $('#btnEnd<%= game.id %>').click();
       } else {
-        $('#btnNext').click();
+        $('#btnNext<%= game.id %>').click();
       }
       return false;
     }
@@ -237,23 +237,23 @@ $(function() {
   });
   $(window).resize(board<%= game.id %>.resize);
   writeGameText<%= game.id %>(game<%= game.id %>);
+
+  // utility functions
+  $('#clear_btn_<%= game.id %>').on('click', function() {
+    board<%= game.id %>.clear();
+    //updateStatus<%= game.id %>();
+    return false; // prevent default
+  });
+  $('#flip_btn_<%= game.id %>').on('click', function() {
+    board<%= game.id %>.flip();
+    //updateStatus<%= game.id %>();
+    return false; // prevent default
+  });
+  $('#help_btn_<%= game.id %>').on('click', function() {
+    // help is for all boards
+    $('#board-help').toggle();
+    return false; // prevent default
+  });
+  // end utility functions
 });
 // end main()
-
-// utility functions
-$('#clear_btn_<%= game.id %>').on('click', function() {
-  board<%= game.id %>.clear();
-  //updateStatus<%= game.id %>();
-  return false; // prevent default
-});
-$('#flip_btn_<%= game.id %>').on('click', function() {
-  board<%= game.id %>.flip();
-  //updateStatus<%= game.id %>();
-  return false; // prevent default
-});
-$('#help_btn_<%= game.id %>').on('click', function() {
-  // help is for all boards
-  $('#board-help').toggle();
-  return false; // prevent default
-});
-// end utility functions
