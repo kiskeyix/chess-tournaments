@@ -149,7 +149,7 @@ $('#btnNext<%= game.id %>').on('click', function() {
 $('#btnEnd<%= game.id %>').on('click', function() {
   while (currentPly<%= game.id %> < gameHistory<%= game.id %>.length - 1) {
     currentPly<%= game.id %>++;
-    game<%= game.id %>.move(gameHistory[currentPly<%= game.id %>].san);
+    game<%= game.id %>.move(gameHistory<%= game.id %>[currentPly<%= game.id %>].san);
   }
   board<%= game.id %>.position(game<%= game.id %>.fen());
 });
