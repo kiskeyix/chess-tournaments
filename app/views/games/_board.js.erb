@@ -104,12 +104,25 @@ function writeGameText<%= game.id %>(g) {
 
   //remove the header to get the moves
   var h = g.header();
-  var gameHeaderText = '<h4>' + h.White + ' (' + h.WhiteElo + ') - ' + h.Black + ' (' + h.BlackElo + ')</h4>';
-  gameHeaderText += '<h5>' + h.Event + ', ' + h.Site + ' ' + h.EventDate + '</h5>';
+
+  var white = h.White !== undefined ? h.White : '';
+  var white_elo = h.WhiteElo !== undefined ? ' (' + h.WhiteElo + ') - ' : '';
+  var black = h.Black !== undefined ? h.Black : '';
+  var black_elo = h.BlackElo !== undefined ? ' (' + black_elo + ')' : '';
+
+  var gameHeaderText = '<h4>' + white + white_elo + black + black_elo + '</h4>';
+
+  var game_event = h.Event !== undefined ? h.Event : '';
+  var game_site = h.Site !== undefined ? h.Site : '';
+  var game_date = h.EventDate !== undefined ? h.EventDate : '';
+  var game_sep = (game_site !== '' || game_date !== '') ? ', ' : ''
+
+  gameHeaderText += '<h5>' + game_event + game_sep + game_site + ' ' + game_date + '</h5>';
   var pgn = g.pgn();
   var gameMoves<%= game.id %> = pgn.replace(/\[(.*?)\]/gm, '').replace(h.Result, '').trim();
 
   //format the moves so each one is individually identified, so it can be highlighted
+  // TODO add hightlight class for current move. @see initial_position
   moveArray = gameMoves<%= game.id %>.split(/([0-9]+\.\s)/).filter(function(n) {return n;});
   for (var i = 0, l = moveArray.length; i < l; ++i) {
     var s = $.trim(moveArray[i]);
@@ -122,7 +135,9 @@ function writeGameText<%= game.id %>(g) {
     }
     moveArray[i] = s;
   }
-  $("#game-data<%= game.id %>").html(gameHeaderText + '<div class="gameMoves<%= game.id %>">' + moveArray.join(' ') + ' <span class="gameResult">' + h.Result + '</span></div>');
+  //console.log(h.Result);
+  var result =  ( h.Result !== undefined ) ? h.Result : '';
+  $("#game-data<%= game.id %>").html(gameHeaderText + '<div class="gameMoves<%= game.id %>">' + moveArray.join(' ') + ' <span class="gameResult">' + result + '</span></div>');
 
 }
 
