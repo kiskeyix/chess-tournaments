@@ -10,6 +10,7 @@
       |
       <%= link_to 'Flip', '#', id: "flip_btn_#{ @game.id }", class: 'btn btn-default' %>
       <%= link_to 'Help', '#', id: "help_btn_#{ @game.id }", class: 'btn btn-default' %>
+      <%= link_to 'Details', '#', id: "details_btn_#{ @game.id }", class: 'btn btn-default' %>
     </div>
   </div>
   <div class='col-sm-7'>
@@ -31,6 +32,8 @@
     </dl>
   </div>
 </div>
+
+<div id='game_details_<%= @game.id %>' class="row" style='display: none'>
 <p>
   <strong>Event:</strong>
   <%= @game.event %>
@@ -85,6 +88,8 @@
   <strong>Division:</strong>
   <%= @game.division.name_with_tournament if @game.division %>
 </p>
+</div>
+
 <script type='text/javascript'>
 <%= render 'board.js', game: @game %>
 </script>
