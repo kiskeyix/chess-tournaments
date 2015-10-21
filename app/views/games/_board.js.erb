@@ -273,6 +273,10 @@ $(function() {
     $('#board-help').toggle();
     return false; // prevent default
   });
+  $('#details_btn_<%= game.id %>').on('click', function() {
+    $('#game_details_<%= game.id %>').toggle();
+    return false; // prevent default
+  });
   // end utility functions
 });
 // end main()
