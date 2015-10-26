@@ -33,11 +33,11 @@
         <td><%= game.black_elo %></td>
         <td><%= game.site %></td>
         <td><%= game.result %></td>
-        <td><%= link_to player_game_path(game.white_player,game) do %><span id="board_<%= game.id %>" style='width: 200px'></span><% end %></td>
+        <td><%= link_to player_game_path(game.white_player,game) do %><span id="board_<%= game.id %>" style='width: 300px'></span><% end %></td>
         <td><%= game.division.name_with_tournament if game.division %></td>
         <td><%= game.visibility.humanize if game.visibility %></td>
-        <td><%= link_to 'Edit', edit_player_game_path(current_user.player,game), class: 'btn btn-primary' if game.players.include? current_user.player or current_user.admin? %></td>
-        <td><%= link_to 'Destroy', player_game_path(current_user.player,game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if game.players.include? current_user.player or current_user.admin? %></td>
+        <td><%= button_to 'Edit', edit_player_game_path(current_user.player,game), class: 'btn btn-primary', method: :get if game.players.include? current_user.player or current_user.admin? %></td>
+        <td><%= button_to 'Destroy', player_game_path(current_user.player,game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if game.players.include? current_user.player or current_user.admin? %></td>
       </tr>
       <script type='text/javascript'>
         <%= render 'board.js', game: game %>
@@ -46,3 +46,4 @@
   </tbody>
 </table>
 
+<%= will_paginate @games, renderer: BootstrapPagination::Rails %>
