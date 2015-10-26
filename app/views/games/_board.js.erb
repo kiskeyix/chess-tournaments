@@ -173,7 +173,6 @@ $('#btnEnd<%= game.id %>').on('click', function() {
 
 //key bindings
 $(document).ready(function(){
-
   $(document).keydown(function(e){
     if (e.keyCode == 39) { //right arrow
       if (e.ctrlKey) {
@@ -182,48 +181,15 @@ $(document).ready(function(){
         $('#btnNext<%= game.id %>').click();
       }
       return false;
-    }
-  });
-
-  $(document).keydown(function(e){
-    if (e.keyCode == 37) { //left arrow
+    } else if (e.keyCode == 37) { //left arrow
       if (e.ctrlKey) {
-        $('#btnStart').click();
+        $('#btnStart<%= game.id %>').click();
       } else {
-        $('#btnPrevious').click();
+        $('#btnPrevious<%= game.id %>').click();
       }
     }
     return false;
   });
-
-  /*
-     $(document).keydown(function(e){
-     if (e.keyCode == 38) { //up arrow
-     if (currentGame > 0) {
-     if (e.ctrlKey) {
-     loadGame(0);
-     } else {
-     loadGame(currentGame - 1);
-     }
-     }
-     $('#gameSelect').val(currentGame);
-     }
-     return false;
-     });*/
-
-  /*$(document).keydown(function(e){
-    if (e.keyCode == 40) { //down arrow
-    if (currentGame < pgnData.length - 1) {
-    if (e.ctrlKey) {
-    loadGame(pgnData.length - 1);
-    } else {
-    loadGame(currentGame<%= game.id %> + 1);
-    }
-    }
-    $('#gameSelect').val(currentGame<%= game.id %>);
-    }
-    return false;
-    });*/
 });
 // end pgnviewer
 
