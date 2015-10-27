@@ -1,0 +1,54 @@
+<%= form_for([@tournament,@round], html: { class: "form-horizontal round" }) do |f| %>
+  <% if @round.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@round.errors.count, "error") %> prohibited this round from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @round.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+      <%= f.label :name, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= f.label :description, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= f.label :start_date, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.datetime_select :start_date, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= f.label :end_date, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.datetime_select :end_date, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= f.label :tournament, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.collection_select :tournament_id, Tournament.open_tournaments, :id, :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>
+  </div>
+
+<% end %>

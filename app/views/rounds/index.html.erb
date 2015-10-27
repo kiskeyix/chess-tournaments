@@ -1,0 +1,31 @@
+<h1>Listing Rounds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Tournament</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rounds.each do |round| %>
+      <tr>
+        <td><%= round.name %></td>
+        <td><%= round.description %></td>
+        <td><%= round.start_date %></td>
+        <td><%= round.end_date %></td>
+        <td><%= round.tournament.name %></td>
+        <td><%= link_to 'Show', round %></td>
+        <td><%= link_to 'Edit', edit_round_path(round) %></td>
+        <td><%= link_to 'Destroy', round, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Round', new_tournament_round_path(@tournament) %>

@@ -29,6 +29,13 @@
     <%= button_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'form-control btn btn-primary' if current_user.admin? %>
   </div>
 </div>
+<h1>Rounds</h1>
+<% @tournament.rounds.each do |round| %>
+  <div class='row'>
+    <div class='col-sm-1'><%= round.name %></div>
+    <div class='col-sm-3'><%= round.start_date %></div>
+  </div>
+<% end %>
 <h1>Divisions</h1>
 <table class="table table-striped">
   <thead>

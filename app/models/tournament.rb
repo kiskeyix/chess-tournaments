@@ -1,5 +1,6 @@
 class Tournament < ActiveRecord::Base
   has_many :divisions
+  has_many :rounds
   belongs_to :league
 
   validates_presence_of :name
@@ -27,5 +28,10 @@ class Tournament < ActiveRecord::Base
   # note that a user can only be competing with 1 team in 1 division of every tournament
   def player_team(player)
     Team.joins(:players).where( 'players_teams.player_id = ?', player.id ).uniq.last
+  end
+
+  def self.open_tournaments
+    today = Time.now
+    where('end_date >= ?', today).group(:id)
   end
 end

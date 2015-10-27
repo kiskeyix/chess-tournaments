@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   shallow do
     resources :tournaments do
       resources :divisions
+      resources :rounds
     end
   end
 
