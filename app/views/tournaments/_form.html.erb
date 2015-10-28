@@ -49,6 +49,7 @@
       <% end %>
       <% unless params[:action] == 'new' %>
       <%= link_to 'Add Division', new_tournament_division_path(@tournament), class: 'btn btn-default' %>
+      <%= link_to 'Add Round', new_tournament_round_path(@tournament), class: 'btn btn-default' %>
       <% end %>
     </div>
   </div>
