@@ -21,44 +21,64 @@
   </div>
 </div>
 <br />
-<div class='row'>
-  <div class='col-sm-3'>
-    <%= button_to 'Tournaments', tournaments_path, method: :get, class: 'form-control btn btn-default', title: 'List all tournaments' %>
-  </div>
-  <div class='col-sm-2'>
-    <%= button_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'form-control btn btn-primary' if current_user.admin? %>
-  </div>
+<div class='btn-group' role='group' aria-label='tournaments control'>
+    <%= link_to 'Tournaments', tournaments_path, method: :get, class: 'btn btn-default', title: 'List all tournaments' %>
+    <%= link_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'btn btn-default' if current_user.admin? %>
 </div>
-<h1>Rounds</h1>
-<% @tournament.rounds.each do |round| %>
-  <div class='row'>
-    <div class='col-sm-1'><%= round.name %></div>
-    <div class='col-sm-3'><%= round.start_date %></div>
-  </div>
-<% end %>
-<h1>Divisions</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Teams</th>
-    </tr>
-  </thead>
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#rounds" aria-controls="rounds" role="tab" data-toggle="tab">Rounds</a>
+    </li>
+    <li role="presentation">
+      <a href="#divisions" aria-controls="divisions" role="tab" data-toggle="tab">Divisions</a>
+    </li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="rounds">
+      <h1>Rounds</h1>
+      <% @tournament.rounds.each do |round| %>
+        <div class='row'>
+          <div class='col-sm-1'><%= round.name %></div>
+          <div class='col-sm-3'><%= round.start_date %></div>
+          <div class='col-sm-8'>
+            <table class='table table-striped'>
+              <thead><th>Home</th><th>Away</th></thead>
+              <tbody><td>ENS</td><td>Bloomberg</td></tbody>
+            </table>
+          </div>
+        </div>
+        <hr />
+      <% end %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="divisions">
+      <h1>Divisions</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Teams</th>
+          </tr>
+        </thead>
 
-  <tbody>
-<% @tournament.divisions.each do |division| %>
-  <tr>
-    <td>
-      <h3><%= link_to division.name, division, title: division.description  %></h3>
-    </td>
-    <td>
-      <ul style='list-style-type: none;'>
-        <% division.teams.each do |team| %>
-          <li><%= link_to team.name, team %></li>
-        <% end %>
-      </ul>
-    </td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
+        <tbody>
+      <% @tournament.divisions.each do |division| %>
+        <tr>
+          <td>
+            <h3><%= link_to division.name, division, title: division.description  %></h3>
+          </td>
+          <td>
+            <ul style='list-style-type: none;'>
+              <% division.teams.each do |team| %>
+                <li><%= link_to team.name, team %></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>
