@@ -5,7 +5,7 @@ one:
   name: MyString
   date: 2015-10-09 19:57:47
   timecontrol: "7200+05"
-  while_elo: 1900
+  white_elo: 1900
   black_elo: 2100
   site: Bejing, China
   result: "1/2-1/2"
@@ -22,7 +22,7 @@ two:
   name: MyString2
   date: 2015-10-09 20:57:47
   timecontrol: 4500
-  while_elo: 1200
+  white_elo: 1200
   black_elo: 1400
   site: New York, NY
   result: "0-1"
@@ -36,7 +36,7 @@ three:
   name: MyString3
   date: 2014-09-09 20:57:47
   timecontrol: 4500
-  while_elo: 1200
+  white_elo: 1200
   black_elo: 1400
   site: New York, NY
   result: "0-1"

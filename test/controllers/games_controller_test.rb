@@ -29,7 +29,7 @@ class GamesControllerTest < ActionController::TestCase
                             division_id: @game.division_id, event: @game.event,
                             fen: @game.fen, name: @game.name + "new", pgn: @game.pgn,
                             result: @game.result, site: @game.site,
-                            timecontrol: @game.timecontrol, while_elo: @game.while_elo }
+                            timecontrol: @game.timecontrol, white_elo: @game.white_elo }
     end
 
     assert_redirected_to game_path(assigns(:game))
@@ -52,7 +52,7 @@ class GamesControllerTest < ActionController::TestCase
                                       name: @game.name + "new", pgn: @game.pgn,
                                       result: @game.result, site: @game.site,
                                       timecontrol: @game.timecontrol,
-                                      while_elo: @game.while_elo }
+                                      white_elo: @game.white_elo }
     assert_redirected_to game_path(assigns(:game))
   end
 
