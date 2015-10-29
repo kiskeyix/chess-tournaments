@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20151027134443) do
     t.string   "name"
     t.datetime "date"
     t.string   "timecontrol"
-    t.string   "while_elo"
+    t.string   "white_elo"
     t.string   "black_elo"
     t.string   "site"
     t.string   "result"
