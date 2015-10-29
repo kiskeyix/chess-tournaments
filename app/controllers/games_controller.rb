@@ -22,6 +22,9 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    @game.white_player = Player.new
+    @game.black_player = Player.new
+    @game.pgn = ""
   end
 
   # GET /games/1/edit

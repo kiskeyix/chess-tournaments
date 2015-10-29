@@ -4,7 +4,6 @@ var board<%= game.id %>,
     game<%= game.id %> = new Chess(),
     games,
     currentPly<%= game.id %> = 0,
-    currentGame<%= game.id %> = <%= game.id %>,
     statusEl<%= game.id %> = $('#status_<%= game.id %>'),
     fenEl<%= game.id %> = $('#fen_<%= game.id %>'),
     pgnEl<%= game.id %> = $('#pgn_<%= game.id %>');
@@ -171,6 +170,7 @@ $('#btnEnd<%= game.id %>').on('click', function() {
   board<%= game.id %>.position(game<%= game.id %>.fen());
 });
 
+if ( '<%= game.id %>' !== '' ) {
 //key bindings
 $(document).ready(function(){
   $(document).keydown(function(e){
@@ -191,6 +191,7 @@ $(document).ready(function(){
     return false;
   });
 });
+}
 // end pgnviewer
 
 //var initial_position = fenEl.text();
