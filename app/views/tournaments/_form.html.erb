@@ -39,16 +39,28 @@
   </div>
   <div class="form-group">
     <%= f.label :divisions, class: 'control-label col-sm-2' %>
-    <div class='col-sm-10'>
+    <div class='col-sm-2'>
       <%= f.collection_check_boxes :division_ids, @tournament.divisions, :id,
         :name do |b| %>
         <%= b.label class:"control-label" do %>
           <%= b.check_box + b.text %>
         <% end %>
         <br />
-      <% end %>
+      <% end %> 
       <% unless params[:action] == 'new' %>
       <%= link_to 'Add Division', new_tournament_division_path(@tournament), class: 'btn btn-default' %>
+      <% end %>
+    </div>
+    <%= f.label :rounds, class: 'control-label col-sm-2' %>
+    <div class='col-sm-2'>
+      <%= f.collection_check_boxes :round_ids, @tournament.rounds, :id,
+        :name do |b| %>
+        <%= b.label class:"control-label" do %>
+          <%= b.check_box + b.text %>
+        <% end %>
+        <br />
+      <% end %> 
+      <% unless params[:action] == 'new' %>
       <%= link_to 'Add Round', new_tournament_round_path(@tournament), class: 'btn btn-default' %>
       <% end %>
     </div>
