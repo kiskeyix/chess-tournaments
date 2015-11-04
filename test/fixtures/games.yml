@@ -7,7 +7,7 @@ one:
   timecontrol: "7200+05"
   white_elo: 1900
   black_elo: 2100
-  site: Bejing, China
+  site: Beijing, China
   result: "1/2-1/2"
   fen: MyString
   pgn: MyText
