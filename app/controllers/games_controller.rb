@@ -4,6 +4,8 @@ class GamesController < ApplicationController
 
   # GET /games
   # GET /games.json
+  # GET /players/:player_id/games
+  # GET /players/:player_id/games.json
   def index
     if params[:player_id]
       @games = Game.where('white_player_id = ? OR black_player_id = ?',
@@ -27,12 +29,12 @@ class GamesController < ApplicationController
     @game.pgn = ""
   end
 
-  # GET /games/1/edit
+  # GET /players/:player_id/games/1/edit
   def edit
   end
 
-  # POST /games
-  # POST /games.json
+  # POST /players/:player_id/games
+  # POST /players/:player_id/games.json
   def create
     @game = Game.new(game_params)
 
@@ -47,8 +49,8 @@ class GamesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /games/1
-  # PATCH/PUT /games/1.json
+  # PATCH/PUT /players/:player_id/games/1
+  # PATCH/PUT /players/:player_id/games/1.json
   def update
     respond_to do |format|
       if @game.update(game_params)
@@ -61,13 +63,20 @@ class GamesController < ApplicationController
     end
   end
 
-  # DELETE /games/1
-  # DELETE /games/1.json
+  # DELETE /players/:player_id/games/1
+  # DELETE /players/:player_id/games/1.json
   def destroy
-    @game.destroy
-    respond_to do |format|
-      format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
-      format.json { head :no_content }
+    if [@game.white_player, @game.black_player].include? current_user.player
+      @game.destroy
+      respond_to do |format|
+        format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: 'You are not allowed to remove this game.' }
+        format.json { render json: "", status: :unprocessable_entity }
+      end
     end
   end
 
@@ -79,6 +88,18 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:event, :name, :date, :timecontrol, :white_elo, :black_elo, :site, :result, :fen, :pgn, :division_id)
+      params.require(:game).permit(:event,
+                                   :name,
+                                   :date,
+                                   :timecontrol,
+                                   :white_player_id,
+                                   :white_elo,
+                                   :black_player_id,
+                                   :black_elo,
+                                   :site,
+                                   :result,
+                                   :fen,
+                                   :pgn,
+                                   :division_id)
     end
 end
