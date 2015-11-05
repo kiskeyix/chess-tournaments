@@ -21,7 +21,7 @@ class GamesController < ApplicationController
   def show
   end
 
-  # GET /games/new
+  # GET /players/:player_id/games/new
   def new
     @game = Game.new
     @game.white_player = Player.new
