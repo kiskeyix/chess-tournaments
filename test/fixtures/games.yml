@@ -6,7 +6,9 @@ one:
   date: 2015-10-09 19:57:47
   timecontrol: "7200+05"
   white_elo: 1900
+  white_player: one
   black_elo: 2100
+  black_player: two
   site: Beijing, China
   result: "1/2-1/2"
   fen: MyString
@@ -23,7 +25,10 @@ two:
   date: 2015-10-09 20:57:47
   timecontrol: 4500
   white_elo: 1200
+  white_player: three
   black_elo: 1400
+  black_player: two
+  site: Beijing, China
   site: New York, NY
   result: "0-1"
   fen: fEE
@@ -37,7 +42,9 @@ three:
   date: 2014-09-09 20:57:47
   timecontrol: 4500
   white_elo: 1200
+  white_player: three
   black_elo: 1400
+  black_player: two
   site: New York, NY
   result: "0-1"
   fen: fEE

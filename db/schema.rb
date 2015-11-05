@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027134443) do
+ActiveRecord::Schema.define(version: 20151104132032) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
@@ -85,6 +85,38 @@ ActiveRecord::Schema.define(version: 20151027134443) do
 
   add_index "leagues_rules", ["league_id", "rule_id"], name: "index_leagues_rules_on_league_id_and_rule_id"
   add_index "leagues_rules", ["rule_id", "league_id"], name: "index_leagues_rules_on_rule_id_and_league_id"
+
+  create_table "lineups", force: :cascade do |t|
+    t.integer  "match_id"
+    t.integer  "team_id"
+    t.integer  "board_number"
+    t.integer  "player_id"
+    t.boolean  "rating_only"
+    t.boolean  "alternate"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "round_id"
+    t.text     "location"
+    t.integer  "home_team_id"
+    t.integer  "home_team_lineup_id"
+    t.integer  "guest_team_id"
+    t.integer  "guest_team_lineup_id"
+    t.datetime "postponed_date"
+    t.integer  "result_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "matches", ["guest_team_id"], name: "index_matches_on_guest_team_id"
+  add_index "matches", ["guest_team_lineup_id"], name: "index_matches_on_guest_team_lineup_id"
+  add_index "matches", ["home_team_id"], name: "index_matches_on_home_team_id"
+  add_index "matches", ["name"], name: "index_matches_on_name"
+  add_index "matches", ["round_id"], name: "index_matches_on_round_id"
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"

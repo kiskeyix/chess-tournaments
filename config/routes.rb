@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  # TODO resources :matches
   resources :leagues
-
   resources :rules
 
   # "shallow: true" allows for index, new, create to be deep nested,
@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   shallow do
     resources :tournaments do
       resources :divisions
-      resources :rounds
+      resources :rounds do
+        resources :matches
+      end
     end
   end
 

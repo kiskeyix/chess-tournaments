@@ -47,6 +47,8 @@ group :development, :test do
   gem 'spring'
 
   gem 'minitest-spec-rails'
+
+  gem 'redcarpet', '~> 3.1.2'
 end
 
 gem 'pry'

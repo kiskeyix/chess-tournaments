@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  round_id: 1
+  location: MyText
+  home_team_id: 1
+  home_team_lineup_id: 1
+  guest_team_id: 1
+  guest_team_lineup_id: 1
+  postponed_date: 2015-11-04 08:06:25
+  result_id: 1
+
+two:
+  name: MyString
+  description: MyText
+  round_id: 1
+  location: MyText
+  home_team_id: 1
+  home_team_lineup_id: 1
+  guest_team_id: 1
+  guest_team_lineup_id: 1
+  postponed_date: 2015-11-04 08:06:25
+  result_id: 1

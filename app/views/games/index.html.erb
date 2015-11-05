@@ -27,9 +27,9 @@
         <td><%= game.name %></td>
         <td><%= game.date %></td>
         <td><%= game.timecontrol %></td>
-        <td><%= game.white_player.name %></td>
+        <td><%= game.white_player.name if game.white_player %></td>
         <td><%= game.white_elo %></td>
-        <td><%= game.black_player.name %></td>
+        <td><%= game.black_player.name if game.black_player %></td>
         <td><%= game.black_elo %></td>
         <td><%= game.site %></td>
         <td><%= game.result %></td>
