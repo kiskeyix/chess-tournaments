@@ -51,16 +51,19 @@ class MatchesControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    sign_in users(:user_three)
     get :edit, id: @match
     assert_response :success
   end
 
   test "should update match" do
+    sign_in users(:user_three)
     patch :update, id: @match, match: { description: @match.description, guest_team_id: @match.guest_team_id, guest_team_lineup_id: @match.guest_team_lineup_id, home_team_id: @match.home_team_id, home_team_lineup_id: @match.home_team_lineup_id, location: @match.location, name: @match.name, postponed_date: @match.postponed_date, result_id: @match.result_id, round_id: @match.round_id }
     assert_redirected_to match_path(assigns(:match))
   end
 
   test "should destroy match" do
+    sign_in users(:user_three)
     assert_difference('Match.count', -1) do
       delete :destroy, id: @match
     end

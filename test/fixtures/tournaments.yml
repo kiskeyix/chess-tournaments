@@ -5,9 +5,13 @@ one:
   image: MyString
   description: MyText
   league: one
+  start_date: 2015-10-15 17:29:25
+  end_date: 2016-06-25 19:29:25
 
 two:
   name: tourney_two
   image: MyString
   description: MyText
   league: two
+  start_date: 2014-10-20 17:29:25
+  end_date: 2016-10-20 19:29:25

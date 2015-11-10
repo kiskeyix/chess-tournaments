@@ -92,7 +92,7 @@ class RoundsController < ApplicationController
     if current_user.admin?
       @round.destroy
       respond_to do |format|
-        format.html { redirect_to tournament_url(@tournament), notice: 'Round was successfully destroyed.' }
+        format.html { redirect_to tournament_rounds_url(tournament_id: @tournament.id), notice: 'Round was successfully destroyed.' }
         format.json { head :no_content }
       end
     else

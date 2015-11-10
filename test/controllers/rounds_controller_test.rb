@@ -3,22 +3,33 @@ require 'test_helper'
 class RoundsControllerTest < ActionController::TestCase
   setup do
     @round = rounds(:one)
+    @tournament = tournaments(:one)
+
+    sign_in users(:user_three)
+    @team = teams(:one)
+    @user = users(:user_three)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   test "should get index" do
-    get :index
+    get :index, tournament_id: @tournament.id
     assert_response :success
     assert_not_nil assigns(:rounds)
   end
 
   test "should get new" do
-    get :new
+    sign_in users(:user_three)
+    get :new, tournament_id: @tournament.id
     assert_response :success
   end
 
   test "should create round" do
+    sign_in users(:user_three)
     assert_difference('Round.count') do
-      post :create, round: { description: @round.description, end_date: @round.end_date, name: @round.name, start_date: @round.start_date, tournament_id: @round.tournament_id }
+      post :create, tournament_id: @tournament.id,
+        round: { description: @round.description, end_date: @round.end_date,
+                 name: @round.name + "new", start_date: @round.start_date,
+                 tournament_id: @round.tournament_id }
     end
 
     assert_redirected_to round_path(assigns(:round))
@@ -30,20 +41,27 @@ class RoundsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    sign_in users(:user_three)
     get :edit, id: @round
     assert_response :success
   end
 
   test "should update round" do
-    patch :update, id: @round, round: { description: @round.description, end_date: @round.end_date, name: @round.name, start_date: @round.start_date, tournament_id: @round.tournament_id }
+    sign_in users(:user_three)
+    patch :update, id: @round, round: { description: @round.description,
+                                        end_date: @round.end_date,
+                                        name: @round.name + "updated",
+                                        start_date: @round.start_date,
+                                        tournament_id: @round.tournament_id }
     assert_redirected_to round_path(assigns(:round))
   end
 
   test "should destroy round" do
+    sign_in users(:user_three)
     assert_difference('Round.count', -1) do
       delete :destroy, id: @round
     end
 
-    assert_redirected_to rounds_path
+    assert_redirected_to tournament_rounds_path(tournament_id: @tournament.id)
   end
 end
