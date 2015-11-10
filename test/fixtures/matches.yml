@@ -3,23 +3,23 @@
 one:
   name: MyString
   description: MyText
-  round_id: 1
+  round: one
   location: MyText
-  home_team_id: 1
-  home_team_lineup_id: 1
-  guest_team_id: 1
-  guest_team_lineup_id: 1
+  home_team: one
+  home_team_lineup: one
+  guest_team: two
+  guest_team_lineup: two
   postponed_date: 2015-11-04 08:06:25
   result_id: 1
 
 two:
-  name: MyString
+  name: MyString2
   description: MyText
-  round_id: 1
+  round: two
   location: MyText
-  home_team_id: 1
-  home_team_lineup_id: 1
-  guest_team_id: 1
-  guest_team_lineup_id: 1
-  postponed_date: 2015-11-04 08:06:25
+  home_team: three
+  home_team_lineup: three
+  guest_team: two
+  guest_team_lineup: two
+  postponed_date: 2015-11-05 09:06:25
   result_id: 1

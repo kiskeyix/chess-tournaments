@@ -1,5 +1,6 @@
 class Round < ActiveRecord::Base
   belongs_to :tournament
+  has_many :matches
   validate :date_is_within_tournament
 
   def date_is_within_tournament

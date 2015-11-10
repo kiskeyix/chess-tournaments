@@ -50,6 +50,7 @@ class DivisionsController < ApplicationController
           format.html { redirect_to @division, notice: 'Division was successfully created.' }
           format.json { render :show, status: :created, location: @division }
         else
+          @tournament = @division.tournament
           format.html { render :new }
           format.json { render json: @division.errors, status: :unprocessable_entity }
         end
@@ -57,6 +58,7 @@ class DivisionsController < ApplicationController
     else
       msg = { alert: "Only administrators can create or manipulate divisions. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
       respond_to do |format|
+        @tournament = @division.tournament
         format.html { render :new, msg }
         format.json { render json: @division.errors, status: :unprocessable_entity }
       end
@@ -72,6 +74,7 @@ class DivisionsController < ApplicationController
           format.html { redirect_to @division, notice: 'Division was successfully updated.' }
           format.json { render :show, status: :ok, location: @division }
         else
+          @tournament = @division.tournament
           format.html { render :edit }
           format.json { render json: @division.errors, status: :unprocessable_entity }
         end

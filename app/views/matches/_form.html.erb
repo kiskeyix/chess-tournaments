@@ -1,4 +1,4 @@
-<%= form_for @match, html: { class: "form-horizontal match" } do |f| %>
+<%= form_for([@round,@match], html: { class: "form-horizontal match" }) do |f| %>
   <% if @match.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">

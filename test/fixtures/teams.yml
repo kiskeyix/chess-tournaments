@@ -9,3 +9,7 @@ two:
   name: team two
   description: second team
   image: image2
+
+three:
+  name: team three
+  description: third team
