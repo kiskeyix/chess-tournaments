@@ -50,12 +50,14 @@ class RoundsController < ApplicationController
           format.json { render :show, status: :created, location: @round }
         else
           @tournament = @round.tournament
+          logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{@round.errors.full_messages.join(' ')}"
           format.html { render :new }
           format.json { render json: @round.errors, status: :unprocessable_entity }
         end
       end
     else
       msg = { alert: "Only administrators can create or manipulate rounds. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{msg[:alert]}"
       @tournament = @round.tournament
       respond_to do |format|
         format.html { render :new, msg }
@@ -73,6 +75,7 @@ class RoundsController < ApplicationController
           format.html { redirect_to @round, notice: 'Round was successfully updated.' }
           format.json { render :show, status: :ok, location: @round }
         else
+          logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{@round.errors.full_messages.join(' ')}"
           format.html { render :edit }
           format.json { render json: @round.errors, status: :unprocessable_entity }
         end
@@ -80,6 +83,7 @@ class RoundsController < ApplicationController
     else
       @tournament = @round.tournament
       msg = { alert: "Only administrators can create or manipulate rounds. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{msg[:alert]}"
       respond_to do |format|
         format.html { redirect_to tournament_url(@tournament), msg }
         format.json { render json: @round.errors, status: :unprocessable_entity }

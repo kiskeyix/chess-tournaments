@@ -51,6 +51,7 @@ class MatchesController < ApplicationController
           format.json { render :show, status: :created, location: @match }
         else
           @round = @match.round
+          logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{@match.errors.full_messages.join(' ')}"
           format.html { render :new }
           format.json { render json: @match.errors, status: :unprocessable_entity }
         end
@@ -59,6 +60,7 @@ class MatchesController < ApplicationController
       msg = { alert: "Only administrators can create or manipulate matches. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
       respond_to do |format|
         @round = @match.round
+        logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{@match.errors.full_messages.join(' ')}"
         format.html { render :new, msg }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       end
@@ -75,6 +77,7 @@ class MatchesController < ApplicationController
           format.json { render :show, status: :ok, location: @match }
         else
           @round = @match.round
+          logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{@match.errors.full_messages.join(' ')}"
           format.html { render :edit }
           format.json { render json: @match.errors, status: :unprocessable_entity }
         end
@@ -82,6 +85,7 @@ class MatchesController < ApplicationController
     else
       @round = @match.round
       msg = { alert: "Only administrators can create or manipulate matches. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      logger.error "ERROR #{self.class}::#{__method__}: cannot save data because of: #{msg[:alert]}"
       respond_to do |format|
         format.html { redirect_to round_url(@round), msg }
         format.json { render json: @match.errors, status: :unprocessable_entity }
