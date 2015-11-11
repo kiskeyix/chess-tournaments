@@ -49,12 +49,14 @@ class RoundsController < ApplicationController
           format.html { redirect_to @round, notice: 'Round was successfully created.' }
           format.json { render :show, status: :created, location: @round }
         else
+          @tournament = @round.tournament
           format.html { render :new }
           format.json { render json: @round.errors, status: :unprocessable_entity }
         end
       end
     else
       msg = { alert: "Only administrators can create or manipulate rounds. Contact site administrator #{CHESS_ADMIN_EMAIL}" }
+      @tournament = @round.tournament
       respond_to do |format|
         format.html { render :new, msg }
         format.json { render json: @round.errors, status: :unprocessable_entity }
