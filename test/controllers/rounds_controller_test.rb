@@ -35,6 +35,18 @@ class RoundsControllerTest < ActionController::TestCase
     assert_redirected_to round_path(assigns(:round))
   end
 
+  it "should fail to create round" do
+    sign_in users(:user_three)
+    assert_difference('Round.count', 0) do
+      post :create, tournament_id: @tournament.id,
+        round: { description: @round.description, end_date: @round.end_date,
+                 name: @round.name + "new", start_date: @round.start_date - 1.year,
+                 tournament_id: @round.tournament_id }
+    end
+
+    assert_response :success
+  end
+
   test "should show round" do
     get :show, id: @round
     assert_response :success
@@ -55,6 +67,17 @@ class RoundsControllerTest < ActionController::TestCase
                                         tournament_id: @round.tournament_id }
     assert_redirected_to round_path(assigns(:round))
   end
+
+  it "should fail to update round" do
+    sign_in users(:user_three)
+    patch :update, id: @round, round: { description: @round.description,
+                                        end_date: @round.end_date - 1.year,
+                                        name: @round.name + "updated",
+                                        start_date: @round.start_date,
+                                        tournament_id: @round.tournament_id }
+    assert_response :success # goes back to :edit
+  end
+
 
   test "should destroy round" do
     sign_in users(:user_three)
