@@ -21,8 +21,8 @@
         <td><%= image_tag tournament.image unless tournament.image.blank? %></td>
         <td><%= tournament.description %></td>
         <%# TODO should show if team belongs to this tournament.division %>
-        <td><%= tournament.divisions.collect(&:name).join(', ') %></td>
-        <td><%= tournament.rounds.collect(&:name).join(', ') %></td>
+        <td><%= collection_links(tournament.divisions).html_safe %></td>
+        <td><%= collection_links(tournament.rounds).html_safe %></td>
         <td><%= link_to 'New Division', new_tournament_division_path(tournament), class: 'form-control btn btn-default' if current_user.admin? %></td>
         <td><%= link_to 'New Round', new_tournament_round_path(tournament), class: 'form-control btn btn-default' if current_user.admin? %></td>
         <td><%= link_to 'Edit', edit_tournament_path(tournament), class: 'form-control btn btn-default' if current_user.admin? %></td>

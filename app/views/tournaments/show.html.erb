@@ -39,19 +39,29 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="rounds">
       <h1>Rounds</h1>
-      <% @tournament.rounds.each do |round| %>
-        <div class='row'>
-          <div class='col-sm-1'><%= round.name %></div>
-          <div class='col-sm-3'><%= round.start_date %></div>
-          <div class='col-sm-8'>
-            <table class='table table-striped'>
-              <thead><th>Home</th><th>Away</th></thead>
-              <tbody><td>ENS</td><td>Bloomberg</td></tbody>
-            </table>
-          </div>
-        </div>
-        <hr />
-      <% end %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>Matches</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tournament.rounds.each do |round| %>
+            <tr>
+              <td><%= link_to round.name, round %></td>
+              <td><%= round.start_date %></td>
+              <td>
+                <table class='table table-striped'>
+                  <thead><tr><th>Home</th><th>Away</th></tr></thead>
+                  <tbody><tr><td>ENS</td><td>Bloomberg</td></tr></tbody>
+                </table>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div role="tabpanel" class="tab-pane" id="divisions">
       <h1>Divisions</h1>

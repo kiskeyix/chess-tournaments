@@ -22,11 +22,8 @@
   </p>
 </div>
 <hr />
-<div class='row'>
-  <div class='col-sm-3'>
-    <%= button_to 'Show Tournament', tournament_path(@division.tournament), class: 'btn btn-default', method: :get %>
-  </div>
-  <div class='col-sm-2'>
-    <%= button_to 'Edit', edit_division_path(@division), class: 'btn btn-primary', method: :get %>
-  </div>
+
+<div class='btn-group' role='group' aria-label='divisions control'>
+  <%= link_to 'Show Tournament', tournament_path(@division.tournament), class: 'btn btn-default', method: :get %>
+  <%= link_to 'Edit', edit_division_path(@division), class: 'btn btn-primary', method: :get %>
 </div>
