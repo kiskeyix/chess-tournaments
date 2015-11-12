@@ -8,5 +8,7 @@ class Match < ActiveRecord::Base
   belongs_to :round
   #TODO belongs_to :result
 
+  has_and_belongs_to_many :games
+
   validates_uniqueness_of :name, allow_blank: true
 end
