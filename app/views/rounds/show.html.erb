@@ -1,33 +1,25 @@
-<p>
-  <strong>Name:</strong>
-  <%= @round.name %>
-</p>
+<h1>Round <%= @round.name %></h1>
 
 <p>
-  <strong>Description:</strong>
   <%= @round.description %>
 </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @round.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @round.end_date %>
-</p>
-
-<p>
-  <strong>Tournament:</strong>
-  <%= @round.tournament.name %>
-</p>
+<div class='row'>
+  <div class='col-sm-2'><strong>Start date:</strong></div>
+  <div class='col-sm-10'><%= @round.start_date %></div>
+</div>
 
 <div class='row'>
-  <div class='col-sm-3'>
-    <%= button_to 'Tournament', tournament_path(@round.tournament), class: 'btn btn-default', method: :get %>
-  </div>
-  <div class='col-sm-2'>
-    <%= button_to 'Edit', edit_round_path(@round), class: 'btn btn-primary', method: :get %>
-  </div>
+  <div class='col-sm-2'><strong>End date:</strong></div>
+  <div class='col-sm-10'><%= @round.end_date %></div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-2'><strong>Tournament:</strong></div>
+  <div class='col-sm-10'><%= @round.tournament.name %></div>
+</div>
+
+<div class='btn-group' role='group' aria-label='rounds control'>
+  <%= link_to 'Tournament', tournament_path(@round.tournament), class: 'btn btn-default', method: :get %>
+  <%= link_to 'Edit', edit_round_path(@round), class: 'btn btn-primary', method: :get %>
 </div>
