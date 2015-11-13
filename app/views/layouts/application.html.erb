@@ -72,6 +72,15 @@
               Actions <span class='caret'></span>
             <% end %>
             <ul class="dropdown-menu" role="menu">
+              <% if @tournament %>
+                <li><%= link_to 'Edit Tournament', edit_tournament_path(@tournament) %></li>
+              <% end %>
+              <% if @round %>
+                <li><%= link_to 'Edit Round', edit_round_path(@round) %></li>
+              <% end %> 
+              <% if @tournament or @round %>
+              <li role="separator" class="divider"></li>
+              <% end %>
               <li><%= link_to 'New League', new_league_path %></li>
               <li><%= link_to 'New Player', new_player_path %></li>
               <li><%= link_to 'New Rule', new_rule_path %></li>
