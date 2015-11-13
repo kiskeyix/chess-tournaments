@@ -51,10 +51,10 @@
               <td><%= round.start_date %></td>
               <td>
                 <table class='table table-striped'>
-                  <thead><tr><th>Home</th><th>Away</th></tr></thead>
+                  <thead><tr><th>Home</th><th></th><th>Guest</th></tr></thead>
                   <tbody>
                     <% round.matches.each do |match| %>
-                      <tr><td><%= match.home_team.name %></td><td><%= match.away_team.name %></td></tr>
+                      <tr><td><%= match.home_team.name %></td><td>vs</td><td><%= match.guest_team.name %></td></tr>
                     <% end %>
                   </tbody>
                 </table>

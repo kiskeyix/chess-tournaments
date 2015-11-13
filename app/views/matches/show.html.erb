@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @match.name %>
@@ -50,4 +48,7 @@
   <%= @match.result_id %>
 </p>
 
+<div class='btn-group' role='group' aria-label='matches control'>
+<%= link_to 'Back to Tournament', @match.round.tournament, class: 'btn btn-default' %>
 <%= link_to 'Edit', edit_match_path(@match), class: 'btn btn-default' %>
+</div>

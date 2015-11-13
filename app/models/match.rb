@@ -1,9 +1,9 @@
 class Match < ActiveRecord::Base
-  belongs_to :home_team, nil, class_name: :team
-  belongs_to :guest_team, nil, class_name: :team
+  belongs_to :home_team, nil, class_name: 'Team'
+  belongs_to :guest_team, nil, class_name: 'Team'
 
-  belongs_to :home_team_lineup, nil, class_name: :lineup
-  belongs_to :guest_team_lineup, nil, class_name: :lineup
+  belongs_to :home_team_lineup, nil, class_name: 'Lineup'
+  belongs_to :guest_team_lineup, nil, class_name: 'Lineup'
 
   belongs_to :round
   #TODO belongs_to :result
