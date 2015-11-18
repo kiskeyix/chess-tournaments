@@ -72,10 +72,10 @@
               Actions <span class='caret'></span>
             <% end %>
             <ul class="dropdown-menu" role="menu">
-              <% if @tournament %>
+              <% if @tournament and not @tournament.id.nil? %>
                 <li><%= link_to 'Edit Tournament', edit_tournament_path(@tournament) %></li>
               <% end %>
-              <% if @round %>
+              <% if @round and not @round.id.nil? %>
                 <li><%= link_to 'Edit Round', edit_round_path(@round) %></li>
               <% end %> 
               <% if @tournament or @round %>
