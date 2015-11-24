@@ -37,9 +37,9 @@
       <%= f.text_area :description, size: '20x10', class: 'form-control' %>
     </div>
   </div>
-  <div style='background-color: lightgrey;' class="form-group">
+  <div class="form-group">
     <%= f.label :divisions, class: 'control-label col-sm-2' %>
-    <div style='background-color: lightyellow;' class='col-sm-2'>
+    <div class='col-sm-2'>
       <%= f.collection_check_boxes :division_ids, @tournament.divisions, :id,
         :name do |b| %>
         <%= b.label class:"control-label" do %>
@@ -52,14 +52,14 @@
       <% end %>
     </div>
     <%= f.label :rounds, class: 'control-label col-sm-2' %>
-    <div style='background-color: lightgreen;' class='text-right col-sm-6'>
+    <div class='text-right col-sm-6'>
       <fieldset>
         <%= f.fields_for :rounds do |builder| %>
           <%= render 'rounds/round_fields', f: builder %>
         <% end %>
+        <hr />
         <% unless params[:action] == 'new' %>
           <%= link_to_add_fields "Add Round", f, :rounds %>
-          <%#= link_to 'Add Round', new_tournament_round_path(@tournament), class: 'btn btn-default' %>
         <% end %>
       </fieldset>
     </div>
