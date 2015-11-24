@@ -37,9 +37,9 @@
       <%= f.text_area :description, size: '20x10', class: 'form-control' %>
     </div>
   </div>
-  <div class="form-group">
+  <div style='background-color: lightgrey;' class="form-group">
     <%= f.label :divisions, class: 'control-label col-sm-2' %>
-    <div class='col-sm-2'>
+    <div style='background-color: lightyellow;' class='col-sm-2'>
       <%= f.collection_check_boxes :division_ids, @tournament.divisions, :id,
         :name do |b| %>
         <%= b.label class:"control-label" do %>
@@ -52,17 +52,16 @@
       <% end %>
     </div>
     <%= f.label :rounds, class: 'control-label col-sm-2' %>
-    <div class='col-sm-2'>
-      <%= f.collection_check_boxes :round_ids, @tournament.rounds, :id,
-        :name do |b| %>
-        <%= b.label class:"control-label" do %>
-          <%= b.check_box + b.text %>
+    <div style='background-color: lightgreen;' class='text-right col-sm-6'>
+      <fieldset>
+        <%= f.fields_for :rounds do |builder| %>
+          <%= render 'rounds/round_fields', f: builder %>
         <% end %>
-        <br />
-      <% end %> 
-      <% unless params[:action] == 'new' %>
-      <%= link_to 'Add Round', new_tournament_round_path(@tournament), class: 'btn btn-default' %>
-      <% end %>
+        <% unless params[:action] == 'new' %>
+          <%= link_to_add_fields "Add Round", f, :rounds %>
+          <%#= link_to 'Add Round', new_tournament_round_path(@tournament), class: 'btn btn-default' %>
+        <% end %>
+      </fieldset>
     </div>
   </div>
   <div class="form-group">
@@ -84,7 +83,10 @@
     </div>
   </div>
   <div class="text-center">
-    <%= f.submit 'Save', class: 'btn btn-primary' %>
+    <div class="form-group">
+    <%= link_to 'Cancel', @tournament, class: 'btn btn-default' %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    </div>
   </div>
   <div class="text-center">
     <small>* Required</small>
