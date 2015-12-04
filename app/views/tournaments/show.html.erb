@@ -1,6 +1,9 @@
 <div class='row'>
   <div class='col-sm-10'>
     <h2><%= @tournament.name %></h2>
+    <% if current_user.admin? %>
+    <p><%= button_to 'Edit', edit_tournament_path(@tournament), method: :get, class: 'btn btn-primary' %></p>
+    <% end %>
     <h4><%= link_to "#{@tournament.league.name} league", @tournament.league %></h4>
       <strong>Rules</strong>
       <ul>
