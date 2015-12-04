@@ -4,6 +4,7 @@ class Tournament < ActiveRecord::Base
   belongs_to :league
 
   accepts_nested_attributes_for :rounds, allow_destroy: true
+  accepts_nested_attributes_for :divisions, allow_destroy: true
 
   validates_presence_of :name
   validates_uniqueness_of :name
