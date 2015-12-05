@@ -10,5 +10,6 @@ class Match < ActiveRecord::Base
 
   has_and_belongs_to_many :games
 
-  validates_uniqueness_of :name, allow_blank: true
+  # names are not really unique
+  #validates_uniqueness_of :name, allow_blank: true
 end

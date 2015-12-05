@@ -77,10 +77,16 @@ class TournamentsController < ApplicationController
   def update
     if current_user.admin?
       respond_to do |format|
-        if @tournament.update(tournament_params)
-          format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
-          format.json { render :show, status: :ok, location: @tournament }
-        else
+        begin
+          if @tournament.update(tournament_params)
+            format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
+            format.json { render :show, status: :ok, location: @tournament }
+          else
+            format.html { render :edit }
+            format.json { render json: @tournament.errors, status: :unprocessable_entity }
+          end
+        rescue ActiveRecord::RecordNotDestroyed => e
+          flash[:alert] = "Failed to delete record. Make sure round does not have any matches."
           format.html { render :edit }
           format.json { render json: @tournament.errors, status: :unprocessable_entity }
         end
