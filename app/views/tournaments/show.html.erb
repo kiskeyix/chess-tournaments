@@ -42,7 +42,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Start Date</th>
+            <th>Date</th>
             <th>Matches</th>
             <th>Actions</th>
           </tr>
@@ -51,7 +51,7 @@
           <% @tournament.rounds.each do |round| %>
             <tr>
               <td><%= link_to round.name, round %></td>
-              <td><%= round.start_date %></td>
+              <td><span title="Start time: <%= round.start_date %>. End time: <%= round.end_date %>"><%= round.start_date %> (<%= distance_of_time_in_words round.end_date, round.start_date %>)</span></td>
               <td>
                 <table class='table table-striped'>
                   <thead><tr><th>Home</th><th></th><th>Guest</th></tr></thead>
@@ -64,7 +64,10 @@
               </td>
               <td>
                 <div class='btn-group' role='group' aria-label='tournaments control'>
-                  <%= button_to 'Add Match', new_round_match_path(round_id: round), method: :get, class: 'btn btn-success' %>
+                  <% if current_user.admin? %>
+                  <%= link_to 'Edit Round', edit_round_path(round), method: :get, class: 'btn btn-default' %>
+                  <%= link_to 'Add Match', new_round_match_path(round_id: round), method: :get, class: 'btn btn-success' %>
+                  <% end %>
                 </div>
               </td>
             </tr>
