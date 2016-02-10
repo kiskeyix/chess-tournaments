@@ -5,7 +5,13 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.paginate(page: params[:page], per_page: 15)
+    if params[:search] or params[:term]
+      c = params[:search] || params[:term]
+      @teams = Team.paginate(:page => params[:page],
+                             :per_page => 20).where("teams.name LIKE ?", "#{c}%")
+    else
+      @teams = Team.paginate(page: params[:page], per_page: 15)
+    end
   end
 
   # GET /teams/1
