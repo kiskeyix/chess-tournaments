@@ -24,9 +24,9 @@
         <td><%= match.description %></td>
         <td><%= match.round_id %></td>
         <td><%= match.location %></td>
-        <td><%= match.home_team_id %></td>
+        <td><%= link_to match.home_team.name, match.home_team %></td>
         <td><%= match.home_team_lineup_id %></td>
-        <td><%= match.guest_team_id %></td>
+        <td><%= link_to match.guest_team.name, match.guest_team %></td>
         <td><%= match.guest_team_lineup_id %></td>
         <td><%= match.postponed_date %></td>
         <td><%= match.result_id %></td>
@@ -38,7 +38,8 @@
   </tbody>
 </table>
 
-<br>
 
+<div class='btn-group' role='group' aria-label='matches control'>
 <%= link_to 'Tournament', @round.tournament, class: 'btn btn-default' %>
 <%= link_to 'New Match', new_round_match_path(round_id: @round.id), class: 'btn btn-default' %>
+</div>
