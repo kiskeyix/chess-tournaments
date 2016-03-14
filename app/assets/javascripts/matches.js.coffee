@@ -9,7 +9,7 @@ jQuery ($) ->
           return false
         select: (event, ui) ->
           $( "#home_team_name" ).val( ui.item.name  ).closest("div").removeClass("has-error").addClass("has-success").prop('title','')
-          $( "#home_team_id" ).val( ui.item.id )
+          $( "#match_home_team_id" ).val( ui.item.id )
           return false
         search: ( event, ui ) ->
           $( "#home_team_name" ).closest("div").removeClass("has-success").addClass("has-error").prop('title','Team does not exist')
@@ -20,7 +20,7 @@ jQuery ($) ->
           return false
         select: (event, ui) ->
           $( "#guest_team_name" ).val( ui.item.name  ).closest("div").removeClass("has-error").addClass("has-success").prop('title','')
-          $( "#guest_team_id" ).val( ui.item.id )
+          $( "#match_guest_team_id" ).val( ui.item.id )
           return false
         search: ( event, ui ) ->
           $( "#guest_team_name" ).closest("div").removeClass("has-success").addClass("has-error").prop('title','Team does not exist')

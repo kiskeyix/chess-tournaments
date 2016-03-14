@@ -31,8 +31,8 @@
         <td><%= match.postponed_date %></td>
         <td><%= match.result_id %></td>
         <td><%= link_to 'Show', match %></td>
-        <td><%= link_to 'Edit', edit_match_path(match) %></td>
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><% if current_user.admin? %><%= link_to 'Edit', edit_match_path(match) %><% end %></td>
+        <td><% if current_user.admin? %><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,5 @@
 
 <br>
 
+<%= link_to 'Tournament', @round.tournament %>
 <%= link_to 'New Match', new_round_match_path(round_id: @round.id) %>
