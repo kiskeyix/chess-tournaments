@@ -13,4 +13,15 @@ jQuery ($) ->
           return false
         search: ( event, ui ) ->
           $( "#home_team_name" ).closest("div").removeClass("has-success").addClass("has-error").prop('title','Team does not exist')
+    $('#guest_team_name').autocomplete
+        source:'/teams.json'
+        focus: (event, ui) ->
+          $( "#guest_team_name" ).val( ui.item.name  ).closest("div").removeClass("has-error").addClass("has-success").prop('title','')
+          return false
+        select: (event, ui) ->
+          $( "#guest_team_name" ).val( ui.item.name  ).closest("div").removeClass("has-error").addClass("has-success").prop('title','')
+          $( "#guest_team_id" ).val( ui.item.id )
+          return false
+        search: ( event, ui ) ->
+          $( "#guest_team_name" ).closest("div").removeClass("has-success").addClass("has-error").prop('title','Team does not exist')
 
