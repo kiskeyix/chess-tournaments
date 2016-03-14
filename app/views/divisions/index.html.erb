@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Divisions</h1>
 
-<table>
+<table class='table table-striped'>
   <thead>
     <tr>
       <th>Name</th>
@@ -19,8 +17,8 @@
         <td><%= division.image %></td>
         <td><%= division.description %></td>
         <td><%= link_to 'Show', division %></td>
-        <td><%= link_to 'Edit', edit_division_path(division) %></td>
-        <td><%= link_to 'Destroy', division, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_division_path(division) if current_user.admin? %></td>
+        <td><%= link_to 'Destroy', division, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>
