@@ -3,6 +3,14 @@ Chess::Tournaments
 
 A chess tournament tracking application
 
+Requirements
+============
+
+**NOTE**: this is work in progress, thus the requirements are yet to be set.
+
+* Ruby 2.3
+* Rails 4.x
+
 Setup
 =====
 
