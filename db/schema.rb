@@ -97,6 +97,12 @@ ActiveRecord::Schema.define(version: 20151112130449) do
   create_table "lineups", force: :cascade do |t|
     t.integer  "match_id"
     t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lineups_line_items", force: :cascade do |t|
+    t.integer  "lineup_id"
     t.integer  "board_number"
     t.integer  "player_id"
     t.boolean  "rating_only"
