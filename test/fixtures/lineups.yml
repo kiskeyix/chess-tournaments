@@ -3,15 +3,7 @@
 one:
   match_id: 1
   team_id: 1
-  board_number: 1
-  player_id: 1
-  rating_only: false
-  alternate: false
 
 two:
   match_id: 1
   team_id: 1
-  board_number: 1
-  player_id: 1
-  rating_only: false
-  alternate: false
