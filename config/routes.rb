@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     resources :tournaments do
       resources :divisions
       resources :rounds do
-        resources :matches
+        resources :matches do
+          resources :lineups
+        end
       end
     end
   end
