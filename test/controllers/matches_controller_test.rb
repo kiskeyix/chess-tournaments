@@ -10,7 +10,7 @@ class MatchesControllerTest < ActionController::TestCase
     @tournament_one = tournaments(:one)
 
     sign_in users(:user_three)
-    @team = teams(:one)
+    #@team = teams(:one)
     @user = users(:user_three)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
