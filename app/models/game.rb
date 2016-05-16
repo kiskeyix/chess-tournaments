@@ -1,3 +1,5 @@
+##
+# A game is a record of a chess game, i.e. contains the PGN file
 class Game < ActiveRecord::Base
   belongs_to :division
   has_and_belongs_to_many :players
