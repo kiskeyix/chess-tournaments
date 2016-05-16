@@ -79,12 +79,22 @@ class RoundsControllerTest < ActionController::TestCase
   end
 
 
-  test "should destroy round" do
+  it "should not destroy round with matches" do
     sign_in users(:user_three)
-    assert_difference('Round.count', -1) do
+    assert_difference('Round.count', 0) do
       delete :destroy, id: @round
     end
 
-    assert_redirected_to tournament_rounds_path(tournament_id: @tournament.id)
+    assert_redirected_to tournament_rounds_path(tournament_id: @round.tournament.id)
+  end
+
+  it "should destroy rounds without matches" do
+    sign_in users(:user_three)
+    round = rounds(:three)
+    assert_difference('Round.count', -1) do
+      delete :destroy, id: round
+    end
+
+    assert_redirected_to tournament_rounds_path(tournament_id: round.tournament.id)
   end
 end

@@ -13,3 +13,10 @@ two:
   start_date: 2015-10-20 17:29:25
   end_date: 2015-10-20 19:29:25
   tournament: two
+
+three:
+  name: MyString3
+  description: MyText3
+  start_date: 2015-10-20 17:29:25
+  end_date: 2015-10-20 19:29:25
+  tournament: two
