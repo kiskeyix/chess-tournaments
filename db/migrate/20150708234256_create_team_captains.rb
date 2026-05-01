@@ -1,4 +1,4 @@
-class CreateTeamCaptains < ActiveRecord::Migration
+class CreateTeamCaptains < ActiveRecord::Migration[4.2]
   def change
     create_table :team_captains do |t|
       t.integer :team_id

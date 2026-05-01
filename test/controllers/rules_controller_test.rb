@@ -23,31 +23,31 @@ class RulesControllerTest < ActionController::TestCase
 
   test "should create rule" do
     assert_difference('Rule.count') do
-      post :create, rule: { body: @rule.body,
-                            name: @rule.name + "new", summary: @rule.summary }
+      post :create, params: { rule: { body: @rule.body,
+                            name: @rule.name + "new", summary: @rule.summary } }
     end
 
     assert_redirected_to rule_path(assigns(:rule))
   end
 
   test "should show rule" do
-    get :show, id: @rule
+    get :show, params: { id: @rule }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @rule
+    get :edit, params: { id: @rule }
     assert_response :success
   end
 
   test "should update rule" do
-    patch :update, id: @rule, rule: { body: @rule.body, name: @rule.name, summary: @rule.summary }
+    patch :update, params: { id: @rule, rule: { body: @rule.body, name: @rule.name, summary: @rule.summary } }
     assert_redirected_to rule_path(assigns(:rule))
   end
 
   test "should destroy rule" do
     assert_difference('Rule.count', -1) do
-      delete :destroy, id: @rule
+      delete :destroy, params: { id: @rule }
     end
 
     assert_redirected_to rules_path

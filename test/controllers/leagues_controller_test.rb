@@ -23,31 +23,31 @@ class LeaguesControllerTest < ActionController::TestCase
 
   test "should create league" do
     assert_difference('League.count') do
-      post :create, league: { description: @league.description,
-                              image: @league.image, name: @league.name + " new" }
+      post :create, params: { league: { description: @league.description,
+                              image: @league.image, name: @league.name + " new" } }
     end
 
     assert_redirected_to league_path(assigns(:league))
   end
 
   test "should show league" do
-    get :show, id: @league
+    get :show, params: { id: @league }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @league
+    get :edit, params: { id: @league }
     assert_response :success
   end
 
   test "should update league" do
-    patch :update, id: @league, league: { description: @league.description, image: @league.image, name: @league.name }
+    patch :update, params: { id: @league, league: { description: @league.description, image: @league.image, name: @league.name } }
     assert_redirected_to league_path(assigns(:league))
   end
 
   test "should destroy league" do
     assert_difference('League.count', -1) do
-      delete :destroy, id: @league
+      delete :destroy, params: { id: @league }
     end
 
     assert_redirected_to leagues_path

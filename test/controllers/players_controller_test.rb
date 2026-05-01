@@ -23,35 +23,35 @@ class PlayersControllerTest < ActionController::TestCase
 
   test "should create player" do
     assert_difference('Player.count') do
-      post :create, player: { gender: @player.gender,
+      post :create, params: { player: { gender: @player.gender,
                               image: @player.image, name: @player.name + "2",
-                              nationality: @player.nationality }
+                              nationality: @player.nationality } }
     end
 
     assert_redirected_to player_path(assigns(:player))
   end
 
   test "should show player" do
-    get :show, id: @player
+    get :show, params: { id: @player }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @player
+    get :edit, params: { id: @player }
     assert_response :success
   end
 
   test "should update player" do
-    patch :update, id: @player, player: { gender: @player.gender, image: @player.image,
+    patch :update, params: { id: @player, player: { gender: @player.gender, image: @player.image,
                                           name: @player.name, nationality: @player.nationality,
-                                          user_id: @player.user_id }
+                                          user_id: @player.user_id } }
     assert_redirected_to player_path(assigns(:player))
   end
 
   test "should not destroy player unless admin" do
-    @user.admin?.must_equal true
+    assert @user.admin?
     assert_difference('Player.count', -1) do
-      delete :destroy, id: @player
+      delete :destroy, params: { id: @player }
     end
 
     assert_redirected_to players_path
@@ -59,7 +59,7 @@ class PlayersControllerTest < ActionController::TestCase
     sign_out users(:user_three)
 
     assert_difference('Player.count', 0) do
-      delete :destroy, id: @player
+      delete :destroy, params: { id: @player }
     end
     assert_redirected_to new_user_session_path
   end

@@ -2,7 +2,7 @@
 
 one:
   name: tourney_one
-  image: MyString
+  image: ""
   description: MyText
   league: one
   start_date: 2015-10-10 17:29:25
@@ -10,7 +10,7 @@ one:
 
 two:
   name: tourney_two
-  image: MyString
+  image: ""
   description: MyText
   league: two
   start_date: 2014-10-20 17:29:25

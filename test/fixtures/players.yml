@@ -5,7 +5,7 @@ one:
   name: Dominican Player
   nationality: DO
   gender: F
-  image: "image1.png"
+  image: "http://example.com/image1.png"
 
 two:
   user: user_two

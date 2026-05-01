@@ -1,4 +1,4 @@
-class Round < ActiveRecord::Base
+class Round < ApplicationRecord
   belongs_to :tournament
   has_many :matches
   validate :date_is_within_tournament
@@ -18,7 +18,7 @@ class Round < ActiveRecord::Base
       msg = 'Cannot remove rounds with associated matches. Remove all matches first.'
       Rails.logger.error "#{__method__}: #{msg}"
       errors.add(:base, msg)
-      return false
+      throw(:abort)
     end
     true
   end

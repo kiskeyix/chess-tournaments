@@ -12,43 +12,44 @@ class DivisionsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, tournament_id: @tournament.id
+    get :index, params: { tournament_id: @tournament.id }
     assert_response :success
     assert_not_nil assigns(:divisions)
   end
 
   test "should get new" do
-    get :new, tournament_id: @tournament.id
+    get :new, params: { tournament_id: @tournament.id }
     assert_response :success
   end
 
   test "should create division" do
     assert_difference('Division.count') do
-      post :create, tournament_id: @tournament.id, division: { description: @division.description,
-                                image: @division.image, name: @division.name }
+      post :create, params: { tournament_id: @tournament.id, division: { description: @division.description,
+                                image: @division.image, name: @division.name,
+                                tournament_id: @tournament.id } }
     end
 
     assert_redirected_to division_path(assigns(:division))
   end
 
   test "should show division" do
-    get :show, id: @division
+    get :show, params: { id: @division }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @division
+    get :edit, params: { id: @division }
     assert_response :success
   end
 
   test "should update division" do
-    patch :update, id: @division, division: { description: @division.description, image: @division.image, name: @division.name }
+    patch :update, params: { id: @division, division: { description: @division.description, image: @division.image, name: @division.name } }
     assert_redirected_to division_path(assigns(:division))
   end
 
   test "should destroy division" do
     assert_difference('Division.count', -1) do
-      delete :destroy, id: @division
+      delete :destroy, params: { id: @division }
     end
 
     assert_redirected_to tournament_url(@tournament)

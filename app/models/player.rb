@@ -1,5 +1,5 @@
-class Player < ActiveRecord::Base
-  belongs_to :user # even if user is destroyed, we keep player around
+class Player < ApplicationRecord
+  belongs_to :user, optional: true # even if user is destroyed, we keep player around
 
   validates_presence_of :name
   validates_uniqueness_of :name # TODO name should be stripped
@@ -14,7 +14,7 @@ class Player < ActiveRecord::Base
     # TODO choose last rating per each league the user is in, return Rating object
   end
   def tournaments
-    Tournament.joins(:divisions => { :teams => :players }).where('players.id = ?', id, today)
+    Tournament.joins(:divisions => { :teams => :players }).where('players.id = ?', id)
   end
   def open_tournaments
     today = Time.now

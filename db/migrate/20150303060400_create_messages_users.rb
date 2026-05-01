@@ -1,4 +1,4 @@
-class CreateMessagesUsers < ActiveRecord::Migration
+class CreateMessagesUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :messages_users do |t|
       t.references :message, index: true

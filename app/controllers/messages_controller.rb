@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
       @messages = current_user.sent_messages
     else
       @folder = "inbox"
-      @messages = current_user.messages.uniq
+      @messages = current_user.messages.distinct
     end
   end
   def show

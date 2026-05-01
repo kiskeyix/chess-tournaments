@@ -1,72 +1,43 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+ruby "4.0.2"
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-gem 'jquery-turbolinks'
+gem "rails", "~> 8.1.3"
+gem "sqlite3"
+gem "puma"
+gem "propshaft"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+gem "jbuilder"
+gem "bootsnap", require: false
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+# Authentication
+gem "devise"
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-github"
+gem "omniauth-facebook"
+gem "omniauth-google-oauth2"
+gem "omniauth-twitch"
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Rails Html Sanitizer for HTML sanitization
-gem 'rails-html-sanitizer', '~> 1.0'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-gem 'capistrano-rails', group: :development
-gem 'capistrano-passenger', group: :development
+# Utilities
+gem "will_paginate"
+gem "simple_calendar"
+gem "redcarpet"
 
 group :development, :test do
-  # Call 'debugger' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
-  # Access an IRB console on exceptions page and /console in development
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-
-  gem 'minitest-spec-rails'
-
-  gem 'redcarpet', '~> 3.1.2'
+  gem "debug"
+  gem "brakeman", require: false
 end
 
-gem 'pry'
+group :development do
+  gem "web-console"
+end
 
-gem 'bootstrap-sass', '~> 3.3.3'
-gem 'devise', '~> 3.4' #github: 'plataformatec/devise', branch: 'lm-rails-4-2'
-gem 'devise-encryptable'
-gem 'omniauth-github'
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-gplus'
-gem 'omniauth-twitch'
-
-gem 'will_paginate', '~> 3.0.7'
-gem 'will_paginate-bootstrap', '~> 1.0.1'
-
-gem 'simple_calendar', '~> 2.0'
-
-#TODO gem 'leaderboard'
+group :test do
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "minitest-spec-rails"
+  gem "rails-controller-testing"
+end

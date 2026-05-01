@@ -24,4 +24,4 @@
     <%= button_to 'New Team', new_team_path, class: 'form-control btn btn-primary', method: :get %>
   </div>
 </div>
-<%= will_paginate @teams, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @teams %>

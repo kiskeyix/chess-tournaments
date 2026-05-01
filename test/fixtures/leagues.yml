@@ -2,10 +2,10 @@
 
 one:
   name: MyString1
-  image: MyString1
+  image: ""
   description: MyText1
 
 two:
   name: MyString2
-  image: MyString2
+  image: ""
   description: MyText2

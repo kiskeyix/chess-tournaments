@@ -23,8 +23,8 @@ class LineupsHelperTest < ActionView::TestCase
          {:name=>"Luis Mondesi", :rating=>1509, :games=>3}],
        :rating=>1737
      }
-     best_lineups.first.wont_equal bl
+     refute_equal bl, best_lineups.first
      best_lineups = optimize_lineup sorted_players
-     best_lineups.first.must_equal bl
+     assert_equal bl, best_lineups.first
   end
 end

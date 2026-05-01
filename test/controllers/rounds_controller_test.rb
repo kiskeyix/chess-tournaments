@@ -12,24 +12,24 @@ class RoundsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, tournament_id: @tournament.id
+    get :index, params: { tournament_id: @tournament.id }
     assert_response :success
     assert_not_nil assigns(:rounds)
   end
 
   test "should get new" do
     sign_in users(:user_three)
-    get :new, tournament_id: @tournament.id
+    get :new, params: { tournament_id: @tournament.id }
     assert_response :success
   end
 
   test "should create round" do
     sign_in users(:user_three)
     assert_difference('Round.count') do
-      post :create, tournament_id: @tournament.id,
+      post :create, params: { tournament_id: @tournament.id,
         round: { description: @round.description, end_date: @round.end_date,
                  name: @round.name + "new", start_date: @round.start_date,
-                 tournament_id: @round.tournament_id }
+                 tournament_id: @round.tournament_id } }
     end
 
     assert_redirected_to round_path(assigns(:round))
@@ -38,43 +38,43 @@ class RoundsControllerTest < ActionController::TestCase
   it "should fail to create round" do
     sign_in users(:user_three)
     assert_difference('Round.count', 0) do
-      post :create, tournament_id: @tournament.id,
+      post :create, params: { tournament_id: @tournament.id,
         round: { description: @round.description, end_date: @round.end_date,
                  name: @round.name + "new", start_date: @round.start_date - 1.year,
-                 tournament_id: @round.tournament_id }
+                 tournament_id: @round.tournament_id } }
     end
 
     assert_response :success
   end
 
   test "should show round" do
-    get :show, id: @round
+    get :show, params: { id: @round }
     assert_response :success
   end
 
   test "should get edit" do
     sign_in users(:user_three)
-    get :edit, id: @round
+    get :edit, params: { id: @round }
     assert_response :success
   end
 
   test "should update round" do
     sign_in users(:user_three)
-    patch :update, id: @round, round: { description: @round.description,
+    patch :update, params: { id: @round, round: { description: @round.description,
                                         end_date: @round.end_date,
                                         name: @round.name + "updated",
                                         start_date: @round.start_date,
-                                        tournament_id: @round.tournament_id }
+                                        tournament_id: @round.tournament_id } }
     assert_redirected_to round_path(assigns(:round))
   end
 
   it "should fail to update round" do
     sign_in users(:user_three)
-    patch :update, id: @round, round: { description: @round.description,
+    patch :update, params: { id: @round, round: { description: @round.description,
                                         end_date: @round.end_date - 1.year,
                                         name: @round.name + "updated",
                                         start_date: @round.start_date,
-                                        tournament_id: @round.tournament_id }
+                                        tournament_id: @round.tournament_id } }
     assert_response :success # goes back to :edit
   end
 
@@ -82,7 +82,7 @@ class RoundsControllerTest < ActionController::TestCase
   it "should not destroy round with matches" do
     sign_in users(:user_three)
     assert_difference('Round.count', 0) do
-      delete :destroy, id: @round
+      delete :destroy, params: { id: @round }
     end
 
     assert_redirected_to tournament_rounds_path(tournament_id: @round.tournament.id)
@@ -92,7 +92,7 @@ class RoundsControllerTest < ActionController::TestCase
     sign_in users(:user_three)
     round = rounds(:three)
     assert_difference('Round.count', -1) do
-      delete :destroy, id: round
+      delete :destroy, params: { id: round }
     end
 
     assert_redirected_to tournament_rounds_path(tournament_id: round.tournament.id)
