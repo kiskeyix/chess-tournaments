@@ -1,5 +1,5 @@
-class Player < ActiveRecord::Base
-  belongs_to :user # even if user is destroyed, we keep player around
+class Player < ApplicationRecord
+  belongs_to :user, optional: true # even if user is destroyed, we keep player around
 
   validates_presence_of :name
   validates_uniqueness_of :name # TODO name should be stripped

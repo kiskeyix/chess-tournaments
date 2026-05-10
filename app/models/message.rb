@@ -1,4 +1,4 @@
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   # it turns out that if you actually want attributes in the
   # model that links two models, you must use hm:t associations
   #has_and_belongs_to_many :users

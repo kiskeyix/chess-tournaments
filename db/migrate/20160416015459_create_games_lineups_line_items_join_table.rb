@@ -1,4 +1,4 @@
-class CreateGamesLineupsLineItemsJoinTable < ActiveRecord::Migration
+class CreateGamesLineupsLineItemsJoinTable < ActiveRecord::Migration[4.2]
   def change
     create_join_table :games, :lineups_line_items do |t|
       # t.index [:game_id, :lineups_line_item_id]

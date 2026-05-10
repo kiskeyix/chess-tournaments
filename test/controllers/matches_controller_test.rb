@@ -10,26 +10,25 @@ class MatchesControllerTest < ActionController::TestCase
     @tournament_one = tournaments(:one)
 
     sign_in users(:user_three)
-    #@team = teams(:one)
     @user = users(:user_three)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   test "should get index" do
-    get :index, round_id: @round_one.id
+    get :index, params: { round_id: @round_one.id }
     assert_response :success
     assert_not_nil assigns(:matches)
   end
 
   test "should get new" do
-    get :new, round_id: @round_one.id
+    get :new, params: { round_id: @round_one.id }
     assert_response :success
   end
 
   test "should create match" do
     sign_in users(:user_three)
     assert_difference('Match.count') do
-      post :create, round_id: @round_one.id,
+      post :create, params: { round_id: @round_one.id,
         match: { description: @match.description,
                  guest_team_id: @team_one.id,
                  guest_team_lineup_id: @match.guest_team_lineup_id,
@@ -39,26 +38,26 @@ class MatchesControllerTest < ActionController::TestCase
                  name: @match.name + "new",
                  postponed_date: @match.postponed_date,
                  result_id: @match.result_id,
-                 round_id: @match.round_id }
+                 round_id: @match.round_id } }
     end
 
     assert_redirected_to match_path(assigns(:match))
   end
 
   test "should show match" do
-    get :show, id: @match
+    get :show, params: { id: @match }
     assert_response :success
   end
 
   test "should get edit" do
     sign_in users(:user_three)
-    get :edit, id: @match
+    get :edit, params: { id: @match }
     assert_response :success
   end
 
   test "should update match" do
     sign_in users(:user_three)
-    patch :update, id: @match, match: { description: @match.description,
+    patch :update, params: { id: @match, match: { description: @match.description,
                                         guest_team_id: @match.guest_team_id,
                                         guest_team_lineup_id: @match.guest_team_lineup_id,
                                         home_team_id: @match.home_team_id,
@@ -67,14 +66,14 @@ class MatchesControllerTest < ActionController::TestCase
                                         name: @match.name,
                                         postponed_date: @match.postponed_date,
                                         result_id: @match.result_id,
-                                        round_id: @match.round_id }
+                                        round_id: @match.round_id } }
     assert_redirected_to match_path(assigns(:match))
   end
 
   test "should destroy match" do
     sign_in users(:user_three)
     assert_difference('Match.count', -1) do
-      delete :destroy, id: @match
+      delete :destroy, params: { id: @match }
     end
 
     assert_redirected_to round_matches_path(round_id: @match.round.id)

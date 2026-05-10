@@ -198,8 +198,8 @@ Devise.setup do |config|
   # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
   # REST_AUTH_SITE_KEY to pepper).
   #
-  # Require the `devise-encryptable` gem when using anything other than bcrypt
-  config.encryptor = :sha512
+  # Devise 5.0+ uses bcrypt exclusively
+  # config.encryptor = :sha512
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
@@ -233,10 +233,9 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET'], scope: 'user'
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email'
   config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: 'user'
-  config.omniauth :gplus, ENV['GPLUS_APP_ID'], ENV['GPLUS_APP_SECRET'], scope: 'plus.login'
+  config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], scope: 'email,profile'
   config.omniauth :twitch, ENV['TWITCH_APP_ID'], ENV['TWITCH_APP_SECRET'], scope: 'user_read'
 
   # ==> Warden configuration

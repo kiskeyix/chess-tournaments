@@ -1,7 +1,7 @@
 ##
 # A game is a record of a chess game, i.e. contains the PGN file
-class Game < ActiveRecord::Base
-  belongs_to :division
+class Game < ApplicationRecord
+  belongs_to :division, optional: true
   has_and_belongs_to_many :players
   belongs_to :white_player, class_name: 'Player'
   belongs_to :black_player, class_name: 'Player'

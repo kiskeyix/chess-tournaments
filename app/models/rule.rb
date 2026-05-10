@@ -1,4 +1,4 @@
-class Rule < ActiveRecord::Base
+class Rule < ApplicationRecord
    validates_presence_of :name
    validates_uniqueness_of :name
 

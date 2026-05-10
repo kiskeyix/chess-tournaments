@@ -3,12 +3,12 @@
 one:
   name: team one
   description: first team
-  image: image1
+  image: ""
 
 two:
   name: team two
   description: second team
-  image: image2
+  image: ""
 
 three:
   name: team three

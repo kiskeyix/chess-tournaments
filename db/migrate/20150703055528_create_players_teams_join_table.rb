@@ -1,4 +1,4 @@
-class CreatePlayersTeamsJoinTable < ActiveRecord::Migration
+class CreatePlayersTeamsJoinTable < ActiveRecord::Migration[4.2]
   def change
     create_join_table :players, :teams do |t|
       t.index [:player_id, :team_id]

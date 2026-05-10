@@ -1,4 +1,4 @@
-class TeamCaptain < ActiveRecord::Base
+class TeamCaptain < ApplicationRecord
   belongs_to :team
   belongs_to :player
 end

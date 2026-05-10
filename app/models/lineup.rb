@@ -1,4 +1,4 @@
-class Lineup < ActiveRecord::Base
+class Lineup < ApplicationRecord
   belongs_to :match
   belongs_to :team
 

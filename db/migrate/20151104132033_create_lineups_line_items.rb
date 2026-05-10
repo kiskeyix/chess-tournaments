@@ -1,4 +1,4 @@
-class CreateLineupsLineItems < ActiveRecord::Migration
+class CreateLineupsLineItems < ActiveRecord::Migration[4.2]
   def change
     create_table :lineups_line_items do |t|
       t.integer :lineup_id

@@ -25,8 +25,8 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "should create tournament" do
     assert_difference('Tournament.count') do
-      post :create, tournament: { description: @tournament.description,
-                                  image: @tournament.image, name: @tournament.name + " new" }
+      post :create, params: { tournament: { description: @tournament.description,
+                                  image: @tournament.image, name: @tournament.name + " new" } }
     end
 
     assert_redirected_to tournament_path(assigns(:tournament))
@@ -36,23 +36,23 @@ class TournamentsControllerTest < ActionController::TestCase
     assert_routing({ path: 'tournaments/1', method: :get },
                    { controller: 'tournaments', action: 'show', id: '1' })
 
-    get :show, id: @tournament
+    get :show, params: { id: @tournament }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @tournament
+    get :edit, params: { id: @tournament }
     assert_response :success
   end
 
   test "should update tournament" do
-    patch :update, id: @tournament, tournament: { description: @tournament.description, image: @tournament.image, name: @tournament.name }
+    patch :update, params: { id: @tournament, tournament: { description: @tournament.description, image: @tournament.image, name: @tournament.name } }
     assert_redirected_to tournament_path(assigns(:tournament))
   end
 
   test "should destroy tournament" do
     assert_difference('Tournament.count', -1) do
-      delete :destroy, id: @tournament
+      delete :destroy, params: { id: @tournament }
     end
 
     assert_redirected_to tournaments_path

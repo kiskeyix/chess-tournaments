@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     # authorize! :update, @user
     respond_to do |format|
       if @user.update(user_params)
-        sign_in(@user == current_user ? @user : current_user, :bypass => true)
+        bypass_sign_in(@user == current_user ? @user : current_user)
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
         format.json { head :no_content }
       else
@@ -33,16 +33,16 @@ class UsersController < ApplicationController
     if request.patch? && params[:user] && params[:user][:email]
       if @user.update(user_params)
         @user.skip_reconfirmation!
-        sign_in(@user, :bypass => true)
+        bypass_sign_in(@user)
         redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
       else
         begin
-          providers = User.find_by_email(params[:user][:email]).identities.collect(&:provider).join(', ').titleize
+          providers = User.find_by(email: params[:user][:email]).identities.collect(&:provider).join(', ').titleize
         rescue => e
           logger.debug "#{__method__}: caught error #{e.class} when searching #{params}. #{e.message}"
           providers = []
         end
-        current_user.errors[:base] << "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address (#{providers.size > 0 ? providers.first : "local"} maybe?).\n\nSend email to #{CHESS_ADMIN_EMAIL} to have us associate this email with the provider you chose. Be sure to include: Your name, your email address, providers."
+        current_user.errors.add(:base, "Could not update E-Mail. Make sure that you're not already registered with this E-Mail address (#{providers.size > 0 ? providers.first : "local"} maybe?).\n\nSend email to #{CHESS_ADMIN_EMAIL} to have us associate this email with the provider you chose. Be sure to include: Your name, your email address, providers.")
         @show_errors = true
       end
     end
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to :back, alert: "Could not deactivate user. You need to be a site admin to do so." }
+        format.html { redirect_back(fallback_location: root_path, alert: "Could not deactivate user. You need to be a site admin to do so.") }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -71,9 +71,9 @@ class UsersController < ApplicationController
   # POST /users/delete_identity
   def delete_identity
     unless current_user.identities.size > 1
-      current_user.errors[:base] << "Only 1 identity provider left."
+      current_user.errors.add(:base, "Only 1 identity provider left.")
       respond_to do |format|
-        format.html { redirect_to :back, alert: 'Only 1 identity provider left.' }
+        format.html { redirect_back(fallback_location: root_path, alert: 'Only 1 identity provider left.') }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
       return
@@ -81,10 +81,10 @@ class UsersController < ApplicationController
     user_identity = current_user.identities.find params[:id]
     respond_to do |format|
       if user_identity and user_identity.destroy
-        format.html { redirect_to :back }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { head :no_content }
       else
-        format.html { redirect_to :back, alert: 'Could not disconnect provider' }
+        format.html { redirect_back(fallback_location: root_path, alert: 'Could not disconnect provider') }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -98,16 +98,16 @@ class UsersController < ApplicationController
       @user.player = @player
       respond_to do |format|
         if @user.save
-          format.html { redirect_to :back, notice: "User linked with player" }
+          format.html { redirect_back(fallback_location: root_path, notice: "User linked with player") }
           format.json { head :no_content }
         else
-          format.html { redirect_to :back, alert: "Could not link user to player" }
+          format.html { redirect_back(fallback_location: root_path, alert: "Could not link user to player") }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
     else
       respond_to do |format|
-        format.html { redirect_to :back, alert: "Could not link user to player. You need to be a site admin to do so." }
+        format.html { redirect_back(fallback_location: root_path, alert: "Could not link user to player. You need to be a site admin to do so.") }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

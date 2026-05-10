@@ -40,10 +40,10 @@
         <td><%= button_to 'Destroy', player_game_path(current_user.player,game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if game.players.include? current_user.player or current_user.admin? %></td>
       </tr>
       <script type='text/javascript'>
-        <%= render 'board.js', game: game %>
+        <%= render 'board', game: game %>
       </script>
     <% end %>
   </tbody>
 </table>
 
-<%= will_paginate @games, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @games %>

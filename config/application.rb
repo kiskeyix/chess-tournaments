@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
 require 'rails/all'
 
@@ -20,12 +20,8 @@ module ChessTournaments
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    config.load_defaults 8.0
 
-    console do
-      config.console = Pry
-    end
     config.action_view.field_error_proc = Proc.new do |html_tag, instance| 
       "<div class=\"control-group has-error\">#{html_tag}</div>".html_safe
     end

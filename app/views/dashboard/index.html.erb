@@ -25,7 +25,7 @@
     <% end %>
   </tbody>
   </table>
-  <%= will_paginate @open_tournaments, renderer: BootstrapPagination::Rails, param_name: :otpage %>
+  <%= will_paginate @open_tournaments, param_name: :otpage %>
   
   <h1>Past Tournaments</h1>
   <%# TODO make to partial %>
@@ -49,7 +49,7 @@
     <% end %>
   </tbody>
   </table>
-  <%= will_paginate @past_tournaments, renderer: BootstrapPagination::Rails, param_name: :ptpage %>
+  <%= will_paginate @past_tournaments, param_name: :ptpage %>
 
   <h2>You cannot join teams without a <%= link_to 'player', new_player_path %>.</h2>
 <% elsif current_user.player.teams.size > 0 %>
@@ -80,7 +80,7 @@
         </div>
       </div>
     <% end %>
-    <%= will_paginate @teams, renderer: BootstrapPagination::Rails, param_name: :page %>
+    <%= will_paginate @teams, param_name: :page %>
   </div>
   <div class='row'>
     <h1><%= "Tournament".pluralize(@open_tournaments.size) %></h1>
@@ -104,7 +104,7 @@
         </div>
       </div>
     <% end %>
-    <%= will_paginate @open_tournaments, renderer: BootstrapPagination::Rails, param_name: :otpage %>
+    <%= will_paginate @open_tournaments, param_name: :otpage %>
   </div>
 
   <h1><%= "Past " + "Tournament".pluralize(@past_tournaments.size) %></h1>
@@ -128,7 +128,7 @@
     <% end %>
   </tbody>
   </table>
-  <%= will_paginate @past_tournaments, renderer: BootstrapPagination::Rails, param_name: :ptpage %>
+  <%= will_paginate @past_tournaments, param_name: :ptpage %>
 <% else %>
   <h1>You have not <%= link_to 'joined a team', teams_path %> yet.</h1>
 <% end %>

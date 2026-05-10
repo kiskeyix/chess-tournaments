@@ -1,7 +1,7 @@
-class Tournament < ActiveRecord::Base
+class Tournament < ApplicationRecord
   has_many :divisions
   has_many :rounds
-  belongs_to :league
+  belongs_to :league, optional: true
 
   accepts_nested_attributes_for :rounds, allow_destroy: true
   accepts_nested_attributes_for :divisions, allow_destroy: true
@@ -24,13 +24,13 @@ class Tournament < ActiveRecord::Base
   # returns division for this tournament and player
   # note that a user can only be competing with 1 team in 1 division of every tournament
   def player_divisions(player)
-    Division.joins(:teams => :players).where('tournament_id = ? AND players.id = ?', id, player.id).uniq.last
+    Division.joins(:teams => :players).where('tournament_id = ? AND players.id = ?', id, player.id).distinct.last
   end
 
   # returns team for this tournament and player
   # note that a user can only be competing with 1 team in 1 division of every tournament
   def player_team(player)
-    Team.joins(:players).where( 'players_teams.player_id = ?', player.id ).uniq.last
+    Team.joins(:players).where( 'players_teams.player_id = ?', player.id ).distinct.last
   end
 
   def self.open_tournaments

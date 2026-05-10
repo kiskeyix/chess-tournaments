@@ -1,4 +1,4 @@
-class CreateLeaguesRulesJoinTable < ActiveRecord::Migration
+class CreateLeaguesRulesJoinTable < ActiveRecord::Migration[4.2]
   def change
     create_join_table :leagues, :rules do |t|
       t.index [:league_id, :rule_id]

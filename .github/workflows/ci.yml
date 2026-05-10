@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main, rails8-upgrade]
+  pull_request:
+    branches: [main]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0.2"
+
+      - name: Ruby syntax check
+        run: |
+          find app config lib test db -name '*.rb' -print0 | xargs -0 -n1 ruby -c
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0.2"
+
+      - name: Bundle install
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install --jobs 4 --retry 3
+
+      - name: Database setup
+        run: bin/rails db:setup
+
+      - name: Run tests
+        run: bin/rake test
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0.2"
+
+      - name: Bundle install
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install --jobs 4 --retry 3
+
+      - name: Brakeman security scan
+        run: bundle exec brakeman --no-pager
+
+      - name: Bundle audit
+        run: |
+          gem install bundler-audit
+          bundle audit check --update
