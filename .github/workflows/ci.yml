@@ -28,7 +28,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "4.0.2"
-          bundler-cache: true
+
+      - name: Bundle install
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install --jobs 4 --retry 3
 
       - name: Database setup
         run: bin/rails db:setup
@@ -44,7 +48,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "4.0.2"
-          bundler-cache: true
+
+      - name: Bundle install
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install --jobs 4 --retry 3
 
       - name: Brakeman security scan
         run: bundle exec brakeman --no-pager
