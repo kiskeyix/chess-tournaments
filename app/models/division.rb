@@ -28,7 +28,10 @@ class Division < ApplicationRecord
   def self.open_tournaments_without_team(team)
     joins(:tournament => { :divisions => :teams } ).where('tournaments.end_date >= ? AND teams.id != ?',
                                                           Time.now, team.id).group(:tournament_id).collect do |div|
-      next if div.tournament.teams.include? team
+      if div.tournament.teams.include? team
+        logger.debug "#{self.class}::#{__method__}: Skipping team #{team.inspect}"
+        next
+      end
       div.tournament
     end.compact.uniq
     #     TODO make this query work:
