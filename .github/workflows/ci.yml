@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main, rails8-upgrade]
+  pull_request:
+    branches: [main]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0.2"
+
+      - name: Ruby syntax check
+        run: |
+          find app config lib test db -name '*.rb' -print0 | xargs -0 -n1 ruby -c
